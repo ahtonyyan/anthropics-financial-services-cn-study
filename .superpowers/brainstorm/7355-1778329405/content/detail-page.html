@@ -1,0 +1,113 @@
+<h2>Skill 详情页设计 — 以 DCF 估值模型为例</h2>
+<p class="subtitle">这是用户点击某个 skill 后看到的详情页布局</p>
+
+<div class="mockup">
+  <div class="mockup-header">详情页完整设计预览</div>
+  <div class="mockup-body" style="background:#0f0f1a;color:#ccc;font-size:13px;padding:20px;max-height:600px;overflow-y:auto;">
+    <!-- 面包屑 -->
+    <div style="color:#666;font-size:11px;margin-bottom:12px;">01-金融分析 / DCF 估值模型</div>
+
+    <!-- 标题区 -->
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+      <span style="font-size:24px;">📊</span>
+      <h2 style="color:#fff;margin:0;">DCF 估值模型</h2>
+    </div>
+    <p style="color:#888;font-size:12px;margin:0 0 20px;">Real DCF model creation for equity valuation</p>
+
+    <!-- 标签 -->
+    <div style="display:flex;gap:8px;margin-bottom:20px;">
+      <span style="background:#1a3a2e;color:#6fcf97;padding:4px 10px;border-radius:12px;font-size:11px;">估值</span>
+      <span style="background:#1a2a3e;color:#6fa8cf;padding:4px 10px;border-radius:12px;font-size:11px;">Excel 输出</span>
+      <span style="background:#3a1a2e;color:#cf6f8a;padding:4px 10px;border-radius:12px;font-size:11px;">WACC</span>
+    </div>
+
+    <!-- 板块 1: 白话讲解 -->
+    <div style="background:#1a1a2e;border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid #9cf;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:16px;">💡</span>
+        <span style="color:#9cf;font-weight:bold;">这是什么？</span>
+        <span style="margin-left:auto;background:#333;color:#999;padding:2px 8px;border-radius:4px;font-size:10px;cursor:pointer;">点击展开/收起</span>
+      </div>
+      <p style="color:#ccc;line-height:1.7;margin:0;">
+        DCF（Discounted Cash Flow）就是<strong style="color:#fff;">把公司未来能赚到的钱，按一定的折现率换算成今天的价值</strong>。
+        想象一下：明年的 100 块不等于今天的 100 块（因为有通胀、有机会成本），DCF 就是算这笔账的工具。
+        投行、PE、研究部门在评估一家公司值多少钱时，DCF 是最常用的方法之一。
+      </p>
+    </div>
+
+    <!-- 板块 2: 什么时候用 -->
+    <div style="background:#1a1a2e;border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid #6fcf97;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:16px;">🎯</span>
+        <span style="color:#6fcf97;font-weight:bold;">什么时候用？</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span style="background:#1a3a2e;color:#6fcf97;padding:6px 12px;border-radius:6px;font-size:12px;">IPO 定价参考</span>
+        <span style="background:#1a3a2e;color:#6fcf97;padding:6px 12px;border-radius:6px;font-size:12px;">并购估值</span>
+        <span style="background:#1a3a2e;color:#6fcf97;padding:6px 12px;border-radius:6px;font-size:12px;">公司内在价值分析</span>
+        <span style="background:#1a3a2e;color:#6fcf97;padding:6px 12px;border-radius:6px;font-size:12px;">投资委员会材料</span>
+      </div>
+    </div>
+
+    <!-- 板块 3: 怎么用步骤 -->
+    <div style="background:#1a1a2e;border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid #f0c040;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:16px;">📋</span>
+        <span style="color:#f0c040;font-weight:bold;">怎么用？</span>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="background:#f0c040;color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;flex-shrink:0;">1</span>
+          <span style="color:#ccc;">获取目标公司财务数据（收入、EBITDA、CapEx...）</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="background:#f0c040;color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;flex-shrink:0;">2</span>
+          <span style="color:#ccc;">建立自由现金流预测（通常 5-10 年）</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="background:#f0c040;color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;flex-shrink:0;">3</span>
+          <span style="color:#ccc;">计算 WACC（加权平均资本成本）</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="background:#f0c040;color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;flex-shrink:0;">4</span>
+          <span style="color:#ccc;">计算终值（Terminal Value）</span>
+        </div>
+        <div style="display:flex;align-items:center;gap:10px;">
+          <span style="background:#f0c040;color:#000;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:bold;flex-shrink:0;">5</span>
+          <span style="color:#ccc;">折现求和 → 得到企业价值 → 减净债务 = 股权价值</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 板块 4: 案例展示 -->
+    <div style="background:#1a1a2e;border-radius:8px;padding:16px;margin-bottom:12px;border-left:3px solid #cf6f8a;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:16px;">🔍</span>
+        <span style="color:#cf6f8a;font-weight:bold;">案例展示</span>
+        <span style="margin-left:auto;background:#333;color:#999;padding:2px 8px;border-radius:4px;font-size:10px;">可展开</span>
+      </div>
+      <div style="background:#0a0a15;border-radius:6px;padding:12px;font-family:monospace;font-size:12px;color:#aaa;">
+        <div style="color:#6fcf97;margin-bottom:4px;">▸ 输入：苹果公司 (AAPL) 2024 财报数据</div>
+        <div style="color:#f0c040;margin-bottom:4px;">▸ 处理：5年FCF预测 + 10% WACC + 2.5% 永续增长率</div>
+        <div style="color:#9cf;margin-bottom:4px;">▸ 输出：企业价值 $3.2T → 净债务 $120B → 股权价值 $3.08T</div>
+        <div style="color:#cf6f8a;">▸ 结论：每股隐含价值 $198 vs 当前股价 $185 → 低估 7%</div>
+      </div>
+    </div>
+
+    <!-- 板块 5: 关键概念 -->
+    <div style="background:#1a1a2e;border-radius:8px;padding:16px;border-left:3px solid #b08cff;">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <span style="font-size:16px;">📖</span>
+        <span style="color:#b08cff;font-weight:bold;">关键概念</span>
+        <span style="margin-left:auto;color:#666;font-size:11px;">点击术语查看解释</span>
+      </div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;">
+        <span style="background:#2a1a3e;color:#b08cff;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;border:1px dashed #b08cff;">WACC</span>
+        <span style="background:#2a1a3e;color:#b08cff;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;border:1px dashed #b08cff;">FCF 自由现金流</span>
+        <span style="background:#2a1a3e;color:#b08cff;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;border:1px dashed #b08cff;">Terminal Value</span>
+        <span style="background:#2a1a3e;color:#b08cff;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;border:1px dashed #b08cff;">折现率</span>
+        <span style="background:#2a1a3e;color:#b08cff;padding:6px 12px;border-radius:6px;font-size:12px;cursor:pointer;border:1px dashed #b08cff;">企业价值 vs 股权价值</span>
+      </div>
+    </div>
+  </div>
+</div>

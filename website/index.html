@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融分析技能库 | 学习版</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --coral-dark: #C4483A;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            overflow: hidden;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--ink-light);
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.2s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover {
+            color: var(--coral);
+        }
+
+        /* Scroll Snap Container */
+        .slides-container {
+            height: 100vh;
+            overflow-y: scroll;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        /* Individual Slide */
+        .slide {
+            height: 100vh;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding: 5rem 2rem;
+        }
+
+        /* Slide 1: Hero */
+        .slide-hero {
+            background: linear-gradient(135deg, var(--cream) 0%, #F5EDE4 100%);
+            flex-direction: column;
+            text-align: center;
+        }
+
+        .slide-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23E85D4C' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 0.6rem 1.5rem;
+            background: var(--coral);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            margin-bottom: 2rem;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        .hero h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.02em;
+            animation: fadeInUp 0.8s ease 0.1s backwards;
+        }
+
+        .hero h1 span {
+            color: var(--coral);
+        }
+
+        .hero-subtitle {
+            font-size: 1.6rem;
+            color: var(--ink-light);
+            max-width: 750px;
+            margin: 0 auto 3rem;
+            line-height: 1.6;
+            animation: fadeInUp 0.8s ease 0.2s backwards;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 4rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease 0.3s backwards;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--coral);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+
+        /* Slide 2: 垂直领域 */
+        .slide-verticals {
+            background: linear-gradient(180deg, #FFFFFF 0%, var(--cream) 100%);
+        }
+
+        .slide-content {
+            max-width: 1400px;
+            width: 100%;
+        }
+
+        .slide-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .slide-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--coral);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            margin-bottom: 1.5rem;
+        }
+
+        .slide h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--ink);
+        }
+
+        .slide p {
+            color: var(--ink-light);
+            max-width: 650px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+
+        .verticals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .vertical-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .vertical-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--coral);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .vertical-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .vertical-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+        }
+
+        .vertical-icon {
+            width: 4rem;
+            height: 4rem;
+            background: var(--cream);
+            border-radius: 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .vertical-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .vertical-card p {
+            font-size: 1rem;
+            color: var(--ink-light);
+            margin: 0 0 1rem 0;
+            max-width: none;
+        }
+
+        .vertical-count {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: var(--cream);
+            border-radius: 50px;
+            font-size: 0.95rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--coral);
+            font-weight: 600;
+        }
+
+        /* Slide 3: 关于 */
+        .slide-about {
+            background: linear-gradient(180deg, var(--cream) 0%, #FFFFFF 100%);
+            flex-direction: column;
+        }
+
+        .about-content {
+            max-width: 800px;
+            text-align: center;
+        }
+
+        .about-content p {
+            font-size: 1.3rem;
+            color: var(--ink-light);
+            line-height: 1.9;
+            margin-bottom: 2rem;
+        }
+
+        .about-footer {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            color: var(--ink-light);
+            font-size: 1rem;
+        }
+
+        /* Navigation Dots */
+        .nav-dots {
+            position: fixed;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-dot:hover {
+            background: var(--ink-light);
+        }
+
+        .nav-dot.active {
+            background: var(--coral);
+            border-color: var(--coral);
+            transform: scale(1.2);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-light);
+            font-size: 0.875rem;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            font-size: 1.5rem;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            40% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+            60% {
+                transform: translateX(-50%) translateY(-5px);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-dots {
+                right: 1rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
+            .verticals-grid {
+                grid-template-columns: 1fr;
+                padding: 0 1rem;
+            }
+
+            .slide {
+                padding: 4rem 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#" class="nav-logo">📊 金融技能库</a>
+        <div class="nav-links">
+            <a onclick="scrollToSlide(0)">首页</a>
+            <a onclick="scrollToSlide(1)">技能领域</a>
+            <a onclick="scrollToSlide(2)">关于</a>
+        </div>
+    </nav>
+
+    <!-- Navigation Dots -->
+    <div class="nav-dots">
+        <div class="nav-dot active" onclick="scrollToSlide(0)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(1)"></div>
+        <div class="nav-dot" onclick="scrollToSlide(2)"></div>
+    </div>
+
+    <!-- Slides Container -->
+    <div class="slides-container" id="slidesContainer">
+
+        <!-- Slide 1: Hero -->
+        <section class="slide slide-hero">
+            <div class="hero-content">
+                <span class="hero-badge">Anthropic 官方参考实现</span>
+                <h1>金融分析<span>66个技能</span><br>实战讲解</h1>
+                <p class="hero-subtitle">Claude 金融服务业插件库的学习版 - 从可比公司分析到并购模型，每个技能都有详细的中文讲解和实践指南</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-value">66</div>
+                        <div class="stat-label">分析技能</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">7</div>
+                        <div class="stat-label">金融垂直领域</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-value">100%</div>
+                        <div class="stat-label">免费学习</div>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <span>↓</span>
+                <span>滚动查看更多</span>
+            </div>
+        </section>
+
+        <!-- Slide 2: 垂直领域 -->
+        <section class="slide slide-verticals">
+            <div class="slide-content">
+                <div class="slide-header">
+                    <span class="slide-badge">技能领域</span>
+                    <h2>7个金融垂直领域</h2>
+                    <p>点击领域查看所有技能详情</p>
+                </div>
+
+                <div class="verticals-grid">
+                    <a href="vertical-01.html" class="vertical-card">
+                        <div class="vertical-icon">📊</div>
+                        <h3>金融分析</h3>
+                        <p>核心建模技能 - Comps、DCF、LBO、三表模型等</p>
+                        <span class="vertical-count">13 个技能</span>
+                    </a>
+                    <a href="vertical-02.html" class="vertical-card">
+                        <div class="vertical-icon">📈</div>
+                        <h3>权益研究</h3>
+                        <p>卖方分析师技能 - 财报分析、覆盖启动、选股筛选</p>
+                        <span class="vertical-count">9 个技能</span>
+                    </a>
+                    <a href="vertical-03.html" class="vertical-card">
+                        <div class="vertical-icon">💼</div>
+                        <h3>投行</h3>
+                        <p>并购交易技能 - CIM、Teaser、买家清单、Pitch Deck</p>
+                        <span class="vertical-count">9 个技能</span>
+                    </a>
+                    <a href="vertical-04.html" class="vertical-card">
+                        <div class="vertical-icon">🎯</div>
+                        <h3>私募股权</h3>
+                        <p>PE投资全流程 - 项目筛选、尽调、IC备忘录、投后</p>
+                        <span class="vertical-count">10 个技能</span>
+                    </a>
+                    <a href="vertical-05.html" class="vertical-card">
+                        <div class="vertical-icon">💎</div>
+                        <h3>财富管理</h3>
+                        <p>高净值客户服务 - 财务规划、组合管理、税损收割</p>
+                        <span class="vertical-count">6 个技能</span>
+                    </a>
+                    <a href="vertical-06.html" class="vertical-card">
+                        <div class="vertical-icon">🏦</div>
+                        <h3>基金管理</h3>
+                        <p>基金运营技能 - 对账、断点分析、NAV计算</p>
+                        <span class="vertical-count">6 个技能</span>
+                    </a>
+                    <a href="vertical-07.html" class="vertical-card">
+                        <div class="vertical-icon">🔐</div>
+                        <h3>运营KYC</h3>
+                        <p>合规运营 - 文档解析、规则引擎</p>
+                        <span class="vertical-count">2 个技能</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Slide 3: 关于 -->
+        <section class="slide slide-about">
+            <div class="about-content">
+                <div class="slide-header">
+                    <span class="slide-badge">关于</span>
+                    <h2>关于这个项目</h2>
+                </div>
+                <p>这是 Anthropic 官方的 Claude 金融服务业参考实现的学习版。包含 66 个分析技能，覆盖 7 个金融垂直领域。</p>
+                <p>每个技能都有详细的中文讲解，帮助你理解金融分析的核心方法论。从基础的可比公司分析，到复杂的并购模型，一步步掌握金融分析的精髓。</p>
+                <div class="about-footer">
+                    <p>© 2025 金融分析技能库学习版 | 基于 Anthropic Claude FSI 插件库</p>
+                    <p style="margin-top: 0.5rem;">Made with ❤️ for financial learners</p>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Scroll to specific slide
+        function scrollToSlide(index) {
+            const slides = document.querySelectorAll('.slide');
+            if (slides[index]) {
+                slides[index].scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Update active dot on scroll
+        const slidesContainer = document.getElementById('slidesContainer');
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        slidesContainer.addEventListener('scroll', function() {
+            const slides = document.querySelectorAll('.slide');
+            const containerMiddle = slidesContainer.scrollTop + (slidesContainer.clientHeight / 2);
+
+            slides.forEach((slide, index) => {
+                const slideMiddle = slide.offsetTop + (slide.clientHeight / 2);
+
+                if (Math.abs(containerMiddle - slideMiddle) < 100) {
+                    navDots.forEach(dot => dot.classList.remove('active'));
+                    navDots[index].classList.add('active');
+                }
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            const currentSlide = Array.from(navDots).findIndex(dot => dot.classList.contains('active'));
+
+            if (e.key === 'ArrowDown' || e.key === 'ArrowRight') {
+                e.preventDefault();
+                if (currentSlide < navDots.length - 1) {
+                    scrollToSlide(currentSlide + 1);
+                }
+            } else if (e.key === 'ArrowUp' || e.key === 'ArrowLeft') {
+                e.preventDefault();
+                if (currentSlide > 0) {
+                    scrollToSlide(currentSlide - 1);
+                }
+            }
+        });
+
+        // Mouse wheel throttling for smoother experience
+        let isScrolling = false;
+        let lastScrollTime = 0;
+        const scrollCooldown = 1000; // ms between scroll snaps
+
+        slidesContainer.addEventListener('wheel', function(e) {
+            const now = Date.now();
+            const currentSlide = Array.from(navDots).findIndex(dot => dot.classList.contains('active'));
+
+            // Only handle if cooldown has passed
+            if (now - lastScrollTime > scrollCooldown && !isScrolling) {
+                if (e.deltaY > 0 && currentSlide < navDots.length - 1) {
+                    e.preventDefault();
+                    isScrolling = true;
+                    scrollToSlide(currentSlide + 1);
+                    lastScrollTime = now;
+                    setTimeout(() => { isScrolling = false; }, 1000);
+                } else if (e.deltaY < 0 && currentSlide > 0) {
+                    e.preventDefault();
+                    isScrolling = true;
+                    scrollToSlide(currentSlide - 1);
+                    lastScrollTime = now;
+                    setTimeout(() => { isScrolling = false; }, 1000);
+                }
+            }
+        }, { passive: false });
+
+        // Touch support for mobile
+        let touchStartY = 0;
+        let touchEndY = 0;
+
+        slidesContainer.addEventListener('touchstart', function(e) {
+            touchStartY = e.touches[0].clientY;
+        }, { passive: true });
+
+        slidesContainer.addEventListener('touchend', function(e) {
+            touchEndY = e.changedTouches[0].clientY;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const currentSlide = Array.from(navDots).findIndex(dot => dot.classList.contains('active'));
+            const swipeThreshold = 50;
+
+            if (touchStartY - touchEndY > swipeThreshold && currentSlide < navDots.length - 1) {
+                // Swipe up - next slide
+                scrollToSlide(currentSlide + 1);
+            } else if (touchEndY - touchStartY > swipeThreshold && currentSlide > 0) {
+                // Swipe down - previous slide
+                scrollToSlide(currentSlide - 1);
+            }
+        }
+    </script>
+</body>
+</html>
