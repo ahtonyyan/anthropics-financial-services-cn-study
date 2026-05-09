@@ -1,0 +1,6412 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>技能详情 - 金融分析技能库</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --coral-dark: #C4483A;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+            --accent-bg: #FFF8F5;
+            --code-bg: #1e1e1e;
+            --step-num: #E85D4C;
+            --step-bg: #FFF;
+            --step-border: #E8E4DF;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.7;
+            font-size: 1.15rem;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+        .nav-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--ink);
+            font-size: 1.3rem;
+        }
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            font-size: 1.05rem;
+        }
+        .nav-back:hover { color: var(--coral); }
+
+        .page-wrapper {
+            display: flex;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+        }
+
+        /* 左侧目录栏 */
+        .toc-sidebar {
+            width: 280px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 5rem;
+            height: calc(100vh - 6rem);
+            overflow-y: auto;
+            padding: 0 1.5rem 2rem 0;
+            border-right: 1px solid var(--border);
+        }
+
+        .toc-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--ink);
+            margin-bottom: 1rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--coral);
+        }
+
+        .toc-list {
+            list-style: none;
+        }
+
+        .toc-item {
+            margin-bottom: 0.25rem;
+        }
+
+        .toc-link {
+            display: block;
+            padding: 0.5rem 0.75rem;
+            color: var(--ink-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            border-radius: 0.5rem;
+            transition: all 0.2s ease;
+        }
+
+        .toc-link:hover {
+            background: var(--accent-bg);
+            color: var(--coral);
+        }
+
+        .toc-link.active {
+            background: var(--coral);
+            color: white;
+            font-weight: 500;
+        }
+
+        .toc-link.level-1 {
+            padding-left: 0.75rem;
+            font-weight: 600;
+        }
+
+        .toc-link.level-2 {
+            padding-left: 1.5rem;
+            font-size: 0.875rem;
+        }
+
+        .toc-link.level-3 {
+            padding-left: 2.25rem;
+            font-size: 0.85rem;
+        }
+
+        /* 美化滚动条 */
+        .toc-sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .toc-sidebar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .toc-sidebar::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+        .toc-sidebar::-webkit-scrollbar-thumb:hover {
+            background: var(--ink-light);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 1024px) {
+            .page-wrapper {
+                flex-direction: column;
+            }
+            .toc-sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+                max-height: 200px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+                padding: 1rem;
+                margin-bottom: 1rem;
+            }
+            .main-content {
+                padding: 0 1rem 2rem 1rem;
+            }
+        }
+
+        /* 主内容区域 */
+        .main-content {
+            flex: 1;
+            padding: 0 3rem 4rem 3rem;
+            max-width: 900px;
+        }
+
+        .container {
+            padding: 0;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            font-size: 1rem;
+            color: var(--ink-light);
+        }
+        .breadcrumb a {
+            color: var(--ink-light);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .breadcrumb a:hover { color: var(--coral); }
+        .breadcrumb-separator { color: var(--border); }
+
+        .skill-header {
+            margin-bottom: 2rem;
+        }
+        .skill-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            background: var(--coral);
+            color: white;
+            font-family: monospace;
+            font-size: 0.85rem;
+            border-radius: 50px;
+            margin-bottom: 1rem;
+        }
+        .skill-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(2rem, 5vw, 2.75rem);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            line-height: 1.2;
+        }
+        .skill-subtitle {
+            font-size: 1.15rem;
+            color: var(--ink-light);
+            margin-bottom: 1rem;
+        }
+
+        .oneliner-box {
+            background: linear-gradient(135deg, var(--coral) 0%, #C4483A 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
+        }
+        .oneliner-label {
+            font-family: monospace;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .oneliner-text {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.15rem;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .what-is-this {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+        .what-is-this h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--coral);
+        }
+        .what-is-this p {
+            color: var(--ink-light);
+            line-height: 1.7;
+            margin-bottom: 0.75rem;
+            font-size: 1.1rem;
+        }
+        .what-is-this p:last-child {
+            margin-bottom: 0;
+        }
+
+        .steps-section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--ink);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .steps-section-title::before {
+            content: "";
+            width: 4px;
+            height: 24px;
+            background: var(--coral);
+            border-radius: 2px;
+        }
+
+        .steps-list {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+        .steps-list::before {
+            content: "";
+            position: absolute;
+            left: 20px;
+            top: 40px;
+            bottom: 40px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .step-item {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        .step-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .step-num {
+            flex-shrink: 0;
+            width: 48px;
+            height: 48px;
+            background: var(--coral);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            z-index: 1;
+            box-shadow: 0 0 0 4px var(--cream);
+        }
+
+        .step-content {
+            flex: 1;
+            background: white;
+            border-radius: 1rem;
+            padding: 1.75rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .step-content:hover {
+            border-color: var(--coral);
+            box-shadow: 0 4px 16px rgba(232, 93, 76, 0.1);
+        }
+
+        .step-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: var(--ink);
+        }
+
+        .step-what {
+            margin-bottom: 1rem;
+        }
+        .step-what-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--coral);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        .step-what-text {
+            color: var(--ink);
+            font-size: 1.05rem;
+            line-height: 1.6;
+        }
+
+        .step-why {
+            margin-bottom: 0.75rem;
+        }
+        .step-why-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--ink-light);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 0.25rem;
+        }
+        .step-why-text {
+            color: var(--ink-light);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .step-tips {
+            background: var(--accent-bg);
+            border-radius: 0.5rem;
+            padding: 0.85rem 1.15rem;
+            font-size: 0.95rem;
+            color: var(--ink-light);
+            border-left: 3px solid var(--coral);
+        }
+        .step-tips strong {
+            color: var(--coral);
+        }
+
+        .docs-section {
+            margin-top: 3rem;
+        }
+        .docs-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.75rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--ink);
+        }
+
+        .docs-content {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 2.5rem;
+        }
+
+        .doc-content h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 2rem 0 1rem;
+            color: var(--ink);
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+        .doc-content h1:first-child {
+            margin-top: 0;
+        }
+        .doc-content h2 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 2rem 0 1rem;
+            color: var(--ink);
+        }
+        .doc-content h2:first-child {
+            margin-top: 0;
+        }
+        .doc-content h3 {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.75rem;
+            color: var(--ink);
+        }
+        .doc-content h4 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin: 1.25rem 0 0.5rem;
+            color: var(--ink);
+        }
+        .doc-content p {
+            color: var(--ink-light);
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            font-size: 1.05rem;
+        }
+        .doc-content ul, .doc-content ol {
+            margin: 1rem 0;
+            padding-left: 2rem;
+            color: var(--ink-light);
+        }
+        .doc-content li {
+            margin-bottom: 0.5rem;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .doc-content strong {
+            color: var(--coral);
+            font-weight: 600;
+        }
+        .doc-content code.inline-code {
+            background: var(--accent-bg);
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.3rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            color: var(--coral-dark);
+        }
+        .doc-content pre {
+            background: var(--code-bg);
+            border-radius: 0.5rem;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+        .doc-content pre code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            color: #e0e0e0;
+        }
+        .doc-content hr {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 2rem 0;
+        }
+
+        .skill-nav {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+        .skill-nav-btn {
+            flex: 1;
+            padding: 1.25rem;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 0.75rem;
+            text-decoration: none;
+            color: inherit;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 1.05rem;
+        }
+        .skill-nav-btn:hover {
+            border-color: var(--coral);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(232, 93, 76, 0.15);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 4rem 2rem;
+        }
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--coral);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">📊 金融技能库</a>
+        <a href="index.html" class="nav-back">← 返回首页</a>
+    </nav>
+
+    <div class="page-wrapper">
+        <!-- 左侧目录栏 -->
+        <aside class="toc-sidebar">
+            <div class="toc-title">目录</div>
+            <ul class="toc-list" id="tocList"></ul>
+        </aside>
+
+        <!-- 主内容区域 -->
+        <main class="main-content">
+            <div class="container" id="skillContent">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>正在加载技能详情...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="skill-translations.js"></script>
+    <script>
+        var skillMetadata = {
+            "comps": {
+                title: "可比公司分析 (Comps)",
+                subtitle: "01-金融分析 · 核心建模技能",
+                badge: "必学技能",
+                oneliner: "选4-6家同业公司，拉取运营指标和估值倍数，用统计分布判断目标公司是高估还是低估",
+                vertical: "01-金融分析",
+                verticalLink: "vertical-01.html",
+                whatIsThis: "<p>可比公司分析（Comps）是投行和投资机构最常用的估值方法。核心思想很简单：<strong>找相似的公司对比</strong>。</p><p>就像你卖房时会参考隔壁邻居的成交价一样，给公司估值时也要看同行业、同规模的公司交易在什么倍数。市场是有效的，同类公司的估值水平可以给目标公司提供参考基准。</p>",
+                steps: [
+                    {title: "确定分析框架", what: "明确分析目的（并购、IPO、投资决策）、受众（投委会、客户、内部团队）、输出格式（Excel/PDF/PPT）", why: "不同的目的需要不同的深度和重点。并购估值要详细，行业概览可以简化", tips: "四个关键问题：什么格式？谁来看？回答什么问题？什么上下文？"},
+                    {title: "选择可比公司", what: "筛选4-8家同行业、规模相当、业务模式相似的公司。排除收购标的、异常值", why: "可比公司的选择直接影响分析的可靠性。苹果不能和橙子比", tips: "筛选标准：行业(相同GICS)、地域、规模(收入市值相当)、产品类型、客户群体"},
+                    {title: "拉取运营数据", what: "收集历史数据(3-5年)：收入、增长率、毛利率、EBITDA利润率、FCF利润率", why: "运营指标反映公司的盈利能力和成长性，是估值的基础", tips: "优先使用MCP数据源(FactSet、S&P Kensho)，确保数据一致性和可追溯性"},
+                    {title: "计算估值倍数", what: "计算企业价值倍数：EV/Revenue、EV/EBITDA；股权倍数：P/E、P/B", why: "倍数是市场对每单位盈利/收入的定价。EV/EBITDA最常用因为不受资本结构影响", tips: "企业价值EV=市值+净债务+优先股+少数股东权益-现金；千万不能用错市值"},
+                    {title: "统计分析", what: "计算均值、中位数、25/75分位数。去掉异常值后重新计算", why: "平均值会被极端值扭曲。分位数告诉你'大多数公司'在什么水平", tips: "75分位数是优质公司的交易区间；如果目标公司>75分位可能高估，<25分位可能低估"},
+                    {title: "得出结论", what: "对比目标公司与可比公司的分布位置，判断高估/低估", why: "分析的价值在于得出结论，不能只摆数据不做判断", tips: "结论要平衡：如果是高估，解释可能原因(成长性更好、利润率更高)"}
+                ],
+                fullDocumentation: `# 可比公司分析 (Comparable Company Analysis)
+
+## 概述
+
+可比公司分析（Comps）是投行和投资机构最常用的估值方法。核心思想很简单：**找相似的公司对比**。
+
+就像你卖房时会参考隔壁邻居的成交价一样，给公司估值时也要看同行业、同规模的公司交易在什么倍数。市场是有效的，同类公司的估值水平可以给目标公司提供参考基准。
+
+## 核心原则
+
+**"先建立正确的结构，然后让数据讲故事。"**
+
+从强制战略思考的标题开始，输入干净的数据，建立透明的公式，让统计数据自动出现。一个好的Comps应该让没有构建它的人也能立即理解。
+
+## 分析步骤
+
+### 第1步：确定分析框架
+
+**做什么**：明确分析目的（并购、IPO、投资决策）、受众（投委会、客户、内部团队）、输出格式（Excel/PDF/PPT）
+
+**为什么**：不同的目的需要不同的深度和重点。并购估值要详细，行业概览可以简化
+
+**注意**：四个关键问题——什么格式？谁来看？回答什么问题？什么上下文？
+
+### 第2步：选择可比公司
+
+**做什么**：筛选4-8家同行业、规模相当、业务模式相似的公司。排除收购标的、异常值
+
+**为什么**：可比公司的选择直接影响分析的可靠性。苹果不能和橙子比
+
+**注意**：筛选标准包括行业(相同GICS)、地域、规模(收入市值相当)、产品类型、客户群体
+
+### 第3步：拉取运营数据
+
+**做什么**：收集历史数据(3-5年)：收入、增长率、毛利率、EBITDA利润率、FCF利润率
+
+**为什么**：运营指标反映公司的盈利能力和成长性，是估值的基础
+
+**注意**：优先使用MCP数据源(FactSet、S&P Kensho)，确保数据一致性和可追溯性
+
+### 第4步：计算估值倍数
+
+**做什么**：计算企业价值倍数：EV/Revenue、EV/EBITDA；股权倍数：P/E、P/B
+
+**为什么**：倍数是市场对每单位盈利/收入的定价。EV/EBITDA最常用因为不受资本结构影响
+
+**注意**：企业价值EV=市值+净债务+优先股+少数股东权益-现金；千万不能用错市值
+
+### 第5步：统计分析
+
+**做什么**：计算均值、中位数、25/75分位数。去掉异常值后重新计算
+
+**为什么**：平均值会被极端值扭曲。分位数告诉你"大多数公司"在什么水平
+
+**注意**：75分位数是优质公司的交易区间；如果目标公司>75分位可能高估，<25分位可能低估
+
+### 第6步：得出结论
+
+**做什么**：对比目标公司与可比公司的分布位置，判断高估/低估
+
+**为什么**：分析的价值在于得出结论，不能只摆数据不做判断
+
+**注意**：结论要平衡：如果是高估，解释可能原因(成长性更好、利润率更高)
+
+## 最佳实践
+
+### 数据来源优先级
+
+**始终遵循以下数据源层次：**
+
+1. **首先：检查MCP数据源** - 如果S&P Kensho MCP、FactSet MCP或Daloopa MCP可用，请专门使用它们获取财务和交易信息
+2. **不要使用网络搜索** - 如果上述MCP数据源可用
+3. **仅当MCP不可用时：** 然后使用Bloomberg Terminal、SEC EDGAR文件或其他机构来源
+4. **永远不要将网络搜索作为主要数据源** - 它缺乏机构级分析所需的准确性、审计跟踪和可靠性
+
+### 公式而非硬编码
+
+- 每个衍生值（利润率、倍数、统计数据）必须是引用输入单元格的Excel公式 — 永远不要粘贴预计算的数字
+- 使用Python/openpyxl构建工作表时：写入 cell.value = "=E7/C7"（公式字符串），而不是 cell.value = 0.687（计算结果）
+- 唯一应该硬编码的值是原始输入数据（收入、EBITDA、股价等） — 并且每个值都要有单元格注释说明其来源
+- 原因：当输入变化时，模型必须自动更新。硬编码的利润率是一个潜伏的错误。
+
+### 逐步验证
+
+- 设置结构后 → 在填充数据之前向用户显示标题布局
+- 输入原始输入后 → 在构建公式之前向用户显示输入块并确认来源/期间
+- 构建运营指标公式后 → 在进入估值之前向用户显示计算的利润率并进行合理性检查
+- 构建估值倍数后 → 在添加统计数据之前向用户显示倍数并确认它们看起来合理
+- **不要**端到端构建整个工作表然后展示 — 通过确认每个部分来及早发现错误
+
+## 统计分析的重要性
+
+分位数显示了分布，而不仅仅是平均值：
+
+- **75th percentile** = "优质"公司的交易水平
+- **Median** = 典型市场估值
+- **25th percentile** = "折价"区间
+
+这有助于回答："与同行相比，我们的目标公司是交易昂贵还是便宜？"
+
+## 常见错误
+
+❌ 混合市值和企业价值进行公式计算
+❌ 分子和分母使用不同的时期（LTM vs 季度）
+❌ 硬编码数字到公式中而不是单元格引用
+❌ **硬编码输入没有单元格注释引用来源或解释假设**
+❌ 缺少SEC文件或数据来源的超链接
+❌ 包含太多没有明确目的的指标
+❌ 包含不可比的公司（不同的业务模式）
+❌ 使用没有披露的过时数据
+❌ 错误计算百分比的平均值（应该使用中位数）
+
+## 输出检查清单
+
+在交付可比公司分析之前，验证：
+- [ ] 所有公司真正可比
+- [ ] 数据来自一致的时期
+- [ ] 单位清晰标记（百万/十亿）
+- [ ] 公式引用单元格，而不是硬编码值
+- [ ] **所有硬编码输入单元格有注释：(1) 确切数据来源，或 (2) 清晰假设解释**
+- [ ] **在相关的地方添加超链接**（SEC EDGAR文件、Bloomberg页面、研究报告）
+- [ ] 统计数据包括至少5个指标（最大值、75th、中位数、25th、最小值）
+- [ ] 注释部分记录来源和方法论
+- [ ] 视觉格式遵循约定（蓝色 = 输入，黑色 = 公式）
+- [ ] 合理性检查通过（利润率逻辑，倍数合理）
+- [ ] 日期戳是当前（"截至[日期]"）
+- [ ] 公式审计显示没有错误（#DIV/0!、#REF!、#N/A）
+
+## 关键原则总结
+
+1. **结构驱动洞察** - 正确的标题强制正确的思考
+2. **少即是多** - 5-10个重要指标胜过20个不重要的
+3. **为你的问题选择指标** - 估值分析 ≠ 效率分析
+4. **统计数据显示模式** - 中位数/分位数比平均值揭示更多
+5. **透明度胜过复杂性** - 每个人都能理解的简单公式
+6. **可比性是王道** - 最好排除而不是强制一个不好的可比公司
+7. **记录你的选择** - 在注释部分解释哪些指标以及为什么
+`
+            },
+
+            "dcf": {
+                title: "DCF折现现金流估值",
+                subtitle: "01-金融分析 · 高级建模技能",
+                badge: "核心技能",
+                oneliner: "预测未来5-10年自由现金流，折现回现值，加上终值，计算企业内在价值",
+                vertical: "01-金融分析",
+                verticalLink: "vertical-01.html",
+                whatIsThis: "<p>DCF（折现现金流）是理论上最严谨的估值方法。核心思想：<strong>公司值多少钱 = 它未来能赚的所有钱，折算成今天的价值</strong>。</p><p>今天的100块比明年的100块更值钱，因为今天可以投资理财。所以未来的现金流要'打折'（折现）才能和今天的钱比较。WACC就是这个折现率，反映投资的风险。</p>",
+                steps: [
+                    {title: "建立历史财务数据", what: "拉取过去3-5年的历史数据：利润表、资产负债表、现金流量表", why: "历史数据是预测的基础。需要分析过去的增长模式、利润率趋势、资本结构", tips: "至少3年数据才能看出趋势；如果有并购或重组需要调整历史数据"},
+                    {title: "收入预测", what: "用增长率驱动或自下而上方法预测未来5-10年收入", why: "收入是整个模型的起点。收入假设是DCF最重要的变量", tips: "增长率驱动：用'增长率'简单预测；自下而上：单价×销量更精确"},
+                    {title: "费用和利润率预测", what: "预测毛利率、运营费用率、税率。计算EBITDA、EBIT、净利润", why: "利润率反映公司的盈利能力。不同行业利润率差异很大，要参考历史和同业", tips: "毛利率通常稳定；运营费用有规模效应(收入增长费用率下降)；税率用法定税率"},
+                    {title: "计算自由现金流(FCF)", what: "FCF = EBIT×(1-税率) + 折旧摊销 - 资本支出 - 营运资本变化", why: "FCF是公司真正可自由分配给债权人和股东的现金", tips: "营运资本变化 = (应收账款+存货-应付账款)的变化；扩张期营运资本增加拖累FCF"},
+                    {title: "计算WACC", what: "WACC = 债务成本×(1-税率)×债务权重 + 股权成本×股权权重", why: "WACC是折现率，反映投资风险。风险越高折现率越高，估值越低", tips: "股权成本用CAPM：无风险利率+β×股权风险溢价(通常5-6%)"},
+                    {title: "计算终值", what: "永续增长法：最后一年FCF×(1+g)/(WACC-g)；或退出倍数法", why: "终值占估值的50-70%。预测期只有5-10年，但公司永续经营", tips: "终值增长率g必须<WACC，通常2-3%(GDP增长)；退出倍数用历史平均"},
+                    {title: "折现加总得出企业价值", what: "预测期FCF折现 + 终值折现 = 企业价值；减去净债务 = 股权价值", why: "把未来所有现金流折现到今天，得到公司的内在价值", tips: "净债务 = 总债务 - 现金；股权价值÷股数 = 每股价值，与股价比较判断高估/低估"}
+                ],
+                fullDocumentation: `# DCF折现现金流估值
+
+## 概述
+
+DCF（折现现金流）是理论上最严谨的估值方法。核心思想很简单：**公司值多少钱 = 它未来能赚的所有钱，折算成今天的价值**。
+
+今天的100块比明年的100块更值钱，因为今天可以投资理财。所以未来的现金流要"打折"（折现）才能和今天的钱比较。WACC就是这个折现率，反映投资的风险。
+
+## 核心原则
+
+**"现金流是企业的血液，折现率是风险的标尺。"**
+
+DCF建模的核心在于：合理预测未来现金流，选择合适的折现率，正确计算终值。模型的价值不在于精确的数字，而在于清晰的逻辑和合理的假设。
+
+## 分析步骤
+
+### 第1步：建立历史财务数据
+
+**做什么**：拉取过去3-5年的历史数据：利润表、资产负债表、现金流量表
+
+**为什么**：历史数据是预测的基础。需要分析过去的增长模式、利润率趋势、资本结构
+
+**注意**：至少3年数据才能看出趋势；如果有并购或重组需要调整历史数据
+
+### 第2步：收入预测
+
+**做什么**：用增长率驱动或自下而上方法预测未来5-10年收入
+
+**为什么**：收入是整个模型的起点。收入假设是DCF最重要的变量
+
+**注意**：增长率驱动：用"增长率"简单预测；自下而上：单价×销量更精确
+
+### 第3步：费用和利润率预测
+
+**做什么**：预测毛利率、运营费用率、税率。计算EBITDA、EBIT、净利润
+
+**为什么**：利润率反映公司的盈利能力。不同行业利润率差异很大，要参考历史和同业
+
+**注意**：毛利率通常稳定；运营费用有规模效应(收入增长费用率下降)；税率用法定税率
+
+### 第4步：计算自由现金流(FCF)
+
+**做什么**：FCF = EBIT×(1-税率) + 折旧摊销 - 资本支出 - 营运资本变化
+
+**为什么**：FCF是公司真正可自由分配给债权人和股东的现金
+
+**注意**：营运资本变化 = (应收账款+存货-应付账款)的变化；扩张期营运资本增加拖累FCF
+
+### 第5步：计算WACC
+
+**做什么**：WACC = 债务成本×(1-税率)×债务权重 + 股权成本×股权权重
+
+**为什么**：WACC是折现率，反映投资风险。风险越高折现率越高，估值越低
+
+**注意**：股权成本用CAPM：无风险利率+β×股权风险溢价(通常5-6%)
+
+### 第6步：计算终值
+
+**做什么**：永续增长法：最后一年FCF×(1+g)/(WACC-g)；或退出倍数法
+
+**为什么**：终值占估值的50-70%。预测期只有5-10年，但公司永续经营
+
+**注意**：终值增长率g必须<WACC，通常2-3%(GDP增长)；退出倍数用历史平均
+
+### 第7步：折现加总得出企业价值
+
+**做什么**：预测期FCF折现 + 终值折现 = 企业价值；减去净债务 = 股权价值
+
+**为什么**：把未来所有现金流折现到今天，得到公司的内在价值
+
+**注意**：净债务 = 总债务 - 现金；股权价值÷股数 = 每股价值，与股价比较判断高估/低估
+
+## 最佳实践
+
+### 数据来源优先级
+
+**始终遵循以下数据源层次：**
+
+1. **首先：检查MCP数据源** - 如果S&P Kensho MCP、FactSet MCP或Daloopa MCP可用，请专门使用它们获取财务和交易信息
+2. **不要使用网络搜索** - 如果上述MCP数据源可用
+3. **仅当MCP不可用时：** 然后使用Bloomberg Terminal、SEC EDGAR文件或其他机构来源
+4. **永远不要将网络搜索作为主要数据源** - 它缺乏机构级分析所需的准确性、审计跟踪和可靠性
+
+### 假设设置的合理性
+
+- 收入增长率应该与历史和行业趋势一致
+- 利润率应该考虑竞争压力和规模效应
+- 终值增长率应该接近或低于GDP增长率
+- WACC应该反映公司真实的风险水平
+
+### 敏感性分析
+
+- DCF对假设非常敏感，必须做敏感性分析
+- 关键假设：收入增长率、利润率、WACC、终值增长率
+- 用敏感性矩阵展示不同假设下的估值区间
+
+## 常见错误
+
+❌ 终值增长率大于或等于WACC
+❌ 营运资本变化计算错误
+❌ 混淆企业价值折现和股权价值折现
+❌ 硬编码数字而不是使用公式
+❌ 历史数据调整不当（并购、重组）
+❌ 折现率选择不当
+
+## 输出检查清单
+
+在交付DCF估值之前，验证：
+- [ ] 历史数据准确完整
+- [ ] 假设有依据且合理
+- [ ] 公式正确使用单元格引用
+- [ ] 三表平衡
+- [ ] FCF计算正确
+- [ ] WACC计算正确
+- [ ] 终值计算合理
+- [ ] 折现逻辑正确
+- [ ] 敏感性分析充分
+- [ ] 估值区间合理
+
+## 关键原则总结
+
+1. **现金流为王** - 关注自由现金流而非会计利润
+2. **假设要有依据** - 每个关键假设都要有支撑
+3. **敏感性分析必须** - DCF对假设敏感，必须展示区间
+4. **三表必须平衡** - 不平衡的模型没有价值
+5. **终值是关键** - 终值往往占估值的大头
+6. **折现率反映风险** - WACC选择要合理
+7. **简洁优于复杂** - 模型太复杂反而容易出错
+`
+            },
+
+            "lbo": {
+                title: "LBO杠杆收购模型",
+                subtitle: "01-金融分析 · 私募股权核心",
+                badge: "高阶技能",
+                oneliner: "用债务收购公司，用公司现金流还债，3-5年后卖出获利",
+                vertical: "01-金融分析",
+                verticalLink: "vertical-01.html",
+                whatIsThis: "<p>LBO（Leveraged Buyout，杠杆收购）是私募股权基金的经典交易结构。<strong>借钱买公司</strong>，用公司的现金流还债，3-5年后卖出还清剩余债务，剩下的就是利润。</p><p>杠杆放大回报：如果公司价值涨50%，自有资金回报可能翻几倍。但风险也高，债务太重还不出就崩了。</p>",
+                steps: [
+                    {title: "资金来源与使用", what: "Sources: 股权(20-30%)、高级债(50-60%)、夹层债(10-20%)；Uses: 收购股权、偿还债务、交易费用", why: "这是LBO的基本会计等式：Sources = Uses。收购花的每一分钱都要有出处", tips: "股权比例越高回报越低但风险越低；高级债利率最低(6-8%)，夹层债利率高(12-15%)"},
+                    {title: "建立运营模型", what: "预测收入、成本、利润率，计算EBITDA和FCF", why: "现金流是还债的来源。预测必须保守，不能太乐观", tips: "做三情景分析：Base(基准)、Upside(乐观)、Downside(悲观)；投资人最关心Downside"},
+                    {title: "债务计划", what: "列出各层债务：本金、利率、还款计划、优先级", why: "LBO的核心是债务管理。不同层级债务有不同还款规则和优先级", tips: "高级债定期还本付息；夹层债可能PIK(付息方式用票据代替现金)；次级债最后还"},
+                    {title: "现金流瀑布", what: "用FCF按优先级还债：高级债 → 夹层债 → 次级债", why: "现金流瀑布决定了债务偿还顺序和最终股权价值", tips: "如果FCF不够还高级债，次级债一分钱拿不到；这就是瀑布结构的残酷性"},
+                    {title: "回报分析", what: "计算IRR(内部收益率)、MOIC(投资倍数)", why: "IRR和MOIC是私募股权的核心指标。IRR>20%是好交易", tips: "现金流符号：投资是负，退出收益是正；MOIC=总收益/总投资"},
+                    {title: "敏感性分析", what: "测试不同假设下的回报：退出倍数(8x-12x)、增长率、EBITDA利润率", why: "投资人有不同看法。敏感性分析展示不同情景下的回报区间", tips: "用5×5或7×7矩阵；中心单元格是基准假设；确保公式随输入变化"}
+                ],
+                fullDocumentation: `# LBO杠杆收购模型
+
+## 概述
+
+LBO（Leveraged Buyout，杠杆收购）是私募股权基金的经典交易结构。核心思想很简单：**借钱买公司，用公司的现金流还债，3-5年后卖出获利**。
+
+杠杆放大回报：如果公司价值涨50%，自有资金回报可能翻几倍。但风险也高，债务太重还不出就崩了。
+
+## 核心原则
+
+**"杠杆是放大器，既放大收益，也放大风险。"**
+
+LBO建模的核心在于：合理设计资本结构，准确预测现金流，严格管理债务偿还。成功的LBO需要稳定的现金流、合理的债务水平和合适的退出时机。
+
+## 分析步骤
+
+### 第1步：资金来源与使用
+
+**做什么**：Sources: 股权(20-30%)、高级债(50-60%)、夹层债(10-20%)；Uses: 收购股权、偿还债务、交易费用
+
+**为什么**：这是LBO的基本会计等式：Sources = Uses。收购花的每一分钱都要有出处
+
+**注意**：股权比例越高回报越低但风险越低；高级债利率最低(6-8%)，夹层债利率高(12-15%)
+
+### 第2步：建立运营模型
+
+**做什么**：预测收入、成本、利润率，计算EBITDA和FCF
+
+**为什么**：现金流是还债的来源。预测必须保守，不能太乐观
+
+**注意**：做三情景分析：Base(基准)、Upside(乐观)、Downside(悲观)；投资人最关心Downside
+
+### 第3步：债务计划
+
+**做什么**：列出各层债务：本金、利率、还款计划、优先级
+
+**为什么**：LBO的核心是债务管理。不同层级债务有不同还款规则和优先级
+
+**注意**：高级债定期还本付息；夹层债可能PIK(付息方式用票据代替现金)；次级债最后还
+
+### 第4步：现金流瀑布
+
+**做什么**：用FCF按优先级还债：高级债 → 夹层债 → 次级债
+
+**为什么**：现金流瀑布决定了债务偿还顺序和最终股权价值
+
+**注意**：如果FCF不够还高级债，次级债一分钱拿不到；这就是瀑布结构的残酷性
+
+### 第5步：回报分析
+
+**做什么**：计算IRR(内部收益率)、MOIC(投资倍数)
+
+**为什么**：IRR和MOIC是私募股权的核心指标。IRR>20%是好交易
+
+**注意**：现金流符号：投资是负，退出收益是正；MOIC=总收益/总投资
+
+### 第6步：敏感性分析
+
+**做什么**：测试不同假设下的回报：退出倍数(8x-12x)、增长率、EBITDA利润率
+
+**为什么**：投资人有不同看法。敏感性分析展示不同情景下的回报区间
+
+**注意**：用5×5或7×7矩阵；中心单元格是基准假设；确保公式随输入变化
+
+## 最佳实践
+
+### 资本结构设计
+
+- 债务比例越高回报越高，但风险也越高
+- 高级债提供大部分资金，成本最低
+- 夹层债填补资金缺口，成本较高
+- 股权比例不宜过低，否则风险过高
+
+### 现金流预测
+
+- 必须保守，不能过度乐观
+- 考虑周期性和下行风险
+- 留出现金缓冲应对意外
+- 关注Capex和营运资本变化
+
+### 退出策略
+
+- 常见退出方式：IPO、战略出售、次级收购
+- 退出时机：通常3-7年
+- 退出倍数：参考当前市场水平
+- 退出回报：必须覆盖债务和股权成本
+
+## 常见错误
+
+❌ 债务比例过高导致违约风险
+❌ 现金流预测过于乐观
+❌ 忽略营运资本变化
+❌ 忽略交易费用和重组成本
+❌ 退出倍数假设过高
+❌ 忽略下行情景
+
+## 输出检查清单
+
+在交付LBO模型之前，验证：
+- [ ] Sources = Uses平衡
+- [ ] 现金流预测合理
+- [ ] 债务偿还计划正确
+- [ ] 现金流瀑布逻辑正确
+- [ ] IRR/MOIC计算正确
+- [ ] 敏感性分析充分
+- [ ] 退出假设合理
+- [ ] 下行情景可承受
+- [ ] 公式使用单元格引用
+- [ ] 模型三表平衡
+
+## 关键原则总结
+
+1. **现金流是王道** - 没有稳定现金流的业务不适合LBO
+2. **杠杆是把双刃剑** - 放大收益也放大风险
+3. **保守假设** - 宁可保守也不要过度乐观
+4. **关注下行** - 投资人最关心最坏情况
+5. **退出要可行** - 没有好的退出就没有投资
+6. **敏感性分析必须** - LBO对假设敏感，必须展示区间
+7. **三表必须平衡** - 不平衡的模型没有价值
+`
+            },
+
+            "3stmt": {
+                title: "三表联动模型",
+                subtitle: "01-金融分析 · 基础建模技能",
+                badge: "必学技能",
+                oneliner: "将利润表、资产负债表、现金流量表关联起来，三表联动是财务建模的基础",
+                vertical: "01-金融分析",
+                verticalLink: "vertical-01.html",
+                whatIsThis: "<p>三表模型是所有财务分析的基石。<strong>三表必须联动</strong>：利润表的净利润流入资产负债表的留存收益，资产负债表的现金变化反映在现金流量表。</p><p>如果三表不平衡，模型就是错的。资产必须等于负债加权益。</p>",
+                steps: [
+                    {title: "建立利润表", what: "从收入开始，减去成本费用，得到净利润", why: "利润表展示公司的盈利能力。收入驱动一切", tips: "收入 → 毛利润(收入-销货成本) → EBITDA(毛利-运营费用) → EBIT(EBITDA-折旧) → 净利润"},
+                    {title: "建立资产负债表", what: "资产 = 负债 + 股东权益。资产包括流动和非流动，负债包括流动和非流动", why: "资产负债表展示公司的财务状况。必须永远平衡", tips: "资产：现金、应收账款、存货、固定资产；负债：应付账款、债务；权益：股本、留存收益"},
+                    {title: "建立现金流量表", what: "经营活动CF + 投资活动CF + 筹资活动CF = 现金净变化", why: "现金流量表展示现金的实际流动。从净利润开始调节", tips: "经营CF = 净利润 + 折旧(非现金) - 营运资本增加；投资CF = 资本支出；筹资CF = 债务、分红"},
+                    {title: "三表联动", what: "利润表净利润 → 资产负债表留存收益；现金流量表期末现金 → 资产负债表货币资金", why: "三表联动的核心：净利润增加股东权益，现金变化反映在资产负债表", tips: "留存收益期末 = 留存收益期初 + 净利润 - 分红；期末现金 = 期初现金 + 现金净变化"},
+                    {title: "验证平衡", what: "检查：资产=负债+权益？现金流量表平衡？营运资本变化正确？", why: "不平衡的模型没有任何价值。必须确保所有勾稽关系正确", tips: "添加检查行：资产 - (负债+权益) = 0；如果不为零，找到错误根源"}
+                ],
+                fullDocumentation: `# 三表联动模型
+
+## 概述
+
+三表模型是所有财务分析的基石。核心原则很简单：**三表必须联动**。
+
+利润表的净利润流入资产负债表的留存收益，资产负债表的现金变化反映在现金流量表。如果三表不平衡，模型就是错的。资产必须等于负债加权益。
+
+## 核心原则
+
+**"三表是一家，不是三家。它们描述同一件事的不同角度。"**
+
+三表联动建模的核心在于：理解三表之间的勾稽关系，确保逻辑一致，始终保持平衡。不平衡的模型没有任何价值。
+
+## 分析步骤
+
+### 第1步：建立利润表
+
+**做什么**：从收入开始，减去成本费用，得到净利润
+
+**为什么**：利润表展示公司的盈利能力。收入驱动一切
+
+**注意**：收入 → 毛利润(收入-销货成本) → EBITDA(毛利-运营费用) → EBIT(EBITDA-折旧) → 净利润
+
+### 第2步：建立资产负债表
+
+**做什么**：资产 = 负债 + 股东权益。资产包括流动和非流动，负债包括流动和非流动
+
+**为什么**：资产负债表展示公司的财务状况。必须永远平衡
+
+**注意**：资产：现金、应收账款、存货、固定资产；负债：应付账款、债务；权益：股本、留存收益
+
+### 第3步：建立现金流量表
+
+**做什么**：经营活动CF + 投资活动CF + 筹资活动CF = 现金净变化
+
+**为什么**：现金流量表展示现金的实际流动。从净利润开始调节
+
+**注意**：经营CF = 净利润 + 折旧(非现金) - 营运资本增加；投资CF = 资本支出；筹资CF = 债务、分红
+
+### 第4步：三表联动
+
+**做什么**：利润表净利润 → 资产负债表留存收益；现金流量表期末现金 → 资产负债表货币资金
+
+**为什么**：三表联动的核心：净利润增加股东权益，现金变化反映在资产负债表
+
+**注意**：留存收益期末 = 留存收益期初 + 净利润 - 分红；期末现金 = 期初现金 + 现金净变化
+
+### 第5步：验证平衡
+
+**做什么**：检查：资产=负债+权益？现金流量表平衡？营运资本变化正确？
+
+**为什么**：不平衡的模型没有任何价值。必须确保所有勾稽关系正确
+
+**注意**：添加检查行：资产 - (负债+权益) = 0；如果不为零，找到错误根源
+
+## 三表联动关系
+
+### 利润表 → 资产负债表
+
+- 净利润 → 留存收益增加
+- 分红 → 留存收益减少、现金减少
+- 其他综合收益 → 其他综合收益科目
+
+### 资产负债表 → 现金流量表
+
+- 现金变化 → 筹资活动CF
+- 营运资本变化 → 经营活动CF
+- 固定资产变化 → 投资活动CF
+
+### 现金流量表 → 资产负债表
+
+- 现金净变化 → 货币资金期末余额
+- 债务变化 → 债务期末余额
+
+## 最佳实践
+
+### 建模顺序
+
+1. 先建立利润表
+2. 再建立资产负债表
+3. 最后建立现金流量表
+4. 检查三表联动
+5. 验证平衡
+
+### 公式设置
+
+- 始终使用单元格引用，不要硬编码
+- 用检查行验证平衡
+- 用颜色标识输入和公式
+- 添加错误检查
+
+### 数据一致性
+
+- 期间必须一致
+- 单位必须一致
+- 假设必须一致
+- 格式必须一致
+
+## 常见错误
+
+❌ 营运资本计算错误
+❌ 折旧处理不一致
+❌ 留存收益更新错误
+❌ 现金流量表不平衡
+❌ 债务和利息不匹配
+❌ 硬编码数字
+
+## 输出检查清单
+
+在交付三表模型之前，验证：
+- [ ] 资产负债表平衡
+- [ ] 现金流量表平衡
+- [ ] 净利润正确流入留存收益
+- [ ] 现金变化正确流入货币资金
+- [ ] 营运资本变化正确
+- [ ] 折旧处理一致
+- [ ] 债务利息匹配
+- [ ] 所有公式使用单元格引用
+- [ ] 检查行显示零误差
+- [ ] 格式统一
+
+## 关键原则总结
+
+1. **三表是一家** - 它们描述同一件事的不同角度
+2. **平衡是底线** - 不平衡的模型没有价值
+3. **逻辑一致性** - 同一项目在三表中必须一致
+4. **公式而非硬编码** - 确保模型灵活性
+5. **检查是必须的** - 用检查行验证平衡
+6. **从简单开始** - 先建立基本结构，再增加复杂度
+7. **持续验证** - 每一步都要检查平衡
+`
+            },
+
+            "audit": {
+                title: "Excel模型审计",
+                subtitle: "02-股票研究 · 质量保证",
+                badge: "工具技能",
+                oneliner: "检查Excel模型的公式准确性、错误和常见问题，确保模型可靠性",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>模型审计是质量控制的关键环节。<strong>发出去之前先审一遍</strong>，避免错误导致决策失误或信誉损失。</p><p>审计包括公式错误检查、硬编码检测、逻辑一致性验证、财务模型完整性检查等。</p>",
+                steps: [
+                    {title: "确定审计范围", what: "选择要审计的范围：选中区域/当前工作表/整个模型", why: "不同范围深度不同。完整模型审计包括三表平衡、现金勾稽等", tips: "发客户/投委会前用完整审计；日常检查用工作表级即可"},
+                    {title: "公式级检查", what: "检查：公式错误(#REF!/#VALUE!/#N/A)、硬编码、不一致公式、范围偏移、循环引用", why: "公式错误会让模型崩溃；硬编码让模型不灵活；不一致公式可能隐藏错误", tips: "硬编码检测：公式中的数字(如=A1*1.05)应改为单元格引用"},
+                    {title: "逻辑一致性检查", what: "检查：小计正确、汇总正确、跨表引用正确、符号一致性", why: "逻辑错误比公式错误更隐蔽，但会导致错误结论", tips: "用检查行：小计=各分项之和；汇总=各小计之和"},
+                    {title: "财务模型完整性检查", what: "检查：资产负债表平衡(资产=负债+权益)、现金勾稽、滚动平衡", why: "这是财务模型的核心要求。不平衡的模型没有价值", tips: "资产-(负债+权益)=0；如果不为0，逐项检查"},
+                    {title: "数据合理性检查", what: "检查：数值合理性、趋势合理性、比率在正常范围", why: "数字正确不代表结论正确。异常值可能指示错误", tips: "毛利率50%？可能高了。收入增长100%？是否合理？"},
+                    {title: "生成审计报告", what: "汇总所有发现的问题，按严重程度分类，给出修复建议", why: "审计的价值在于发现问题并推动修复", tips: "分三类：致命错误(必须修)、警告(建议修)、提示(可优化)"}
+                ],
+                fullDocumentation: `# Excel模型审计
+
+## 概述
+
+模型审计是质量控制的关键环节。核心原则很简单：**发出去之前先审一遍**。
+
+审计包括公式错误检查、硬编码检测、逻辑一致性验证、财务模型完整性检查等。一个小的错误可能导致错误的决策，甚至信誉损失。
+
+## 核心原则
+
+**"模型审计不是找茬，而是确保决策基于准确的数据。"**
+
+模型审计的核心在于：系统化检查、分类问题、推动修复、建立信任。好的审计能发现隐藏的错误，提升模型质量。
+
+## 分析步骤
+
+### 第1步：确定审计范围
+
+**做什么**：选择要审计的范围：选中区域/当前工作表/整个模型
+
+**为什么**：不同范围深度不同。完整模型审计包括三表平衡、现金勾稽等
+
+**注意**：发客户/投委会前用完整审计；日常检查用工作表级即可
+
+### 第2步：公式级检查
+
+**做什么**：检查：公式错误(#REF!/#VALUE!/#N/A)、硬编码、不一致公式、范围偏移、循环引用
+
+**为什么**：公式错误会让模型崩溃；硬编码让模型不灵活；不一致公式可能隐藏错误
+
+**注意**：硬编码检测：公式中的数字(如=A1*1.05)应改为单元格引用
+
+### 第3步：逻辑一致性检查
+
+**做什么**：检查：小计正确、汇总正确、跨表引用正确、符号一致性
+
+**为什么**：逻辑错误比公式错误更隐蔽，但会导致错误结论
+
+**注意**：用检查行：小计=各分项之和；汇总=各小计之和
+
+### 第4步：财务模型完整性检查
+
+**做什么**：检查：资产负债表平衡(资产=负债+权益)、现金勾稽、滚动平衡
+
+**为什么**：这是财务模型的核心要求。不平衡的模型没有价值
+
+**注意**：资产-(负债+权益)=0；如果不为0，逐项检查
+
+### 第5步：数据合理性检查
+
+**做什么**：检查：数值合理性、趋势合理性、比率在正常范围
+
+**为什么**：数字正确不代表结论正确。异常值可能指示错误
+
+**注意**：毛利率50%？可能高了。收入增长100%？是否合理？
+
+### 第6步：生成审计报告
+
+**做什么**：汇总所有发现的问题，按严重程度分类，给出修复建议
+
+**为什么**：审计的价值在于发现问题并推动修复
+
+**注意**：分三类：致命错误(必须修)、警告(建议修)、提示(可优化)
+
+## 审计检查清单
+
+### 公式错误
+
+- [ ] #REF! 错误
+- [ ] #VALUE! 错误
+- [ ] #N/A 错误
+- [ ] #DIV/0! 错误
+- [ ] 循环引用
+
+### 硬编码检测
+
+- [ ] 公式中包含数字
+- [ ] 应该是公式的常数
+- [ ] 未标记来源的输入
+
+### 逻辑一致性
+
+- [ ] 小计=分项之和
+- [ ] 汇总=小计之和
+- [ ] 跨表引用正确
+- [ ] 符号一致性
+
+### 财务完整性
+
+- [ ] 资产负债表平衡
+- [ ] 现金流量表平衡
+- [ ] 净利润→留存收益
+- [ ] 现金变化→货币资金
+
+## 常见错误类型
+
+### 致命错误
+
+- 三表不平衡
+- 公式引用错误
+- 硬编码的关键假设
+- 循环引用
+
+### 警告
+
+- 缺少文档
+- 格式不一致
+- 缺少检查行
+- 命名不清楚
+
+### 提示
+
+- 可以优化的公式
+- 可以简化的结构
+- 可以改进的格式
+
+## 输出检查清单
+
+审计报告应该包括：
+- [ ] 审计范围说明
+- [ ] 发现问题列表
+- [ ] 问题严重程度分类
+- [ ] 修复建议
+- [ ] 修复优先级
+- [ ] 审计日期和人员
+
+## 关键原则总结
+
+1. **系统化检查** - 按照检查清单逐项检查
+2. **分类问题** - 按严重程度分类
+3. **推动修复** - 审计的目的是修复问题
+4. **建立信任** - 好的审计建立模型信任
+5. **持续改进** - 从错误中学习
+6. **文档化** - 记录所有发现
+7. **独立性** - 审计应该由建模人以外的人进行
+`
+            },
+
+            "data-cleaning": {
+                title: "数据清洗",
+                subtitle: "02-股票研究 · 数据处理",
+                badge: "基础技能",
+                oneliner: "清理和标准化财务数据，确保数据质量适合分析建模",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>垃圾进，垃圾出。数据清洗是分析的基础。<strong>原始数据通常有各种问题</strong>：格式不一致、缺失值、异常值、重复记录等。</p><p>清洗后的数据应该：格式统一、无缺失、无异常、可追溯。</p>",
+                steps: [
+                    {title: "数据源评估", what: "检查数据来源、时间范围、覆盖面、字段完整性", why: "了解数据质量，预设清洗策略", tips: "MCP数据源最可靠；爬虫数据需要大量清洗"},
+                    {title: "格式标准化", what: "统一日期格式、数字格式(千/百万)、货币单位、百分比格式", why: "格式不统一会导致计算错误或分析失败", tips: "日期统一用YYYY-MM-DD；数字统一用实际值而非千分位"},
+                    {title: "缺失值处理", what: "识别缺失值，决定填充策略：前值填充/插值/均值/删除", why: "缺失值不能直接忽略，需要合理处理", tips: "时间序列：用前值填充；横截面：用均值填充"},
+                    {title: "异常值处理", what: "识别异常值，决定处理策略：验证/修正/删除/标记", why: "异常值会扭曲统计结果，但可能包含重要信息", tips: "先验证是否真实异常；如果是错误则修正，如果是真实则保留并标记"},
+                    {title: "去重和关联", what: "删除重复记录，建立数据关联(如公司代码与股票代码)", why: "重复数据会重复计算；数据关联让分析更灵活", tips: "保留最新记录；建立代码映射表"},
+                    {title: "验证和记录", what: "验证清洗后数据的一致性，记录所有清洗操作", why: "数据可追溯性很重要，审计时需要知道数据来源和变更", tips: "创建清洗日志：日期、操作、原因、影响"}
+                ],
+                fullDocumentation: `# 数据清洗
+
+## 概述
+
+垃圾进，垃圾出。数据清洗是分析的基础。核心原则很简单：**原始数据通常有各种问题**。
+
+清洗后的数据应该：格式统一、无缺失、无异常、可追溯。好的数据清洗是准确分析的基础。
+
+## 核心原则
+
+**"数据清洗不是篡改数据，而是让数据更准确可用。"**
+
+数据清洗的核心在于：识别问题、合理处理、保持可追溯性。每一步清洗操作都应该记录，确保数据来源清晰。
+
+## 分析步骤
+
+### 第1步：数据源评估
+
+**做什么**：检查数据来源、时间范围、覆盖面、字段完整性
+
+**为什么**：了解数据质量，预设清洗策略
+
+**注意**：MCP数据源最可靠；爬虫数据需要大量清洗
+
+### 第2步：格式标准化
+
+**做什么**：统一日期格式、数字格式(千/百万)、货币单位、百分比格式
+
+**为什么**：格式不统一会导致计算错误或分析失败
+
+**注意**：日期统一用YYYY-MM-DD；数字统一用实际值而非千分位
+
+### 第3步：缺失值处理
+
+**做什么**：识别缺失值，决定填充策略：前值填充/插值/均值/删除
+
+**为什么**：缺失值不能直接忽略，需要合理处理
+
+**注意**：时间序列：用前值填充；横截面：用均值填充
+
+### 第4步：异常值处理
+
+**做什么**：识别异常值，决定处理策略：验证/修正/删除/标记
+
+**为什么**：异常值会扭曲统计结果，但可能包含重要信息
+
+**注意**：先验证是否真实异常；如果是错误则修正，如果是真实则保留并标记
+
+### 第5步：去重和关联
+
+**做什么**：删除重复记录，建立数据关联(如公司代码与股票代码)
+
+**为什么**：重复数据会重复计算；数据关联让分析更灵活
+
+**注意**：保留最新记录；建立代码映射表
+
+### 第6步：验证和记录
+
+**做什么**：验证清洗后数据的一致性，记录所有清洗操作
+
+**为什么**：数据可追溯性很重要，审计时需要知道数据来源和变更
+
+**注意**：创建清洗日志：日期、操作、原因、影响
+
+## 常见数据问题
+
+### 格式问题
+
+- 日期格式不统一
+- 数字包含千分位
+- 货币单位不一致
+- 百分比格式混乱
+
+### 缺失值
+
+- 完全随机缺失
+- 随机缺失
+- 非随机缺失
+
+### 异常值
+
+- 输入错误
+- 测量误差
+- 真实异常
+
+## 处理策略
+
+### 缺失值处理
+
+| 策略 | 适用场景 | 优点 | 缺点 |
+|------|----------|------|------|
+| 删除 | 缺失比例<5% | 简单 | 丢失信息 |
+| 前值填充 | 时间序列 | 保持趋势 | 可能传播错误 |
+| 均值填充 | 横截面 | 保持分布 | 降低方差 |
+| 插值 | 时间序列 | 平滑 | 可能不准确 |
+
+### 异常值处理
+
+| 策略 | 适用场景 | 优点 | 缺点 |
+|------|----------|------|------|
+| 删除 | 确认错误 | 清理数据 | 丢失信息 |
+| 修正 | 可推断真实值 | 保持数据 | 可能引入偏差 |
+| 保留 | 真实异常 | 保持信息 | 影响统计 |
+| 标记 | 不确定 | 可追溯 | 需要后续处理 |
+
+## 输出检查清单
+
+清洗后的数据应该：
+- [ ] 格式统一
+- [ ] 无缺失值或已处理
+- [ ] 无异常值或已标记
+- [ ] 无重复记录
+- [ ] 数据关联正确
+- [ ] 有清洗日志
+- [ ] 可追溯来源
+- [ ] 验证通过
+
+## 关键原则总结
+
+1. **先评估再清洗** - 了解数据质量再制定策略
+2. **保持可追溯性** - 每一步都要记录
+3. **合理处理缺失** - 不要简单删除
+4. **谨慎处理异常** - 验证后再决定
+5. **格式统一** - 确保可计算
+6. **验证结果** - 清洗后要验证
+7. **建立日志** - 记录所有操作
+`
+            },
+
+            "competitive-analysis": {
+                title: "竞争分析",
+                subtitle: "02-股票研究 · 行业分析",
+                badge: "核心技能",
+                oneliner: "分析竞争对手的战略、产品、财务表现，评估目标公司的相对位置",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>投资决策不能只看公司本身，<strong>必须放在竞争环境中评估</strong>。竞争分析帮助你理解公司在行业中的位置、竞争优势和风险。</p><p>核心问题：相对竞争对手，这家公司更强还是更弱？为什么？</p>",
+                steps: [
+                    {title: "识别竞争格局", what: "确定主要竞争对手(直接竞争对手、间接竞争对手、潜在进入者)", why: "不了解竞争就无法评估公司的真实表现", tips: "直接竞争：相同产品相同市场；间接竞争：替代产品"},
+                    {title: "收集竞争数据", what: "收集竞争对手的：产品、价格、渠道、营销、财务数据", why: "对比分析需要可比数据", tips: "公开来源：年报、公告、新闻；MCP数据源更高效"},
+                    {title: "产品/服务对比", what: "对比：功能、质量、价格、创新速度、客户满意度", why: "产品是竞争的核心战场", tips: "用评分矩阵量化对比；关注差异化优势"},
+                    {title: "财务表现对比", what: "对比：增长率、利润率、ROE、资产周转率", why: "财务表现反映战略执行效果", tips: "用图表可视化对比；关注趋势而不只是当前值"},
+                    {title: "战略和定位分析", what: "分析各公司的战略定位、目标客户、价值主张", why: "了解竞争对手的战略意图，预判未来竞争动态", tips: "波特五力、SWOT分析、战略集团图"},
+                    {title: "得出竞争结论", what: "评估目标公司的相对位置：领先者/挑战者/追随者/利基玩家", why: "竞争地位影响投资逻辑和估值倍数", tips: "领先者享受估值溢价；挑战者需要更强的催化剂"}
+                ],
+                fullDocumentation: `# 竞争分析
+
+## 概述
+
+投资决策不能只看公司本身，核心原则很简单：**必须放在竞争环境中评估**。
+
+竞争分析帮助你理解公司在行业中的位置、竞争优势和风险。核心问题：相对竞争对手，这家公司更强还是更弱？为什么？
+
+## 核心原则
+
+**"没有公司是孤岛。竞争地位决定长期回报。"**
+
+竞争分析的核心在于：识别竞争对手、对比分析、评估相对位置、预判竞争动态。好的竞争分析能发现被低估的领先者或被高估的追随者。
+
+## 分析步骤
+
+### 第1步：识别竞争格局
+
+**做什么**：确定主要竞争对手(直接竞争对手、间接竞争对手、潜在进入者)
+
+**为什么**：不了解竞争就无法评估公司的真实表现
+
+**注意**：直接竞争：相同产品相同市场；间接竞争：替代产品
+
+### 第2步：收集竞争数据
+
+**做什么**：收集竞争对手的：产品、价格、渠道、营销、财务数据
+
+**为什么**：对比分析需要可比数据
+
+**注意**：公开来源：年报、公告、新闻；MCP数据源更高效
+
+### 第3步：产品/服务对比
+
+**做什么**：对比：功能、质量、价格、创新速度、客户满意度
+
+**为什么**：产品是竞争的核心战场
+
+**注意**：用评分矩阵量化对比；关注差异化优势
+
+### 第4步：财务表现对比
+
+**做什么**：对比：增长率、利润率、ROE、资产周转率
+
+**为什么**：财务表现反映战略执行效果
+
+**注意**：用图表可视化对比；关注趋势而不只是当前值
+
+### 第5步：战略和定位分析
+
+**做什么**：分析各公司的战略定位、目标客户、价值主张
+
+**为什么**：了解竞争对手的战略意图，预判未来竞争动态
+
+**注意**：波特五力、SWOT分析、战略集团图
+
+### 第6步：得出竞争结论
+
+**做什么**：评估目标公司的相对位置：领先者/挑战者/追随者/利基玩家
+
+**为什么**：竞争地位影响投资逻辑和估值倍数
+
+**注意**：领先者享受估值溢价；挑战者需要更强的催化剂
+
+## 竞争分析框架
+
+### 波特五力分析
+
+1. **现有竞争者竞争强度**
+2. **新进入者威胁**
+3. **替代品威胁**
+4. **供应商议价能力**
+5. **客户议价能力**
+
+### SWOT分析
+
+- **优势(Strengths)**：内部优势
+- **劣势(Weaknesses)**：内部劣势
+- **机会(Opportunities)**：外部机会
+- **威胁(Threats)**：外部威胁
+
+### 竞争地位分类
+
+| 地位 | 特征 | 估值影响 | 投资逻辑 |
+|------|------|----------|----------|
+| 领导者 | 市场份额第一 | 估值溢价 | 质量投资 |
+| 挑战者 | 快速追赶 | 估值合理 | 成长投资 |
+| 追随者 | 跟随策略 | 估值折价 | 价值投资 |
+| 利基玩家 | 专注细分 | 取决于利基 | 特殊机会 |
+
+## 最佳实践
+
+### 数据收集
+
+- 使用多个来源
+- 关注最新数据
+- 验证数据准确性
+- 保持数据更新
+
+### 对比分析
+
+- 使用可比指标
+- 关注趋势变化
+- 量化差异
+- 可视化展示
+
+### 结论评估
+
+- 基于证据
+- 考虑动态变化
+- 评估可持续性
+- 给出明确观点
+
+## 输出检查清单
+
+竞争分析报告应该包括：
+- [ ] 竞争对手识别
+- [ ] 产品/服务对比
+- [ ] 财务表现对比
+- [ ] 战略定位分析
+- [ ] 相对位置评估
+- [ ] 投资建议
+- [ ] 数据来源说明
+
+## 关键原则总结
+
+1. **竞争是动态的** - 关注竞争格局变化
+2. **相对而非绝对** - 相对竞争对手的表现更重要
+3. **多维度分析** - 产品、财务、战略都要看
+4. **量化对比** - 用数据说话
+5. **关注可持续性** - 竞争优势能否持续
+6. **预判变化** - 竞争格局会怎么变
+7. **投资导向** - 分析要服务于投资决策
+`
+            },
+
+            "earnings": {
+                title: "财报分析报告",
+                subtitle: "02-股票研究 · 核心输出",
+                badge: "核心技能",
+                oneliner: "分析公司季度财报，写8-12页专业报告，更新估值和投资论点",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>财报更新是卖方分析师的核心工作。<strong>24-48小时内出报告</strong>，快速分析业绩表现，更新估值和投资建议。</p><p>重点是新信息：超预期/低于预期、驱动因素、未来展望变化。</p>",
+                steps: [
+                    {title: "快速阅读财报", what: "30分钟内通读财报，关注：收入/利润vs预期、驱动因素、管理层展望", why: "财报发布会股价反应剧烈，需要快速理解关键信息", tips: "先看新闻稿摘要，再细节；注意管理层口径变化"},
+                    {title: "业绩vs预期分析", what: "对比实际vs一致预期：收入、EBITDA、净利润，量化差异", why: "超预期/低于预期是市场关注的核心", tips: "收入超3%是显著超预期；解释超/欠预期的驱动因素"},
+                    {title: "细分业务分析", what: "分析各业务线/地区表现：增长率、利润率变化、贡献占比", why: "整体数字掩盖细节，细分业务揭示真实趋势", tips: "关注高增长业务是否持续；关注拖累业务的改善空间"},
+                    {title: "更新财务模型", what: "根据新数据更新模型：历史数据、预测假设、估值", why: "模型是估值基础，必须及时更新", tips: "重点更新：收入增长率、利润率、资本支出；保持内部一致性"},
+                    {title: "更新投资论点", what: "评估财报对投资论点的影响：强化/削弱/无变化？", why: "投资决策基于论点，财报是验证论点的重要信息", tips: "如果论点被削弱，考虑降级；如果强化，可考虑上调目标价"},
+                    {title: "撰写报告", what: "8-12页报告：摘要、业绩亮点、模型更新、估值、风险、投资建议", why: "报告是分析师的专业产出，影响客户决策", tips: "用图表可视化关键数据；用粗体突出重点；限时48小时内发出"}
+                ],
+                fullDocumentation: `# 财报分析报告
+
+## 概述
+
+财报更新是卖方分析师的核心工作。核心原则很简单：**24-48小时内出报告**。
+
+快速分析业绩表现，更新估值和投资建议。重点是新信息：超预期/低于预期、驱动因素、未来展望变化。
+
+## 核心原则
+
+**"速度很重要，但准确更重要。快速反应，准确分析。"**
+
+财报分析的核心在于：快速阅读、识别关键信息、更新模型、评估影响、给出建议。好的财报分析帮助客户快速做出决策。
+
+## 分析步骤
+
+### 第1步：快速阅读财报
+
+**做什么**：30分钟内通读财报，关注：收入/利润vs预期、驱动因素、管理层展望
+
+**为什么**：财报发布会股价反应剧烈，需要快速理解关键信息
+
+**注意**：先看新闻稿摘要，再细节；注意管理层口径变化
+
+### 第2步：业绩vs预期分析
+
+**做什么**：对比实际vs一致预期：收入、EBITDA、净利润，量化差异
+
+**为什么**：超预期/低于预期是市场关注的核心
+
+**注意**：收入超3%是显著超预期；解释超/欠预期的驱动因素
+
+### 第3步：细分业务分析
+
+**做什么**：分析各业务线/地区表现：增长率、利润率变化、贡献占比
+
+**为什么**：整体数字掩盖细节，细分业务揭示真实趋势
+
+**注意**：关注高增长业务是否持续；关注拖累业务的改善空间
+
+### 第4步：更新财务模型
+
+**做什么**：根据新数据更新模型：历史数据、预测假设、估值
+
+**为什么**：模型是估值基础，必须及时更新
+
+**注意**：重点更新：收入增长率、利润率、资本支出；保持内部一致性
+
+### 第5步：更新投资论点
+
+**做什么**：评估财报对投资论点的影响：强化/削弱/无变化？
+
+**为什么**：投资决策基于论点，财报是验证论点的重要信息
+
+**注意**：如果论点被削弱，考虑降级；如果强化，可考虑上调目标价
+
+### 第6步：撰写报告
+
+**做什么**：8-12页报告：摘要、业绩亮点、模型更新、估值、风险、投资建议
+
+**为什么**：报告是分析师的专业产出，影响客户决策
+
+**注意**：用图表可视化关键数据；用粗体突出重点；限时48小时内发出
+
+## 报告结构
+
+### 标准结构
+
+1. **摘要(1页)**：核心结论、投资建议、目标价变化
+2. **业绩亮点(2-3页)**：收入、利润、细分表现
+3. **vs预期(1-2页)**：差异分析和驱动因素
+4. **管理层展望(1-2页)**：指引和变化
+5. **模型更新(1-2页)**：假设变化和影响
+6. **估值(1-2页)**：新估值和目标价
+7. **投资建议(1页)**：评级和建议
+8. **风险(1页)**：主要风险
+
+## 快速分析技巧
+
+### 关键指标
+
+- 收入增长率 vs 预期
+- EPS vs 预期
+- 毛利率变化
+- 运营费用率变化
+- 现金流状况
+
+### 关注点
+
+- 管理层口径变化
+- 指引变化
+- 一次性项目
+- 会计政策变化
+- 行业趋势影响
+
+## 输出检查清单
+
+财报报告应该包括：
+- [ ] 清晰的投资建议
+- [ ] vs预期分析
+- [ ] 细分业务分析
+- [ ] 模型更新说明
+- [ ] 估值和目标价
+- [ ] 风险因素
+- [ ] 数据可视化
+- [ ] 48小时内发出
+
+## 关键原则总结
+
+1. **速度第一** - 48小时内必须发出
+2. **准确第二** - 宁可慢也不要出错
+3. **聚焦新信息** - 市场关心变化
+4. **量化差异** - 用数字说话
+5. **更新论点** - 财报验证或推翻论点
+6. **可视化** - 图表比文字更直观
+7. **行动导向** - 给出明确建议
+`
+            },
+
+            "merger-model": {
+                title: "并购模型",
+                subtitle: "03-M&A · 核心建模",
+                badge: "高阶技能",
+                oneliner: "建模分析并购交易：收购价格、融资结构、协同效应、增厚/摊薄分析",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>并购是投行的核心业务。<strong>并购模型分析交易的财务影响</strong>：买方出多少钱？怎么融资？协同效应有多大？EPS是增厚还是摊薄？</p><p>核心输出：贡献分析、 accretion/dilution分析、交换比率。</p>",
+                steps: [
+                    {title: "确定交易结构", what: "确定：收购方式(现金/股票/混合)、交易规模、支付溢价", why: "交易结构决定融资方式和会计处理", tips: "现金交易需要债务融资；股票交易涉及换股比例"},
+                    {title: "建立买方模型", what: "建模买方独立财务：历史+预测的利润表、资产负债表、现金流量表", why: "买方独立价值是分析起点", tips: "用简单模型，重点在合并而非独立预测"},
+                    {title: "建立标的模型", what: "建模标的独立财务：历史+预测的利润表、资产负债表、现金流量表", why: "标的独立价值是交易价值的基础", tips: "同样用简化模型；确保与买方模型假设一致"},
+                    {title: "协同效应建模", what: "量化收入协同(交叉销售)和成本协同(裁员、采购优化)", why: "协同效应是并购的核心理由，支撑溢价", tips: "成本协同更确定；收入协同更乐观；分年实现"},
+                    {title: "交易融资建模", what: "建模融资结构：现金部分(债务+手头现金)、股票部分(增发股数)", why: "融资影响合并后资本结构和EPS", tips: "债务融资增加利息支出；股票融资摊薄股权"},
+                    {title: "合并报表建模", what: "合并买方和标的：收入加总、成本调整(协同)、利息新增、股数增发", why: "合并报表反映交易后财务表现", tips: "资产调整：商誉=收购价-可辨认净资产；分年摊销"},
+                    {title: "增厚/摊薄分析", what: "比较合并后EPS vs 买方独立EPS，判断 accretion(增厚)或 dilution(摊薄)", why: "这是投委会最关心的指标：EPS增厚还是摊薄？", tips: "第一年EPS增厚20%是好交易；如果摊薄，需要解释何时转正"}
+                ],
+                fullDocumentation: `# 并购模型
+
+## 概述
+
+并购是投行的核心业务。核心原则很简单：**并购模型分析交易的财务影响**。
+
+买方出多少钱？怎么融资？协同效应有多大？EPS是增厚还是摊薄？核心输出：贡献分析、accretion/dilution分析、交换比率。
+
+## 核心原则
+
+**"并购模型不只是数字，而是交易的逻辑验证。"**
+
+并购建模的核心在于：理解交易结构、准确建模协同、分析增厚摊薄、评估交易价值。好的并购模型能回答"这笔交易值不值"。
+
+## 分析步骤
+
+### 第1步：确定交易结构
+
+**做什么**：确定：收购方式(现金/股票/混合)、交易规模、支付溢价
+
+**为什么**：交易结构决定融资方式和会计处理
+
+**注意**：现金交易需要债务融资；股票交易涉及换股比例
+
+### 第2步：建立买方模型
+
+**做什么**：建模买方独立财务：历史+预测的利润表、资产负债表、现金流量表
+
+**为什么**：买方独立价值是分析起点
+
+**注意**：用简单模型，重点在合并而非独立预测
+
+### 第3步：建立标的模型
+
+**做什么**：建模标的独立财务：历史+预测的利润表、资产负债表、现金流量表
+
+**为什么**：标的独立价值是交易价值的基础
+
+**注意**：同样用简化模型；确保与买方模型假设一致
+
+### 第4步：协同效应建模
+
+**做什么**：量化收入协同(交叉销售)和成本协同(裁员、采购优化)
+
+**为什么**：协同效应是并购的核心理由，支撑溢价
+
+**注意**：成本协同更确定；收入协同更乐观；分年实现
+
+### 第5步：交易融资建模
+
+**做什么**：建模融资结构：现金部分(债务+手头现金)、股票部分(增发股数)
+
+**为什么**：融资影响合并后资本结构和EPS
+
+**注意**：债务融资增加利息支出；股票融资摊薄股权
+
+### 第6步：合并报表建模
+
+**做什么**：合并买方和标的：收入加总、成本调整(协同)、利息新增、股数增发
+
+**为什么**：合并报表反映交易后财务表现
+
+**注意**：资产调整：商誉=收购价-可辨认净资产；分年摊销
+
+### 第7步：增厚/摊薄分析
+
+**做什么**：比较合并后EPS vs 买方独立EPS，判断 accretion(增厚)或 dilution(摊薄)
+
+**为什么**：这是投委会最关心的指标：EPS增厚还是摊薄？
+
+**注意**：第一年EPS增厚20%是好交易；如果摊薄，需要解释何时转正
+
+## 协同效应类型
+
+### 成本协同
+
+- 人员冗余减少
+- 采购规模效应
+- 办公场所整合
+- IT系统合并
+- 供应链优化
+
+### 收入协同
+
+- 交叉销售
+- 渠道扩展
+- 产品互补
+- 客户共享
+- 市场扩张
+
+## 增厚/摊薄分析
+
+### 影响因素
+
+- 收购价格
+- 融资方式
+- 协同效应
+- 税率
+- 股权摊薄
+
+### 分析框架
+
+| 因素 | 增厚影响 | 摊薄影响 |
+|------|----------|----------|
+| 低收购价 | ✓ | |
+| 高协同 | ✓ | |
+| 债务融资 | | ✓(利息) |
+| 股票融资 | | ✓(摊薄) |
+
+## 输出检查清单
+
+并购模型应该包括：
+- [ ] 买方和标的独立模型
+- [ ] 协同效应分析
+- [ ] 融资结构
+- [ ] 合并报表
+- [ ] 增厚/摊薄分析
+- [ ] 交换比率
+- [ ] 敏感性分析
+- [ ] 交易总结
+
+## 关键原则总结
+
+1. **结构驱动一切** - 交易结构决定分析框架
+2. **协同要量化** - 模糊的协同没有价值
+3. **假设要合理** - 协同假设要保守
+4. **增厚摊薄是关键** - 这是投委会最关心的
+5. **敏感性分析必须** - 交易对假设敏感
+6. **三表必须平衡** - 合并报表也要平衡
+7. **简洁优于复杂** - 复杂模型容易出错
+`
+            },
+
+            "pitch-deck": {
+                title: "融资演示文稿",
+                subtitle: "03-M&A · 核心输出",
+                badge: "核心技能",
+                oneliner: "为投行项目制作30-40页融资演示文稿，说服投资人或买家",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>Pitch deck是投行的门面。<strong>30分钟讲完故事，赢得项目</strong>。每一页都有目的：吸引注意、建立信任、展示价值、促成交易。</p><p>好的pitch deck不只是堆数据，而是讲一个引人入胜的故事。</p>",
+                steps: [
+                    {title: "确定故事主线", what: "明确交易的核心故事：为什么是现在？为什么是我们？为什么这公司？", why: "故事是pitch的灵魂。没有故事的deck是数据堆砌", tips: "故事主线：市场机会 → 公司优势 → 交易价值 → 我们的团队"},
+                    {title: "设计结构大纲", what: "规划30-40页的结构：市场(5-8页)、公司(8-12页)、交易(8-12页)、团队(3-5页)", why: "结构决定逻辑流。好的结构让故事自然展开", tips: "标准结构：概述 → 市场 → 公司 → 财务 → 交易 → 团队 → 附录"},
+                    {title: "制作市场页", what: "展示市场规模、增长、趋势、驱动因素。用图表可视化", why: "大市场有大机会。投资人先看市场，再看公司", tips: "TAM/SAM/SOM框架；用权威数据(麦肯锡、Gartner)"},
+                    {title: "制作公司页", what: "展示公司概况、产品/服务、竞争优势、客户、财务表现", why: "证明公司是行业中的优质标的", tips: "竞争优势用表格对比；客户logo墙增加可信度"},
+                    {title: "制作交易页", what: "展示交易结构、定价、协同效应、增厚/摊薄分析", why: "交易页是核心论证，证明交易价值", tips: "用敏感性分析展示不同情景；强调最乐观但有理的情景"},
+                    {title: "设计和格式化", what: "统一字体、颜色、图表风格；确保对齐、留白、视觉层次", why: "专业的外观传递专业的能力。格式错误=不专业", tips: "用模板确保一致性；投行标准：Times New Roman、蓝灰色系"},
+                    {title: "质量检查", what: "检查：数据正确、拼写无误、图表清晰、逻辑连贯、没有格式错误", why: "一个小错误可能毁掉整个pitch", tips: "找人通读；打印版检查；用检查清单"}
+                ],
+                fullDocumentation: `# 融资演示文稿
+
+## 概述
+
+Pitch deck是投行的门面。核心原则很简单：**30分钟讲完故事，赢得项目**。每一页都有目的：吸引注意、建立信任、展示价值、促成交易。
+
+好的pitch deck不只是堆数据，而是讲一个引人入胜的故事。
+
+## 分析步骤
+
+### 第1步：确定故事主线
+**做什么**：明确交易的核心故事：为什么是现在？为什么是我们？为什么这公司？
+**为什么**：故事是pitch的灵魂。没有故事的deck是数据堆砌
+**注意**：故事主线：市场机会 → 公司优势 → 交易价值 → 我们的团队
+
+### 第2步：设计结构大纲
+**做什么**：规划30-40页的结构：市场(5-8页)、公司(8-12页)、交易(8-12页)、团队(3-5页)
+**为什么**：结构决定逻辑流。好的结构让故事自然展开
+**注意**：标准结构：概述 → 市场 → 公司 → 财务 → 交易 → 团队 → 附录
+
+### 第3步：制作市场页
+**做什么**：展示市场规模、增长、趋势、驱动因素。用图表可视化
+**为什么**：大市场有大机会。投资人先看市场，再看公司
+**注意**：TAM/SAM/SOM框架；用权威数据(麦肯锡、Gartner)
+
+### 第4步：制作公司页
+**做什么**：展示公司概况、产品/服务、竞争优势、客户、财务表现
+**为什么**：证明公司是行业中的优质标的
+**注意**：竞争优势用表格对比；客户logo墙增加可信度
+
+### 第5步：制作交易页
+**做什么**：展示交易结构、定价、协同效应、增厚/摊薄分析
+**为什么**：交易页是核心论证，证明交易价值
+**注意**：用敏感性分析展示不同情景；强调最乐观但有理的情景
+
+### 第6步：设计和格式化
+**做什么**：统一字体、颜色、图表风格；确保对齐、留白、视觉层次
+**为什么**：专业的外观传递专业的能力。格式错误=不专业
+**注意**：用模板确保一致性；投行标准：Times New Roman、蓝灰色系
+
+### 第7步：质量检查
+**做什么**：检查：数据正确、拼写无误、图表清晰、逻辑连贯、没有格式错误
+**为什么**：一个小错误可能毁掉整个pitch
+**注意**：找人通读；打印版检查；用检查清单
+
+## 关键原则
+
+1. **讲故事** - 30分钟讲完故事，赢得项目
+2. **故事主线** - 为什么是现在？为什么是我们？为什么这公司？
+3. **结构逻辑** - 结构决定逻辑流
+4. **市场优先** - 投资人先看市场，再看公司
+5. **数据权威** - 用权威数据(麦肯锡、Gartner)
+6. **竞争优势** - 用表格对比；客户logo墙
+7. **交易价值** - 敏感性分析展示不同情景
+8. **专业格式** - Times New Roman、蓝灰色系
+9. **质量检查** - 一个小错误可能毁掉整个pitch
+`
+            },
+
+            "ic-memo": {
+                title: "投委会备忘录",
+                subtitle: "04-私募股权 · 决策文档",
+                badge: "核心技能",
+                oneliner: "撰写投委会备忘录，推荐投资决策，供合伙人投票",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>IC Memo是私募股权的核心决策文档。<strong>投资之前，必须说服投委会</strong>。IC Memo全面分析投资机会、风险、回报。</p><p>写清楚为什么投、为什么现在投、多少钱、怎么赚钱、什么风险。</p>",
+                steps: [
+                    {title: "确定投资论点", what: "提炼核心投资论点：为什么这家公司？为什么是这个价格？", why: "论点是IC Memo的灵魂。没有论点的memo没有说服力", tips: "论点要简洁：5-10句话说清核心逻辑"},
+                    {title: "公司概述", what: "描述公司：业务、产品、市场、历史、股权结构", why: "IC成员可能不了解这个行业或公司，需要背景", tips: "1-2页足够；重点在投资机会而非公司史"},
+                    {title: "市场分析", what: "分析市场规模、增长、趋势、竞争格局", why: "大市场有大退出机会。市场是投资的基础", tips: "用数据说话；引用权威来源；关注增长驱动力"},
+                    {title: "投资亮点", what: "列出3-5个关键投资亮点：为什么这家公司特别？", why: "亮点是投资的核心理由，是区别于其他机会的关键", tips: "每个亮点要具体：有数据、有证据；避免泛泛而谈"},
+                    {title: "财务分析", what: "展示历史财务、预测、估值、回报分析(IRR/MOIC)", why: "财务是投资决策的基础。数字验证论点", tips: "用图表展示趋势；用敏感性分析展示区间"},
+                    {title: "风险分析", what: "识别并评估主要风险：市场、运营、财务、退出", why: "IC成员必须了解风险才能做出知情决策", tips: "不要隐藏风险；对每个风险给出缓释措施"},
+                    {title: "退出策略", what: "分析退出选项：IPO、战略出售、同业出售、次级收购", why: "私募股权必须退出。没有退出策略就没有回报", tips: "分析过往类似交易；评估当前市场环境"},
+                    {title: "团队背景", what: "介绍管理团队：背景、经验、过往业绩", why: "早期投资，团队比产品更重要", tips: "重点在相关行业经验；过往创业/管理业绩"},
+                    {title: "交易结构和条款", what: "说明交易结构、估值、条款、董事会席位、否决权等", why: "条款决定投资人的保护和参与度", tips: "解释关键条款的意义；说明市场条款vs争取条款"},
+                    {title: "建议和下一步", what: "明确投资建议(通过/放弃/有条件通过)和后续步骤", why: "IC Memo的目的是促成决策", tips: "如果建议通过，明确closing条件；如果建议有条件，列出条件"}
+                ],
+                fullDocumentation: `# 投委会备忘录
+
+## 概述
+
+IC Memo是私募股权的核心决策文档。核心原则很简单：**投资之前，必须说服投委会**。
+
+IC Memo全面分析投资机会、风险、回报。写清楚为什么投、为什么现在投、多少钱、怎么赚钱、什么风险。
+
+## 核心原则
+
+**"IC Memo不是推销材料，而是决策支持文档。"**
+
+IC Memo的核心在于：清晰的投资论点、全面的风险分析、合理的回报预期、明确的建议。好的IC Memo帮助投委会做出知情决策。
+
+## 分析步骤
+
+### 第1步：确定投资论点
+
+**做什么**：提炼核心投资论点：为什么这家公司？为什么是这个价格？
+
+**为什么**：论点是IC Memo的灵魂。没有论点的memo没有说服力
+
+**注意**：论点要简洁：5-10句话说清核心逻辑
+
+### 第2步：公司概述
+
+**做什么**：描述公司：业务、产品、市场、历史、股权结构
+
+**为什么**：IC成员可能不了解这个行业或公司，需要背景
+
+**注意**：1-2页足够；重点在投资机会而非公司史
+
+### 第3步：市场分析
+
+**做什么**：分析市场规模、增长、趋势、竞争格局
+
+**为什么**：大市场有大退出机会。市场是投资的基础
+
+**注意**：用数据说话；引用权威来源；关注增长驱动力
+
+### 第4步：投资亮点
+
+**做什么**：列出3-5个关键投资亮点：为什么这家公司特别？
+
+**为什么**：亮点是投资的核心理由，是区别于其他机会的关键
+
+**注意**：每个亮点要具体：有数据、有证据；避免泛泛而谈
+
+### 第5步：财务分析
+
+**做什么**：展示历史财务、预测、估值、回报分析(IRR/MOIC)
+
+**为什么**：财务是投资决策的基础。数字验证论点
+
+**注意**：用图表展示趋势；用敏感性分析展示区间
+
+### 第6步：风险分析
+
+**做什么**：识别并评估主要风险：市场、运营、财务、退出
+
+**为什么**：IC成员必须了解风险才能做出知情决策
+
+**注意**：不要隐藏风险；对每个风险给出缓释措施
+
+### 第7步：退出策略
+
+**做什么**：分析退出选项：IPO、战略出售、同业出售、次级收购
+
+**为什么**：私募股权必须退出。没有退出策略就没有回报
+
+**注意**：分析过往类似交易；评估当前市场环境
+
+### 第8步：团队背景
+
+**做什么**：介绍管理团队：背景、经验、过往业绩
+
+**为什么**：早期投资，团队比产品更重要
+
+**注意**：重点在相关行业经验；过往创业/管理业绩
+
+### 第9步：交易结构和条款
+
+**做什么**：说明交易结构、估值、条款、董事会席位、否决权等
+
+**为什么**：条款决定投资人的保护和参与度
+
+**注意**：解释关键条款的意义；说明市场条款vs争取条款
+
+### 第10步：建议和下一步
+
+**做什么**：明确投资建议(通过/放弃/有条件通过)和后续步骤
+
+**为什么**：IC Memo的目的是促成决策
+
+**注意**：如果建议通过，明确closing条件；如果建议有条件，列出条件
+
+## IC Memo结构
+
+### 标准结构
+
+1. **执行摘要** - 投资论点和建议
+2. **公司概述** - 业务和背景
+3. **市场分析** - 规模、增长、竞争
+4. **投资亮点** - 核心投资理由
+5. **财务分析** - 历史和预测
+6. **估值和回报** - IRR/MOIC分析
+7. **风险分析** - 主要风险和缓释
+8. **退出策略** - 退出选项和时机
+9. **团队** - 管理团队背景
+10. **交易条款** - 结构和关键条款
+
+## 输出检查清单
+
+IC Memo应该包括：
+- [ ] 清晰的投资论点
+- [ ] 公司和行业背景
+- [ ] 市场规模和增长
+- [ ] 投资亮点
+- [ ] 财务分析和预测
+- [ ] 估值和回报分析
+- [ ] 风险分析和缓释
+- [ ] 退出策略
+- [ ] 团队背景
+- [ ] 交易条款
+- [ ] 明确的投资建议
+
+## 关键原则总结
+
+1. **论点清晰** - 一句话说明为什么投
+2. **风险透明** - 不隐藏风险
+3. **数据支撑** - 用数据验证论点
+4. **回报现实** - 不过度承诺
+5. **退出可行** - 有清晰的退出路径
+6. **建议明确** - 给出明确的投票建议
+7. **简洁有力** - IC成员时间有限
+`
+            },
+
+            "financial-plan": {
+                title: "财务规划",
+                subtitle: "05-财富管理 · 核心服务",
+                badge: "核心技能",
+                oneliner: "为客户制定综合财务规划：资产配置、退休规划、税务优化、遗产规划",
+                vertical: "05-财富管理",
+                verticalLink: "vertical-05.html",
+                whatIsThis: "<p>财务规划是财富管理的核心。<strong>不是卖产品，而是帮助客户达成人生目标</strong>：子女教育、退休、财富传承。</p><p>好的财务规划全面、个性化、可执行。</p>",
+                steps: [
+                    {title: "了解客户情况", what: "收集：年龄、家庭、职业、收入、支出、资产、负债、保险、目标", why: "不了解客户就无法制定适合的规划", tips: "用结构化问卷；注意客户口头表述vs实际数字的差异"},
+                    {title: "确定财务目标", what: "明确短期(1-3年)、中期(3-10年)、长期(10年以上)目标", why: "没有目标就没有方向。目标是规划的终点", tips: "目标要SMART：具体、可衡量、可达成、相关、有时限"},
+                    {title: "分析当前状况", what: "计算：净资产、现金流、储蓄率、保险覆盖、风险承受能力", why: "了解现状才能规划未来", tips: "净资产=总资产-总负债；现金流=收入-支出；储蓄率=储蓄/收入"},
+                    {title: "设计资产配置", what: "根据风险承受能力和时间 horizon 配置股票/债券/现金/另类", why: "资产配置决定90%的回报波动", tips: "年轻客户多股票；临近退休多债券；定期rebalance"},
+                    {title: "规划退休", what: "计算退休需求：退休年龄、预期寿命、退休支出、社保/养老金缺口", why: "退休是最大的财务目标，需要提前规划", tips: "假设寿命到90岁；退休支出=当前支出×70-80%"},
+                    {title: "税务优化", what: "识别节税机会：递延账户、税收优惠投资、损失收割、捐赠", why: "省下的税就是赚到的钱。税务优化增加净回报", tips: "充分利用401k/IRA等递延账户；考虑muni bond免税"},
+                    {title: "风险管理", what: "评估风险：人身、健康、财产、责任。建议保险方案", why: "风险事件可能毁掉多年积累。保险是风险管理的核心", tips: "人寿保险=年收入的10倍；残疾保险很重要但常被忽视"},
+                    {title: "遗产规划", what: "规划财富传承：遗嘱、信托、赠与、慈善、税务", why: "遗产规划确保财富按意愿传承，减少税务和纠纷", tips: "美国遗产免税额(2024)是1360万；超出生前规划"},
+                    {title: "实施和监控", what: "制定实施计划，设置定期检查(至少每年)，根据变化调整", why: "规划的价值在于执行。定期调整确保规划保持相关", tips: "每年review；重大人生事件(结婚/生子/换工作)时review"}
+                ],
+                fullDocumentation: `# 财务规划
+
+## 概述
+
+财务规划是财富管理的核心。核心原则很简单：**不是卖产品，而是帮助客户达成人生目标**。
+
+子女教育、退休、财富传承。好的财务规划全面、个性化、可执行。
+
+## 核心原则
+
+**"财务规划是关于人生，而不只是金钱。"**
+
+财务规划的核心在于：了解客户、明确目标、全面规划、定期调整。好的财务规划帮助客户实现人生目标。
+
+## 分析步骤
+
+### 第1步：了解客户情况
+
+**做什么**：收集：年龄、家庭、职业、收入、支出、资产、负债、保险、目标
+
+**为什么**：不了解客户就无法制定适合的规划
+
+**注意**：用结构化问卷；注意客户口头表述vs实际数字的差异
+
+### 第2步：确定财务目标
+
+**做什么**：明确短期(1-3年)、中期(3-10年)、长期(10年以上)目标
+
+**为什么**：没有目标就没有方向。目标是规划的终点
+
+**注意**：目标要SMART：具体、可衡量、可达成、相关、有时限
+
+### 第3步：分析当前状况
+
+**做什么**：计算：净资产、现金流、储蓄率、保险覆盖、风险承受能力
+
+**为什么**：了解现状才能规划未来
+
+**注意**：净资产=总资产-总负债；现金流=收入-支出；储蓄率=储蓄/收入
+
+### 第4步：设计资产配置
+
+**做什么**：根据风险承受能力和时间 horizon 配置股票/债券/现金/另类
+
+**为什么**：资产配置决定90%的回报波动
+
+**注意**：年轻客户多股票；临近退休多债券；定期rebalance
+
+### 第5步：规划退休
+
+**做什么**：计算退休需求：退休年龄、预期寿命、退休支出、社保/养老金缺口
+
+**为什么**：退休是最大的财务目标，需要提前规划
+
+**注意**：假设寿命到90岁；退休支出=当前支出×70-80%
+
+### 第6步：税务优化
+
+**做什么**：识别节税机会：递延账户、税收优惠投资、损失收割、捐赠
+
+**为什么**：省下的税就是赚到的钱。税务优化增加净回报
+
+**注意**：充分利用401k/IRA等递延账户；考虑muni bond免税
+
+### 第7步：风险管理
+
+**做什么**：评估风险：人身、健康、财产、责任。建议保险方案
+
+**为什么**：风险事件可能毁掉多年积累。保险是风险管理的核心
+
+**注意**：人寿保险=年收入的10倍；残疾保险很重要但常被忽视
+
+### 第8步：遗产规划
+
+**做什么**：规划财富传承：遗嘱、信托、赠与、慈善、税务
+
+**为什么**：遗产规划确保财富按意愿传承，减少税务和纠纷
+
+**注意**：美国遗产免税额(2024)是1360万；超出生前规划
+
+### 第9步：实施和监控
+
+**做什么**：制定实施计划，设置定期检查(至少每年)，根据变化调整
+
+**为什么**：规划的价值在于执行。定期调整确保规划保持相关
+
+**注意**：每年review；重大人生事件(结婚/生子/换工作)时review
+
+## 关键财务指标
+
+### 净资产
+
+净资产 = 总资产 - 总负债
+
+### 现金流
+
+现金流 = 收入 - 支出
+
+### 储蓄率
+
+储蓄率 = 储蓄 / 收入
+
+### 风险承受能力
+
+基于年龄、收入、资产、性格、时间 horizon
+
+## 输出检查清单
+
+财务规划应该包括：
+- [ ] 客户情况分析
+- [ ] 明确的财务目标
+- [ ] 当前状况评估
+- [ ] 资产配置方案
+- [ ] 退休规划
+- [ ] 税务优化建议
+- [ ] 风险管理方案
+- [ ] 遗产规划
+- [ ] 实施计划
+- [ ] 定期review安排
+
+## 关键原则总结
+
+1. **客户为中心** - 规划服务于客户目标
+2. **全面规划** - 考虑所有财务方面
+3. **个性化** - 每个客户都不同
+4. **可执行** - 规划要落地
+5. **定期调整** - 人生在变化
+6. **长期视角** - 关注长期目标
+7. **专业诚信** - 客户利益第一
+`
+            },
+
+            "gl-recon": {
+                title: "总账对账",
+                subtitle: "06-会计 · 核心流程",
+                badge: "基础技能",
+                oneliner: "核对总账与子分类账、明细账的一致性，确保账务准确",
+                vertical: "06-会计",
+                verticalLink: "vertical-06.html",
+                whatIsThis: "<p>总账对账是月结的核心步骤。<strong>确保总账与子系统一致</strong>，否则财务报表不可信。</p><p>对账不平可能指示：记录遗漏、时间差异、错误分类、甚至欺诈。</p>",
+                steps: [
+                    {title: "识别需要对账的账户", what: "列出需要对账的账户：银行、应收账款、应付账款、存货、信用卡、贷款", why: "不是所有账户都需要对账，但重要账户必须对", tips: "余额大、交易频繁的账户优先"},
+                    {title: "获取对账单", what: "从外部获取对账单：银行对账单、信用卡账单、供应商对账单", why: "对账单是独立验证，最可靠", tips: "电子对账单可直接导入；注意截止日可能差异"},
+                    {title: "运行试算表", what: "从总账导出试算表：所有账户的余额和交易明细", why: "试算表是对账的起点", tips: "确保试算表平衡(借方=贷方)后再对账"},
+                    {title: "逐项核对", what: "逐项核对总账余额 vs 对账单余额，识别差异", why: "差异可能指示错误或遗漏", tips: "用对账模板；先核对金额，再核对明细"},
+                    {title: "调查差异", what: "分析差异原因：时间差异、记录遗漏、错误分类、银行费用、NSF支票", why: "找到根本原因才能修复并预防", tips: "常见差异：未兑现支票、银行费用、存入未登账"},
+                    {title: "编制调整分录", what: "对必要的差异编制调整分录，更新总账", why: "调整分录确保总账反映实际", tips: "调整分录需要审批；保持审计轨迹"},
+                    {title: "完成对账", what: "确认总账余额与对账单一致，签署对账表", why: "签署是对账完成的证明，责任明确", tips: "留存对账文件备审计；每月对账不要跳过"}
+                ],
+                fullDocumentation: `# 总账对账
+
+## 概述
+
+总账对账是月结的核心步骤。核心原则很简单：**确保总账与子系统一致**。
+
+对账不平可能指示：记录遗漏、时间差异、错误分类、甚至欺诈。
+
+## 核心原则
+
+**"对账不是形式，而是财务准确性的保障。"**
+
+总账对账的核心在于：识别差异、分析原因、调整记录、预防再犯。好的对账流程确保财务报表准确可信。
+
+## 分析步骤
+
+### 第1步：识别需要对账的账户
+
+**做什么**：列出需要对账的账户：银行、应收账款、应付账款、存货、信用卡、贷款
+
+**为什么**：不是所有账户都需要对账，但重要账户必须对
+
+**注意**：余额大、交易频繁的账户优先
+
+### 第2步：获取对账单
+
+**做什么**：从外部获取对账单：银行对账单、信用卡账单、供应商对账单
+
+**为什么**：对账单是独立验证，最可靠
+
+**注意**：电子对账单可直接导入；注意截止日可能差异
+
+### 第3步：运行试算表
+
+**做什么**：从总账导出试算表：所有账户的余额和交易明细
+
+**为什么**：试算表是对账的起点
+
+**注意**：确保试算表平衡(借方=贷方)后再对账
+
+### 第4步：逐项核对
+
+**做什么**：逐项核对总账余额 vs 对账单余额，识别差异
+
+**为什么**：差异可能指示错误或遗漏
+
+**注意**：用对账模板；先核对金额，再核对明细
+
+### 第5步：调查差异
+
+**做什么**：分析差异原因：时间差异、记录遗漏、错误分类、银行费用、NSF支票
+
+**为什么**：找到根本原因才能修复并预防
+
+**注意**：常见差异：未兑现支票、银行费用、存入未登账
+
+### 第6步：编制调整分录
+
+**做什么**：对必要的差异编制调整分录，更新总账
+
+**为什么**：调整分录确保总账反映实际
+
+**注意**：调整分录需要审批；保持审计轨迹
+
+### 第7步：完成对账
+
+**做什么**：确认总账余额与对账单一致，签署对账表
+
+**为什么**：签署是对账完成的证明，责任明确
+
+**注意**：留存对账文件备审计；每月对账不要跳过
+
+## 常见差异类型
+
+### 时间差异
+
+- 未兑现支票
+- 在途存款
+- 银行已记企业未记
+- 企业已记银行未记
+
+### 错误差异
+
+- 记录遗漏
+- 金额错误
+- 分类错误
+- 重复记录
+
+### 银行费用
+
+- 月费
+- 交易费
+- 透支费
+- NSF支票费
+
+## 输出检查清单
+
+对账完成后：
+- [ ] 所有重要账户已对账
+- [ ] 差异已识别
+- [ ] 差异已调查
+- [ ] 调整分录已编制
+- [ ] 总账已更新
+- [ ] 对账表已签署
+- [ ] 文件已留存
+
+## 关键原则总结
+
+1. **重要账户优先** - 余额大、交易频繁的优先
+2. **独立验证** - 用外部对账单验证
+3. **及时对账** - 不要跳过任何月份
+4. **完整调查** - 找到差异根本原因
+5. **文档化** - 留存所有对账文件
+6. **预防再犯** - 改进流程减少差异
+7. **责任明确** - 签署确认
+`
+            },
+
+            "kyc-parse": {
+                title: "KYC信息解析",
+                subtitle: "07-合规 · 反洗钱",
+                badge: "合规技能",
+                oneliner: "解析和验证客户KYC文档，确保合规要求",
+                vertical: "07-合规",
+                verticalLink: "vertical-07.html",
+                whatIsThis: "<p>KYC（Know Your Customer）是合规的基础。<strong>了解你的客户，才能防止洗钱和欺诈</strong>。</p><p>KYC包括身份验证、风险评估、受益所有人识别等。</p>",
+                steps: [
+                    {title: "收集KYC文档", what: "收集：身份证明(护照/驾照)、地址证明(水电账单)、公司文档(营业执照/章程)", why: "文档是验证客户身份的基础", tips: "文档必须有效(未过期)；复印件需要认证"},
+                    {title: "验证身份", what: "验证：姓名、出生日期、地址、国籍与文档一致", why: "身份验证确保客户是真实存在的人/公司", tips: "用权威数据库验证；检查文档防伪特征"},
+                    {title: "识别受益所有人", what: "对于公司客户，识别最终受益所有人(UBO)：持股25%以上的个人", why: "洗钱者常利用空壳公司。UBO识别穿透到实际控制人", tips: "追溯到自然人；复杂的持股结构需要特别关注"},
+                    {title: "评估风险等级", what: "评估客户风险：低/中/高风险。考虑：国家、行业、产品、渠道、PEP", why: "风险等级决定尽职调查的深度和后续监控的频率", tips: "高风险：政治人物、现金业务、高风险国家；低风险：上市公司、受监管行业"},
+                    {title: "筛查制裁名单", what: "筛查客户和UBO是否在制裁名单、黑名单、PEP名单上", why: "与受制裁方交易可能面临严重法律风险", tips: "用专业筛查工具；定期re-screen(至少每年)"},
+                    {title: "创建KYC档案", what: "整理所有KYC信息，创建客户档案，记录验证过程和结论", why: "KYC档案是合规审计的证据", tips: "留存所有文档副本；记录验证人和日期；机密存储"},
+                    {title: "持续监控", what: "定期更新KYC信息，监控客户行为变化，触发事件时重新评估", why: "客户风险可能变化。持续监控确保持续合规", tips: "高风险客户至少每年review；重大变化(董事变更、业务变化)时触发review"}
+                ],
+                fullDocumentation: `# KYC信息解析
+
+## 概述
+
+KYC（Know Your Customer）是合规的基础。核心原则很简单：**了解你的客户，才能防止洗钱和欺诈**。
+
+KYC包括身份验证、风险评估、受益所有人识别等。
+
+## 核心原则
+
+**"KYC不是形式，而是合规的第一道防线。"**
+
+KYC的核心在于：验证身份、识别风险、筛查制裁、持续监控。好的KYC流程保护机构免受洗钱和欺诈风险。
+
+## 分析步骤
+
+### 第1步：收集KYC文档
+
+**做什么**：收集：身份证明(护照/驾照)、地址证明(水电账单)、公司文档(营业执照/章程)
+
+**为什么**：文档是验证客户身份的基础
+
+**注意**：文档必须有效(未过期)；复印件需要认证
+
+### 第2步：验证身份
+
+**做什么**：验证：姓名、出生日期、地址、国籍与文档一致
+
+**为什么**：身份验证确保客户是真实存在的人/公司
+
+**注意**：用权威数据库验证；检查文档防伪特征
+
+### 第3步：识别受益所有人
+
+**做什么**：对于公司客户，识别最终受益所有人(UBO)：持股25%以上的个人
+
+**为什么**：洗钱者常利用空壳公司。UBO识别穿透到实际控制人
+
+**注意**：追溯到自然人；复杂的持股结构需要特别关注
+
+### 第4步：评估风险等级
+
+**做什么**：评估客户风险：低/中/高风险。考虑：国家、行业、产品、渠道、PEP
+
+**为什么**：风险等级决定尽职调查的深度和后续监控的频率
+
+**注意**：高风险：政治人物、现金业务、高风险国家；低风险：上市公司、受监管行业
+
+### 第5步：筛查制裁名单
+
+**做什么**：筛查客户和UBO是否在制裁名单、黑名单、PEP名单上
+
+**为什么**：与受制裁方交易可能面临严重法律风险
+
+**注意**：用专业筛查工具；定期re-screen(至少每年)
+
+### 第6步：创建KYC档案
+
+**做什么**：整理所有KYC信息，创建客户档案，记录验证过程和结论
+
+**为什么**：KYC档案是合规审计的证据
+
+**注意**：留存所有文档副本；记录验证人和日期；机密存储
+
+### 第7步：持续监控
+
+**做什么**：定期更新KYC信息，监控客户行为变化，触发事件时重新评估
+
+**为什么**：客户风险可能变化。持续监控确保持续合规
+
+**注意**：高风险客户至少每年review；重大变化(董事变更、业务变化)时触发review
+
+## 风险因素
+
+### 高风险指标
+
+- 高风险国家/地区
+- 政治公众人物(PEP)
+- 现金密集业务
+- 复杂股权结构
+- 空壳公司
+
+### 低风险指标
+
+- 上市公司
+- 受监管行业
+- 知名金融机构
+- 稳定业务历史
+
+## 输出检查清单
+
+KYC完成后：
+- [ ] 身份文档已收集
+- [ ] 身份已验证
+- [ ] UBO已识别
+- [ ] 风险等级已评估
+- [ ] 制裁名单已筛查
+- [ ] KYC档案已创建
+- [ ] 监控计划已建立
+
+## 关键原则总结
+
+1. **验证要彻底** - 不留任何疑问
+2. **穿透到自然人** - 不要停在空壳公司
+3. **风险评估客观** - 基于事实而非感觉
+4. **制裁筛查必须** - 这是最重要的检查
+5. **文档要完整** - 审计需要证据
+6. **持续监控** - 风险会变化
+7. **保密第一** - KYC信息高度敏感
+`
+            },
+
+            "earnings-preview": {
+                title: "财报预览",
+                subtitle: "02-股票研究 · 快速响应",
+                badge: "常用技能",
+                oneliner: "财报发布前快速分析预期，准备交易建议",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>财报预览是在财报发布前准备的分析。<strong>提前预期结果，制定交易策略</strong>。</p><p>目的是当财报发布时，能快速评估影响并给出建议。</p>",
+                steps: [
+                    {title: "回顾历史表现", what: "回顾过去4个季度的业绩、超预期/低于预期模式、季节性", why: "历史模式提供未来线索", tips: "公司是否连续超预期？是否有季节性？"},
+                    {title: "分析一致预期", what: "收集分析师一致预期：收入、EPS、关键指标", why: "一致预期是市场基准", tips: "关注近期预期调整趋势"},
+                    {title: "识别关键催化剂", what: "识别本季度催化剂：新产品、大客户、宏观因素、公司特定事件", why: "催化剂影响当季表现", tips: "产品发布、监管批准、竞争对手动态"},
+                    {title: "建立情景分析", what: "建立超预期、符合预期、低于预期三种情景", why: "提前准备应对不同结果", tips: "估算每种情景的股价反应"},
+                    {title: "制定交易建议", what: "基于分析给出预发布建议：买入/持有/卖出", why: "客户需要在财报前有指导", tips: "说明触发条件：什么情况下调整建议"}
+                ],
+                fullDocumentation: `# 财报预览
+
+## 概述
+
+财报预览是在财报发布前准备的分析。核心原则很简单：**提前预期结果，制定交易策略**。
+
+目的是当财报发布时，能快速评估影响并给出建议。
+
+## 分析步骤
+
+### 第1步：回顾历史表现
+
+**做什么**：回顾过去4个季度的业绩、超预期/低于预期模式、季节性
+
+**为什么**：历史模式提供未来线索
+
+**注意**：公司是否连续超预期？是否有季节性？
+
+### 第2步：分析一致预期
+
+**做什么**：收集分析师一致预期：收入、EPS、关键指标
+
+**为什么**：一致预期是市场基准
+
+**注意**：关注近期预期调整趋势
+
+### 第3步：识别关键催化剂
+
+**做什么**：识别本季度催化剂：新产品、大客户、宏观因素、公司特定事件
+
+**为什么**：催化剂影响当季表现
+
+**注意**：产品发布、监管批准、竞争对手动态
+
+### 第4步：建立情景分析
+
+**做什么**：建立超预期、符合预期、低于预期三种情景
+
+**为什么**：提前准备应对不同结果
+
+**注意**：估算每种情景的股价反应
+
+### 第5步：制定交易建议
+
+**做什么**：基于分析给出预发布建议：买入/持有/卖出
+
+**为什么**：客户需要在财报前有指导
+
+**注意**：说明触发条件：什么情况下调整建议
+
+## 关键原则
+
+1. **历史预示未来** - 分析历史模式
+2. **预期管理** - 理解市场预期
+3. **催化剂驱动** - 识别关键驱动因素
+4. **情景准备** - 准备多种结果
+5. **行动导向** - 给出明确建议
+`
+            },
+
+            "initiating-coverage": {
+                title: "首次覆盖报告",
+                subtitle: "02-股票研究 · 核心输出",
+                badge: "核心技能",
+                oneliner: "撰写首次覆盖报告，全面分析公司并给出投资建议和目标价",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>首次覆盖是分析师最重要的工作。<strong>建立对公司的理解框架，给出长期投资观点</strong>。</p><p>好的首次报告成为后续所有分析的基石。</p>",
+                steps: [
+                    {title: "行业分析", what: "分析行业规模、增长、趋势、竞争格局、驱动因素", why: "公司是行业的一部分，行业分析提供背景", tips: "用五力分析；关注结构性变化"},
+                    {title: "公司概况", what: "描述公司历史、业务模式、产品/服务、市场定位", why: "读者需要了解公司是做什么的", tips: "简洁明了，1-2页足够"},
+                    {title: "竞争优势分析", what: "识别公司的护城河：品牌、技术、规模、网络、成本、监管", why: "竞争优势决定长期盈利能力", tips: "用对比表展示vs竞争对手"},
+                    {title: "财务分析", what: "分析历史3-5年财务：增长、利润率、ROIC、现金流", why: "财务表现验证战略执行", tips: "用图表可视化趋势"},
+                    {title: "建立财务模型", what: "建立5年预测模型：收入增长、利润率、资本支出、折旧", why: "模型是估值基础", tips: "假设要有依据；做敏感性分析"},
+                    {title: "估值分析", what: "用多种方法估值：DCF、Comps、 precedent transactions", why: "多种方法交叉验证，增加可信度", tips: "给出目标价区间而非单一点"},
+                    {title: "投资论点", what: "提炼3-5个关键投资论点：看多/看空理由", why: "论点是报告的灵魂", tips: "每个论点要有数据支撑"},
+                    {title: "风险因素", what: "识别主要风险：行业、公司、财务、估值", why: "投资必须考虑风险", tips: "不要隐藏风险；风险与回报平衡"},
+                    {title: "给出评级和目标价", what: "基于分析给出买入/持有/卖出评级和12个月目标价", why: "这是客户最关心的", tips: "说明评级定义；解释目标价假设"}
+                ],
+                fullDocumentation: `# 首次覆盖报告
+
+## 概述
+
+首次覆盖是分析师最重要的工作。核心原则很简单：**建立对公司的理解框架，给出长期投资观点**。
+
+好的首次报告成为后续所有分析的基石。
+
+## 分析步骤
+
+### 第1步：行业分析
+
+**做什么**：分析行业规模、增长、趋势、竞争格局、驱动因素
+
+**为什么**：公司是行业的一部分，行业分析提供背景
+
+**注意**：用五力分析；关注结构性变化
+
+### 第2步：公司概况
+
+**做什么**：描述公司历史、业务模式、产品/服务、市场定位
+
+**为什么**：读者需要了解公司是做什么的
+
+**注意**：简洁明了，1-2页足够
+
+### 第3步：竞争优势分析
+
+**做什么**：识别公司的护城河：品牌、技术、规模、网络、成本、监管
+
+**为什么**：竞争优势决定长期盈利能力
+
+**注意**：用对比表展示vs竞争对手
+
+### 第4步：财务分析
+
+**做什么**：分析历史3-5年财务：增长、利润率、ROIC、现金流
+
+**为什么**：财务表现验证战略执行
+
+**注意**：用图表可视化趋势
+
+### 第5步：建立财务模型
+
+**做什么**：建立5年预测模型：收入增长、利润率、资本支出、折旧
+
+**为什么**：模型是估值基础
+
+**注意**：假设要有依据；做敏感性分析
+
+### 第6步：估值分析
+
+**做什么**：用多种方法估值：DCF、Comps、 precedent transactions
+
+**为什么**：多种方法交叉验证，增加可信度
+
+**注意**：给出目标价区间而非单一点
+
+### 第7步：投资论点
+
+**做什么**：提炼3-5个关键投资论点：看多/看空理由
+
+**为什么**：论点是报告的灵魂
+
+**注意**：每个论点要有数据支撑
+
+### 第8步：风险因素
+
+**做什么**：识别主要风险：行业、公司、财务、估值
+
+**为什么**：投资必须考虑风险
+
+**注意**：不要隐藏风险；风险与回报平衡
+
+### 第9步：给出评级和目标价
+
+**做什么**：基于分析给出买入/持有/卖出评级和12个月目标价
+
+**为什么**：这是客户最关心的
+
+**注意**：说明评级定义；解释目标价假设
+
+## 关键原则
+
+1. **全面深入** - 首次报告要全面
+2. **框架清晰** - 建立分析框架
+3. **论点明确** - 给出清晰观点
+4. **数据支撑** - 用数据验证
+5. **估值合理** - 多方法交叉验证
+6. **风险透明** - 不隐藏风险
+7. **可操作** - 给出明确建议
+`
+            },
+
+            "model-update": {
+                title: "模型更新",
+                subtitle: "02-股票研究 · 日常维护",
+                badge: "基础技能",
+                oneliner: "根据新数据更新财务模型，保持模型准确性",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>模型需要持续更新。<strong>新信息来了就要更新模型</strong>：财报、指引、行业数据、宏观变化。</p><p>保持模型更新才能给出准确的估值和建议。</p>",
+                steps: [
+                    {title: "识别更新触发", what: "识别需要更新的触发事件：财报、指引、行业报告、宏观变化", why: "不是所有信息都需要更新模型", tips: "财报和指引必须更新；行业数据视重要性决定"},
+                    {title: "收集新数据", what: "收集更新的数据：实际值、新指引、修订预期", why: "准确数据是模型准确的基础", tips: "用官方来源；注意数据定义一致性"},
+                    {title: "更新历史数据", what: "将最新实际数据输入模型，替换之前的预测", why: "历史数据是预测的基础", tips: "确保数据录入正确；检查公式仍然有效"},
+                    {title: "调整预测假设", what: "根据新信息调整预测假设：增长率、利润率、资本支出", why: "新信息改变预期，需要更新假设", tips: "假设要有依据；保持内部一致性"},
+                    {title: "验证模型平衡", what: "检查三表平衡、公式正确性、逻辑一致性", why: "更新可能引入错误", tips: "运行检查：资产=负债+权益、现金流平衡"},
+                    {title: "更新估值", what: "重新计算DCF、Comps，更新目标价", why: "模型变化导致估值变化", tips: "对比新旧估值，解释变化原因"},
+                    {title: "评估投资建议", what: "基于新估值评估是否需要调整投资建议", why: "模型更新可能改变投资论点", tips: "考虑股价变化；如果目标价变化<5%可能不需要行动"}
+                ],
+                fullDocumentation: `# 模型更新
+
+## 概述
+
+模型需要持续更新。核心原则很简单：**新信息来了就要更新模型**。
+
+财报、指引、行业数据、宏观变化。保持模型更新才能给出准确的估值和建议。
+
+## 分析步骤
+
+### 第1步：识别更新触发
+
+**做什么**：识别需要更新的触发事件：财报、指引、行业报告、宏观变化
+
+**为什么**：不是所有信息都需要更新模型
+
+**注意**：财报和指引必须更新；行业数据视重要性决定
+
+### 第2步：收集新数据
+
+**做什么**：收集更新的数据：实际值、新指引、修订预期
+
+**为什么**：准确数据是模型准确的基础
+
+**注意**：用官方来源；注意数据定义一致性
+
+### 第3步：更新历史数据
+
+**做什么**：将最新实际数据输入模型，替换之前的预测
+
+**为什么**：历史数据是预测的基础
+
+**注意**：确保数据录入正确；检查公式仍然有效
+
+### 第4步：调整预测假设
+
+**做什么**：根据新信息调整预测假设：增长率、利润率、资本支出
+
+**为什么**：新信息改变预期，需要更新假设
+
+**注意**：假设要有依据；保持内部一致性
+
+### 第5步：验证模型平衡
+
+**做什么**：检查三表平衡、公式正确性、逻辑一致性
+
+**为什么**：更新可能引入错误
+
+**注意**：运行检查：资产=负债+权益、现金流平衡
+
+### 第6步：更新估值
+
+**做什么**：重新计算DCF、Comps，更新目标价
+
+**为什么**：模型变化导致估值变化
+
+**注意**：对比新旧估值，解释变化原因
+
+### 第7步：评估投资建议
+
+**做什么**：基于新估值评估是否需要调整投资建议
+
+**为什么**：模型更新可能改变投资论点
+
+**注意**：考虑股价变化；如果目标价变化<5%可能不需要行动
+
+## 关键原则
+
+1. **及时更新** - 新信息立即更新
+2. **数据准确** - 用官方来源
+3. **保持平衡** - 三表必须平衡
+4. **解释变化** - 说明为什么变化
+5. **评估影响** - 评估是否需要调整建议
+6. **保持一致** - 假设内部一致
+7. **验证公式** - 检查公式仍然有效
+`
+            },
+
+            "morning-note": {
+                title: "晨会笔记",
+                subtitle: "02-股票研究 · 日常输出",
+                badge: "常用技能",
+                oneliner: "撰写每日晨会笔记，总结隔夜市场动态和重要新闻",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>晨会笔记是销售和交易员的早餐。<strong>隔夜发生了什么？今天关注什么？</strong></p><p>简洁、及时、有观点。</p>",
+                steps: [
+                    {title: "总结隔夜市场", what: "总结主要指数表现、板块轮动、VIX、流动性", why: "市场背景很重要", tips: "用数据说话；解释驱动因素"},
+                    {title: "筛选重要新闻", what: "从海量新闻中筛选影响我们覆盖公司的重要新闻", why: "不是所有新闻都重要", tips: "优先级：财报、并购、监管、重大产品新闻"},
+                    {title: "分析影响", what: "分析每条重要新闻对公司的短期和长期影响", why: "新闻本身不重要，影响才重要", tips: "量化影响：EPS影响、估值影响"},
+                    {title: "识别交易机会", what: "识别基于新闻的交易机会：催化剂、估值、风险/回报", why: "销售和交易员需要 actionable ideas", tips: "明确entry/exit点；时间horizon"},
+                    {title: "组织笔记结构", what: "按优先级组织：市场概览 → 头条新闻 → 公司动态 → 今日日历", why: "结构让读者快速找到关心的内容", tips: "用粗体突出关键数字；保持简洁"},
+                    {title: "添加观点和行动建议", what: "对重要事件给出观点和行动建议", why: "分析师的价值在于观点，不只是新闻汇总", tips: "观点要有依据；建议要具体"}
+                ],
+                fullDocumentation: `# 晨会笔记
+
+## 概述
+
+晨会笔记是销售和交易员的早餐。核心原则很简单：**隔夜发生了什么？今天关注什么？**
+
+简洁、及时、有观点。
+
+## 分析步骤
+
+### 第1步：总结隔夜市场
+
+**做什么**：总结主要指数表现、板块轮动、VIX、流动性
+
+**为什么**：市场背景很重要
+
+**注意**：用数据说话；解释驱动因素
+
+### 第2步：筛选重要新闻
+
+**做什么**：从海量新闻中筛选影响我们覆盖公司的重要新闻
+
+**为什么**：不是所有新闻都重要
+
+**注意**：优先级：财报、并购、监管、重大产品新闻
+
+### 第3步：分析影响
+
+**做什么**：分析每条重要新闻对公司的短期和长期影响
+
+**为什么**：新闻本身不重要，影响才重要
+
+**注意**：量化影响：EPS影响、估值影响
+
+### 第4步：识别交易机会
+
+**做什么**：识别基于新闻的交易机会：催化剂、估值、风险/回报
+
+**为什么**：销售和交易员需要 actionable ideas
+
+**注意**：明确entry/exit点；时间horizon
+
+### 第5步：组织笔记结构
+
+**做什么**：按优先级组织：市场概览 → 头条新闻 → 公司动态 → 今日日历
+
+**为什么**：结构让读者快速找到关心的内容
+
+**注意**：用粗体突出关键数字；保持简洁
+
+### 第6步：添加观点和行动建议
+
+**做什么**：对重要事件给出观点和行动建议
+
+**为什么**：分析师的价值在于观点，不只是新闻汇总
+
+**注意**：观点要有依据；建议要具体
+
+## 关键原则
+
+1. **简洁第一** - 晨会笔记要短
+2. **观点明确** - 给出清晰观点
+3. **数据驱动** - 用数据说话
+4. **行动导向** - 给出交易建议
+5. **及时发送** - 开盘前发出
+6. **结构清晰** - 易于快速阅读
+7. **持续改进** - 收集反馈
+`
+            },
+
+            "thesis-tracker": {
+                title: "投资论点跟踪",
+                subtitle: "02-股票研究 · 持续监控",
+                badge: "进阶技能",
+                oneliner: "持续跟踪投资论点的演变，评估催化剂是否兑现",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>投资不是一次性的决定。<strong>论点需要持续验证和调整</strong>。</p><p>Thesis tracker帮助你跟踪哪些催化剂发生了，哪些还没有，论点是否还成立。</p>",
+                steps: [
+                    {title: "明确投资论点", what: "清晰地表述投资论点：为什么买入/卖出这家公司？", why: "模糊的论点无法跟踪", tips: "论点要具体可验证"},
+                    {title: "识别关键催化剂", what: "列出支撑论点的关键催化剂：产品发布、客户签约、监管批准等", why: "催化剂是论点验证的里程碑", tips: "每个催化剂要有时间表和成功标准"},
+                    {title: "建立跟踪表格", what: "创建跟踪表：催化剂、预期时间、状态、影响、实际结果", why: "表格让跟踪可视化", tips: "用颜色编码：绿色(兑现)、黄色(进行中)、红色(失败)"},
+                    {title: "定期更新", what: "定期(每月/季度)更新跟踪表，记录实际结果", why: "跟踪需要持续", tips: "设置日历提醒；财报季必须更新"},
+                    {title: "评估论点有效性", what: "基于催化剂结果评估：论点是否还成立？是否需要调整？", why: "论点可能失效，需要及时调整", tips: "诚实面对失败；调整要及时"},
+                    {title: "沟通变化", what: "如果论点变化，及时更新投资建议并沟通给客户", why: "客户需要知道你的观点变化", tips: "解释变化原因；保持透明"}
+                ],
+                fullDocumentation: `# 投资论点跟踪
+
+## 概述
+
+投资不是一次性的决定。核心原则很简单：**论点需要持续验证和调整**。
+
+Thesis tracker帮助你跟踪哪些催化剂发生了，哪些还没有，论点是否还成立。
+
+## 分析步骤
+
+### 第1步：明确投资论点
+
+**做什么**：清晰地表述投资论点：为什么买入/卖出这家公司？
+
+**为什么**：模糊的论点无法跟踪
+
+**注意**：论点要具体可验证
+
+### 第2步：识别关键催化剂
+
+**做什么**：列出支撑论点的关键催化剂：产品发布、客户签约、监管批准等
+
+**为什么**：催化剂是论点验证的里程碑
+
+**注意**：每个催化剂要有时间表和成功标准
+
+### 第3步：建立跟踪表格
+
+**做什么**：创建跟踪表：催化剂、预期时间、状态、影响、实际结果
+
+**为什么**：表格让跟踪可视化
+
+**注意**：用颜色编码：绿色(兑现)、黄色(进行中)、红色(失败)
+
+### 第4步：定期更新
+
+**做什么**：定期(每月/季度)更新跟踪表，记录实际结果
+
+**为什么**：跟踪需要持续
+
+**注意**：设置日历提醒；财报季必须更新
+
+### 第5步：评估论点有效性
+
+**做什么**：基于催化剂结果评估：论点是否还成立？是否需要调整？
+
+**为什么**：论点可能失效，需要及时调整
+
+**注意**：诚实面对失败；调整要及时
+
+### 第6步：沟通变化
+
+**做什么**：如果论点变化，及时更新投资建议并沟通给客户
+
+**为什么**：客户需要知道你的观点变化
+
+**注意**：解释变化原因；保持透明
+
+## 关键原则
+
+1. **论点清晰** - 明确可验证
+2. **催化剂具体** - 有时间表
+3. **持续跟踪** - 定期更新
+4. **诚实评估** - 面对失败
+5. **及时调整** - 不要固执
+6. **透明沟通** - 告知客户
+7. **系统化** - 用表格跟踪
+`
+            },
+
+            "sector-overview": {
+                title: "行业概览",
+                subtitle: "02-股票研究 · 宏观分析",
+                badge: "常用技能",
+                oneliner: "分析整个行业的趋势、机会和风险",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>行业概览是自上而下分析的基础。<strong>先选行业，再选公司</strong>。</p><p>好的行业概览帮你识别哪些行业有投资机会，哪些要回避。</p>",
+                steps: [
+                    {title: "定义行业边界", what: "明确行业范围：包括哪些子行业、公司、产品", why: "清晰的边界才能做有意义的分析", tips: "用GICS或ICB标准行业分类"},
+                    {title: "分析市场规模和增长", what: "估算TAM/SAM/SOM、历史增长、未来增长预期", why: "市场规模和增长决定投资机会", tips: "引用权威来源(麦肯锡、Gartner)；关注CAGR"},
+                    {title: "识别增长驱动因素", what: "识别行业增长的驱动因素：技术、人口、政策、消费习惯", why: "理解驱动因素预判未来趋势", tips: "区分周期性驱动和结构性驱动"},
+                    {title: "分析竞争格局", what: "分析市场份额集中度、竞争强度、进入壁垒", why: "竞争格局影响行业盈利能力", tips: "用CR3/CR5衡量集中度；波特五力分析"},
+                    {title: "分析行业周期", what: "判断行业所处阶段：成长期/成熟期/衰退期", why: "不同阶段有不同的投资策略", tips: "成长期：关注增长；成熟期：关注盈利；衰退期：关注现金流"},
+                    {title: "识别行业风险", what: "识别行业面临的威胁：技术颠覆、政策变化、替代品", why: "风险评估是投资决策的基础", tips: "最危险的是\"看不见\"的风险"},
+                    {title: "给出行业观点", what: "总结行业观点：积极/中性/谨慎，推荐关注的子行业和公司", why: "行业概览的目的是指导投资", tips: "观点要明确；推荐要具体"}
+                ],
+                fullDocumentation: `# 行业概览
+
+## 概述
+
+行业概览是自上而下分析的基础。核心原则很简单：**先选行业，再选公司**。
+
+好的行业概览帮你识别哪些行业有投资机会，哪些要回避。
+
+## 分析步骤
+
+### 第1步：定义行业边界
+
+**做什么**：明确行业范围：包括哪些子行业、公司、产品
+
+**为什么**：清晰的边界才能做有意义的分析
+
+**注意**：用GICS或ICB标准行业分类
+
+### 第2步：分析市场规模和增长
+
+**做什么**：估算TAM/SAM/SOM、历史增长、未来增长预期
+
+**为什么**：市场规模和增长决定投资机会
+
+**注意**：引用权威来源(麦肯锡、Gartner)；关注CAGR
+
+### 第3步：识别增长驱动因素
+
+**做什么**：识别行业增长的驱动因素：技术、人口、政策、消费习惯
+
+**为什么**：理解驱动因素预判未来趋势
+
+**注意**：区分周期性驱动和结构性驱动
+
+### 第4步：分析竞争格局
+
+**做什么**：分析市场份额集中度、竞争强度、进入壁垒
+
+**为什么**：竞争格局影响行业盈利能力
+
+**注意**：用CR3/CR5衡量集中度；波特五力分析
+
+### 第5步：分析行业周期
+
+**做什么**：判断行业所处阶段：成长期/成熟期/衰退期
+
+**为什么**：不同阶段有不同的投资策略
+
+**注意**：成长期：关注增长；成熟期：关注盈利；衰退期：关注现金流
+
+### 第6步：识别行业风险
+
+**做什么**：识别行业面临的威胁：技术颠覆、政策变化、替代品
+
+**为什么**：风险评估是投资决策的基础
+
+**注意**：最危险的是"看不见"的风险
+
+### 第7步：给出行业观点
+
+**做什么**：总结行业观点：积极/中性/谨慎，推荐关注的子行业和公司
+
+**为什么**：行业概览的目的是指导投资
+
+**注意**：观点要明确；推荐要具体
+
+## 关键原则
+
+1. **自上而下** - 先行业后公司
+2. **数据驱动** - 用权威数据
+3. **结构清晰** - 明确行业边界
+4. **竞争分析** - 理解竞争格局
+5. **周期判断** - 识别所处阶段
+6. **风险意识** - 识别潜在威胁
+7. **观点明确** - 给出明确建议
+`
+            },
+
+            "catalyst-calendar": {
+                title: "催化剂日历",
+                subtitle: "02-股票研究 · 工具",
+                badge: "工具技能",
+                oneliner: "维护和构建催化剂日历，跟踪即将发生的关键事件",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>催化剂驱动股价。<strong>知道什么时候会发生什么，才能提前布局</strong>。</p><p>催化剂日历跟踪财报、产品发布、监管决定、行业会议等关键日期。</p>",
+                steps: [
+                    {title: "确定跟踪范围", what: "确定跟踪哪些公司和事件类型", why: "范围太大会失去焦点", tips: "优先跟踪覆盖公司和重点事件"},
+                    {title: "收集催化剂信息", what: "从多种来源收集催化剂信息：公司日历、行业会议、监管日程", why: "全面收集才能不错过重要事件", tips: "设置Google Alerts；关注公司IR页面"},
+                    {title: "评估催化剂重要性", what: "评估每个催化剂的重要性：高/中/低", why: "不是所有催化剂都同等重要", tips: "财报、监管决定是高重要性；行业会议可能是中低"},
+                    {title: "估算股价影响", what: "估算每个催化剂的潜在股价影响：正面/负面/中性", why: "影响评估帮助优先排序", tips: "历史参考：类似事件的市场反应"},
+                    {title: "维护日历", what: "将催化剂录入日历，定期更新和清理过期事件", why: "日历需要维护才能保持有用", tips: "用Excel/Google Calendar；设置提醒"},
+                    {title: "分发和使用", what: "将催化剂日历分发给销售团队，用于客户沟通", why: "催化剂是客户对话的素材", tips: "每周更新；突出本周催化剂"}
+                ],
+                fullDocumentation: `# 催化剂日历
+
+## 概述
+
+催化剂驱动股价。核心原则很简单：**知道什么时候会发生什么，才能提前布局**。
+
+催化剂日历跟踪财报、产品发布、监管决定、行业会议等关键日期。
+
+## 分析步骤
+
+### 第1步：确定跟踪范围
+
+**做什么**：确定跟踪哪些公司和事件类型
+
+**为什么**：范围太大会失去焦点
+
+**注意**：优先跟踪覆盖公司和重点事件
+
+### 第2步：收集催化剂信息
+
+**做什么**：从多种来源收集催化剂信息：公司日历、行业会议、监管日程
+
+**为什么**：全面收集才能不错过重要事件
+
+**注意**：设置Google Alerts；关注公司IR页面
+
+### 第3步：评估催化剂重要性
+
+**做什么**：评估每个催化剂的重要性：高/中/低
+
+**为什么**：不是所有催化剂都同等重要
+
+**注意**：财报、监管决定是高重要性；行业会议可能是中低
+
+### 第4步：估算股价影响
+
+**做什么**：估算每个催化剂的潜在股价影响：正面/负面/中性
+
+**为什么**：影响评估帮助优先排序
+
+**注意**：历史参考：类似事件的市场反应
+
+### 第5步：维护日历
+
+**做什么**：将催化剂录入日历，定期更新和清理过期事件
+
+**为什么**：日历需要维护才能保持有用
+
+**注意**：用Excel/Google Calendar；设置提醒
+
+### 第6步：分发和使用
+
+**做什么**：将催化剂日历分发给销售团队，用于客户沟通
+
+**为什么**：催化剂是客户对话的素材
+
+**注意**：每周更新；突出本周催化剂
+
+## 关键原则
+
+1. **全面收集** - 不遗漏重要事件
+2. **优先排序** - 重要催化剂优先
+3. **持续维护** - 定期更新
+4. **影响评估** - 估算股价影响
+5. **提前提醒** - 设置提醒
+6. **易于分享** - 方便团队使用
+7. **定期清理** - 清理过期事件
+`
+            },
+
+            "idea-generation": {
+                title: "投资想法生成",
+                subtitle: "02-股票研究 · 源头活水",
+                badge: "核心技能",
+                oneliner: "系统化生成和筛选投资想法",
+                vertical: "02-股票研究",
+                verticalLink: "vertical-02.html",
+                whatIsThis: "<p>投资想法是分析师的生命线。<strong>没有好想法，再好的分析也没用</strong>。</p><p>想法来自多个渠道：新闻、数据、会议、网络。</p>",
+                steps: [
+                    {title: "建立想法来源", what: "建立多渠道想法来源：新闻扫描、数据筛选、卖方报告、行业会议", why: "想法来源多样化保证想法流不断", tips: "每天固定时间扫描；建立RSS订阅"},
+                    {title: "快速筛选", what: "快速评估每个想法的潜力：市场规模、催化剂、估值", why: "时间有限，不能深入研究每个想法", tips: "30秒判断：值得花时间吗？"},
+                    {title: "初步研究", what: "对通过筛选的想法做初步研究：业务模式、竞争、财务", why: "初步研究验证想法的合理性", tips: "花1-2小时；看年报和最新财报"},
+                    {title: "建立投资论点", what: "为有潜力的想法建立投资论点：为什么这只股票会涨？", why: "清晰的论点是深入研究的基础", tips: "论点要简洁可验证"},
+                    {title: "优先排序", what: "根据风险/回报、催化剂时机、信心水平排序想法", why: "时间有限，优先最好的想法", tips: "优先高信心、短期催化剂的"},
+                    {title: "深入研究", what: "对top想法做深入研究，形成正式报告", why: "深入研究支撑投资建议", tips: "这是标准的研究流程"},
+                    {title: "跟踪和回顾", what: "跟踪想法的表现，定期回顾什么有效什么无效", why: "回顾改进想法生成过程", tips: "记录想法来源；跟踪成功率和回报"}
+                ],
+                fullDocumentation: `# 投资想法生成
+
+## 概述
+
+投资想法是分析师的生命线。核心原则很简单：**没有好想法，再好的分析也没用**。
+
+想法来自多个渠道：新闻、数据、会议、网络。
+
+## 分析步骤
+
+### 第1步：建立想法来源
+
+**做什么**：建立多渠道想法来源：新闻扫描、数据筛选、卖方报告、行业会议
+
+**为什么**：想法来源多样化保证想法流不断
+
+**注意**：每天固定时间扫描；建立RSS订阅
+
+### 第2步：快速筛选
+
+**做什么**：快速评估每个想法的潜力：市场规模、催化剂、估值
+
+**为什么**：时间有限，不能深入研究每个想法
+
+**注意**：30秒判断：值得花时间吗？
+
+### 第3步：初步研究
+
+**做什么**：对通过筛选的想法做初步研究：业务模式、竞争、财务
+
+**为什么**：初步研究验证想法的合理性
+
+**注意**：花1-2小时；看年报和最新财报
+
+### 第4步：建立投资论点
+
+**做什么**：为有潜力的想法建立投资论点：为什么这只股票会涨？
+
+**为什么**：清晰的论点是深入研究的基础
+
+**注意**：论点要简洁可验证
+
+### 第5步：优先排序
+
+**做什么**：根据风险/回报、催化剂时机、信心水平排序想法
+
+**为什么**：时间有限，优先最好的想法
+
+**注意**：优先高信心、短期催化剂的
+
+### 第6步：深入研究
+
+**做什么**：对top想法做深入研究，形成正式报告
+
+**为什么**：深入研究支撑投资建议
+
+**注意**：这是标准的研究流程
+
+### 第7步：跟踪和回顾
+
+**做什么**：跟踪想法的表现，定期回顾什么有效什么无效
+
+**为什么**：回顾改进想法生成过程
+
+**注意**：记录想法来源；跟踪成功率和回报
+
+## 关键原则
+
+1. **来源多样** - 多渠道收集
+2. **快速筛选** - 30秒判断
+3. **论点清晰** - 简洁可验证
+4. **优先排序** - 专注最好的
+5. **深入研究** - 形成正式报告
+6. **持续跟踪** - 记录成功率
+7. **系统化** - 建立流程
+`
+            },
+
+            "ppt-template": {
+                title: "PPT模板设计",
+                subtitle: "工具 · 效率提升",
+                badge: "工具技能",
+                oneliner: "创建专业的PPT模板，确保输出一致性",
+                vertical: "工具",
+                verticalLink: "index.html",
+                whatIsThis: "<p>好的PPT模板让你事半功倍。<strong>一次性设计，长期受益</strong>。</p><p>专业模板确保所有输出一致，节省时间。</p>",
+                steps: [
+                    {title: "确定模板用途", what: "明确模板用途：行业报告类型、客户群体、输出频率", why: "不同用途需要不同模板", tips: "投行用蓝灰色系；研究用简洁风格"},
+                    {title: "设计母版", what: "设计母版幻灯片：标题布局、内容布局、图表布局", why: "母版决定整体风格", tips: "包含5-10种布局即可；不要太多"},
+                    {title: "定义颜色方案", what: "定义主色、辅色、强调色、背景色、文字色", why: "颜色方案统一视觉效果", tips: "使用企业色系；确保对比度足够"},
+                    {title: "定义字体方案", what: "定义标题字体、正文字体、字号、行距", why: "字体方案决定可读性", tips: "标题用粗体；正文用常规；字号不小于18pt"},
+                    {title: "设计图表模板", what: "设计常用图表模板：柱状图、折线图、饼图、矩阵、瀑布图", why: "图表模板加速制作", tips: "设置默认颜色；添加图例说明"},
+                    {title: "添加自动化元素", what: "添加页码、日期、Logo、版权等自动化元素", why: "自动化减少手动工作", tips: "用母版实现；确保所有slide都有"},
+                    {title: "测试和优化", what: "用实际内容测试模板，收集反馈并优化", why: "模板要在实际使用中验证", tips: "让同事试用；收集常见问题并修复"}
+                ],
+                fullDocumentation: `# PPT模板设计
+
+## 概述
+
+好的PPT模板让你事半功倍。核心原则很简单：**一次性设计，长期受益**。
+
+专业模板确保所有输出一致，节省时间。
+
+## 分析步骤
+
+### 第1步：确定模板用途
+
+**做什么**：明确模板用途：行业报告类型、客户群体、输出频率
+
+**为什么**：不同用途需要不同模板
+
+**注意**：投行用蓝灰色系；研究用简洁风格
+
+### 第2步：设计母版
+
+**做什么**：设计母版幻灯片：标题布局、内容布局、图表布局
+
+**为什么**：母版决定整体风格
+
+**注意**：包含5-10种布局即可；不要太多
+
+### 第3步：定义颜色方案
+
+**做什么**：定义主色、辅色、强调色、背景色、文字色
+
+**为什么**：颜色方案统一视觉效果
+
+**注意**：使用企业色系；确保对比度足够
+
+### 第4步：定义字体方案
+
+**做什么**：定义标题字体、正文字体、字号、行距
+
+**为什么**：字体方案决定可读性
+
+**注意**：标题用粗体；正文用常规；字号不小于18pt
+
+### 第5步：设计图表模板
+
+**做什么**：设计常用图表模板：柱状图、折线图、饼图、矩阵、瀑布图
+
+**为什么**：图表模板加速制作
+
+**注意**：设置默认颜色；添加图例说明
+
+### 第6步：添加自动化元素
+
+**做什么**：添加页码、日期、Logo、版权等自动化元素
+
+**为什么**：自动化减少手动工作
+
+**注意**：用母版实现；确保所有slide都有
+
+### 第7步：测试和优化
+
+**做什么**：用实际内容测试模板，收集反馈并优化
+
+**为什么**：模板要在实际使用中验证
+
+**注意**：让同事试用；收集常见问题并修复
+
+## 关键原则
+
+1. **一致性第一** - 所有输出一致
+2. **简洁优雅** - 不要过度设计
+3. **可读性强** - 字号足够大
+4. **颜色协调** - 统一色系
+5. **布局清晰** - 信息层次分明
+6. **易于使用** - 便于快速填充
+7. **持续优化** - 根据反馈改进
+`
+            },
+
+            "deck-refresh": {
+                title: "演示文稿更新",
+                subtitle: "03-M&A · 日常维护",
+                badge: "常用技能",
+                oneliner: "更新现有演示文稿的数据和内容，保持材料新鲜",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>演示文稿需要持续更新。<strong>数据过时pitch就失去可信度</strong>。</p><p>定期更新确保材料随时可用。</p>",
+                steps: [
+                    {title: "审查现有材料", what: "审查现有deck：结构、数据、设计、问题", why: "了解现状才能确定更新范围", tips: "记录所有需要更新的地方"},
+                    {title: "更新数据", what: "更新所有数据：财务数据、市场数据、公司数据", why: "数据是投资者最关心的", tips: "用最新来源；检查公式"},
+                    {title: "更新叙事", what: "更新故事线：是否需要调整angle？是否需要强调新亮点？", why: "市场在变，叙事也要变", tips: "保持核心论点；调整支撑论据"},
+                    {title: "更新设计", what: "更新设计：字体、颜色、图表、图片", why: "设计趋势在变，材料要跟上", tips: "保持一致性；不要过度设计"},
+                    {title: "质量检查", what: "全面QC：数据正确、拼写、格式、逻辑", why: "错误会破坏可信度", tips: "用检查清单；找人review"},
+                    {title: "版本管理", what: "保存版本，记录更新内容和日期", why: "版本管理帮助追踪变化", tips: "用文件名包含日期；维护更新日志"}
+                ],
+                fullDocumentation: `# 演示文稿更新
+
+## 概述
+
+演示文稿需要持续更新。核心原则很简单：**数据过时pitch就失去可信度**。
+
+定期更新确保材料随时可用。
+
+## 分析步骤
+
+### 第1步：审查现有材料
+
+**做什么**：审查现有deck：结构、数据、设计、问题
+
+**为什么**：了解现状才能确定更新范围
+
+**注意**：记录所有需要更新的地方
+
+### 第2步：更新数据
+
+**做什么**：更新所有数据：财务数据、市场数据、公司数据
+
+**为什么**：数据是投资者最关心的
+
+**注意**：用最新来源；检查公式
+
+### 第3步：更新叙事
+
+**做什么**：更新故事线：是否需要调整angle？是否需要强调新亮点？
+
+**为什么**：市场在变，叙事也要变
+
+**注意**：保持核心论点；调整支撑论据
+
+### 第4步：更新设计
+
+**做什么**：更新设计：字体、颜色、图表、图片
+
+**为什么**：设计趋势在变，材料要跟上
+
+**注意**：保持一致性；不要过度设计
+
+### 第5步：质量检查
+
+**做什么**：全面QC：数据正确、拼写、格式、逻辑
+
+**为什么**：错误会破坏可信度
+
+**注意**：用检查清单；找人review
+
+### 第6步：版本管理
+
+**做什么**：保存版本，记录更新内容和日期
+
+**为什么**：版本管理帮助追踪变化
+
+**注意**：用文件名包含日期；维护更新日志
+
+## 关键原则
+
+1. **数据新鲜** - 用最新数据
+2. **叙事相关** - 保持相关性
+3. **设计一致** - 风格统一
+4. **质量第一** - QC必须
+5. **版本清晰** - 追踪变化
+6. **定期更新** - 建立节奏
+7. **备份保存** - 保留历史版本
+`
+            },
+
+            "deck-qc": {
+                title: "演示文稿质检",
+                subtitle: "03-M&A · 质量保证",
+                badge: "基础技能",
+                oneliner: "检查演示文稿的质量，确保无错误和专业呈现",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>质量控制在投行至关重要。<strong>一个错误可能毁掉整个交易</strong>。</p><p>QC是发出去前的最后一道防线。</p>",
+                steps: [
+                    {title: "数据准确性检查", what: "检查所有数字：来源、计算、一致性", why: "数字错误是最致命的", tips: "交叉验证；用公式"},
+                    {title: "拼写和语法检查", what: "检查拼写、语法、标点、专业术语", why: "拼写错误显得不专业", tips: "用拼写检查工具；人工检查重点页"},
+                    {title: "格式一致性检查", what: "检查格式：字体、颜色、对齐、留白", why: "格式不一致显得不专业", tips: "用模板；设置样式"},
+                    {title: "逻辑连贯性检查", what: "检查故事线：逻辑是否通顺？论点是否支撑结论？", why: "逻辑漏洞是致命的", tips: "从读者的角度看；让没背景的人看"},
+                    {title: "视觉呈现检查", what: "检查视觉效果：图表清晰、可读、美观", why: "好的视觉增强说服力", tips: "确保投影可读；颜色对比度足够"},
+                    {title: "链接和引用检查", what: "检查所有链接、引用、附录编号", why: "断链接很烦人", tips: "点击所有链接；验证所有引用"},
+                    {title: "创建QC报告", what: "汇总所有发现的问题，按严重程度分类", why: "QC报告帮助修复和预防", tips: "用分类：致命/警告/提示"}
+                ],
+                fullDocumentation: `# 演示文稿质检
+
+## 概述
+
+质量控制在投行至关重要。核心原则很简单：**一个错误可能毁掉整个交易**。
+
+QC是发出去前的最后一道防线。
+
+## 分析步骤
+
+### 第1步：数据准确性检查
+
+**做什么**：检查所有数字：来源、计算、一致性
+
+**为什么**：数字错误是最致命的
+
+**注意**：交叉验证；用公式
+
+### 第2步：拼写和语法检查
+
+**做什么**：检查拼写、语法、标点、专业术语
+
+**为什么**：拼写错误显得不专业
+
+**注意**：用拼写检查工具；人工检查重点页
+
+### 第3步：格式一致性检查
+
+**做什么**：检查格式：字体、颜色、对齐、留白
+
+**为什么**：格式不一致显得不专业
+
+**注意**：用模板；设置样式
+
+### 第4步：逻辑连贯性检查
+
+**做什么**：检查故事线：逻辑是否通顺？论点是否支撑结论？
+
+**为什么**：逻辑漏洞是致命的
+
+**注意**：从读者的角度看；让没背景的人看
+
+### 第5步：视觉呈现检查
+
+**做什么**：检查视觉效果：图表清晰、可读、美观
+
+**为什么**：好的视觉增强说服力
+
+**注意**：确保投影可读；颜色对比度足够
+
+### 第6步：链接和引用检查
+
+**做什么**：检查所有链接、引用、附录编号
+
+**为什么**：断链接很烦人
+
+**注意**：点击所有链接；验证所有引用
+
+### 第7步：创建QC报告
+
+**做什么**：汇总所有发现的问题，按严重程度分类
+
+**为什么**：QC报告帮助修复和预防
+
+**注意**：用分类：致命/警告/提示
+
+## QC检查清单
+
+- [ ] 数据准确
+- [ ] 拼写无误
+- [ ] 格式一致
+- [ ] 逻辑通顺
+- [ ] 视觉清晰
+- [ ] 链接有效
+- [ ] 引用正确
+
+## 关键原则
+
+1. **细致入微** - 不放过任何细节
+2. **交叉验证** - 多角度检查
+3. **客观公正** - 严格标准
+4. **问题分类** - 按严重程度
+5. **可操作** - 给出修复建议
+6. **记录详细** - QC报告详细
+7. **持续改进** - 从错误学习
+`
+            },
+
+            "cim": {
+                title: "信息备忘录(CIM)",
+                subtitle: "03-M&A · 核心文档",
+                badge: "核心技能",
+                oneliner: "为卖方撰写信息备忘录，向潜在买家展示公司价值",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>CIM（Confidential Information Memorandum）是卖方投行的核心文档。<strong>用最好的方式展示公司</strong>，吸引潜在买家。</p><p>CIM包含公司概况、市场、财务、运营等所有买家需要的信息。</p>",
+                steps: [
+                    {title: "确定CIM结构", what: "规划CIM章节：执行摘要、公司、市场、产品、客户、财务、运营", why: "结构决定叙事流", tips: "标准结构：概述→公司→市场→财务→运营→附录"},
+                    {title: "撰写执行摘要", what: "撰写2-3页执行摘要：投资亮点、关键数据、交易理由", why: "执行摘要是最重要的部分，很多买家只看这个", tips: "突出数字：收入、增长率、利润率；用图表"},
+                    {title: "公司概述", what: "描述公司：历史、业务模式、组织架构、里程碑", why: "买家需要了解卖什么", tips: "简洁；突出成长轨迹"},
+                    {title: "市场分析", what: "分析市场：规模、增长、趋势、竞争", why: "市场机会是价值的关键", tips: "用权威数据；突出增长"},
+                    {title: "产品和服务", what: "描述产品/服务：组合、差异化、定价、客户", why: "产品是价值基础", tips: "用图表展示；突出独特性"},
+                    {title: "财务分析", what: "展示财务：历史5年+预测3年、关键比率、驱动因素", why: "财务数据是定价基础", tips: "用图表趋势；解释异常"},
+                    {title: "运营分析", what: "分析运营：产能、效率、成本、供应链", why: "运营洞察帮助买家理解整合潜力", tips: "突出可改进领域"},
+                    {title: "管理层和团队", what: "介绍团队：背景、经验、留任计划", why: "团队是持续经营的关键", tips: "突出行业经验；说明留任安排"},
+                    {title: "交易理由", what: "说明为什么卖：战略调整、资本需求、 succession", why: "买家想知道为什么卖", tips: "诚实；不要过度解释"},
+                    {title: "保密和质量检查", what: "添加保密声明；全面QC数据、拼写、格式", why: "CIM是机密；错误破坏可信度", tips: "每个印上\"机密\"；用检查清单QC"}
+                ],
+                fullDocumentation: `# 信息备忘录(CIM)
+
+## 概述
+
+CIM（Confidential Information Memorandum）是卖方投行的核心文档。核心原则很简单：**用最好的方式展示公司**。
+
+CIM包含公司概况、市场、财务、运营等所有买家需要的信息。
+
+## 分析步骤
+
+### 第1步：确定CIM结构
+
+**做什么**：规划CIM章节：执行摘要、公司、市场、产品、客户、财务、运营
+
+**为什么**：结构决定叙事流
+
+**注意**：标准结构：概述→公司→市场→财务→运营→附录
+
+### 第2步：撰写执行摘要
+
+**做什么**：撰写2-3页执行摘要：投资亮点、关键数据、交易理由
+
+**为什么**：执行摘要是最重要的部分，很多买家只看这个
+
+**注意**：突出数字：收入、增长率、利润率；用图表
+
+### 第3步：公司概述
+
+**做什么**：描述公司：历史、业务模式、组织架构、里程碑
+
+**为什么**：买家需要了解卖什么
+
+**注意**：简洁；突出成长轨迹
+
+### 第4步：市场分析
+
+**做什么**：分析市场：规模、增长、趋势、竞争
+
+**为什么**：市场机会是价值的关键
+
+**注意**：用权威数据；突出增长
+
+### 第5步：产品和服务
+
+**做什么**：描述产品/服务：组合、差异化、定价、客户
+
+**为什么**：产品是价值基础
+
+**注意**：用图表展示；突出独特性
+
+### 第6步：财务分析
+
+**做什么**：展示财务：历史5年+预测3年、关键比率、驱动因素
+
+**为什么**：财务数据是定价基础
+
+**注意**：用图表趋势；解释异常
+
+### 第7步：运营分析
+
+**做什么**：分析运营：产能、效率、成本、供应链
+
+**为什么**：运营洞察帮助买家理解整合潜力
+
+**注意**：突出可改进领域
+
+### 第8步：管理层和团队
+
+**做什么**：介绍团队：背景、经验、留任计划
+
+**为什么**：团队是持续经营的关键
+
+**注意**：突出行业经验；说明留任安排
+
+### 第9步：交易理由
+
+**做什么**：说明为什么卖：战略调整、资本需求、 succession
+
+**为什么**：买家想知道为什么卖
+
+**注意**：诚实；不要过度解释
+
+### 第10步：保密和质量检查
+
+**做什么**：添加保密声明；全面QC数据、拼写、格式
+
+**为什么**：CIM是机密；错误破坏可信度
+
+**注意**：每个印上"机密"；用检查清单QC
+
+## 关键原则
+
+1. **突出亮点** - 强调投资价值
+2. **数据支撑** - 用数据验证
+3. **诚实透明** - 不夸大不隐瞒
+4. **保密第一** - 严格保密
+5. **专业呈现** - 高质量制作
+6. **买家视角** - 从买家角度写
+7. **QC严格** - 零错误标准
+`
+            },
+
+            "teaser": {
+                title: "项目介绍(Teaser)",
+                subtitle: "03-M&A · 营销文档",
+                badge: "常用技能",
+                oneliner: "制作1-2页项目介绍，吸引潜在买家兴趣",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>Teaser是交易的'广告'。<strong>1-2页吸引买家要求CIM</strong>。</p><p>好的teaser足够吸引人但又保留足够信息。</p>",
+                steps: [
+                    {title: "确定关键信息", what: "确定要包含的关键信息：行业、规模、地理位置、亮点", why: "teaser空间有限，必须精炼", tips: "用最少的词传达最多的信息"},
+                    {title: "设计布局", what: "设计1-2页布局：标题、亮点、财务概要、联系方式", why: "布局影响可读性", tips: "用表格展示财务；用图标突出"},
+                    {title: "撰写投资亮点", what: "列出3-5个关键投资亮点", why: "亮点是核心吸引力", tips: "每个亮点要具体：数字、排名、增长"},
+                    {title: "财务概要", what: "展示关键财务数据：收入、EBITDA、增长", why: "财务数据是价值基础", tips: "用表格；显示增长趋势"},
+                    {title: "添加公司信息", what: "添加基本信息：行业、地区、员工、产品", why: "基本信息帮助买家快速判断", tips: "匿名处理；不要透露公司名称"},
+                    {title: "联系方式和保密", what: "添加投行联系方式和保密提醒", why: "买家需要知道联系谁", tips: "联系人、电话、邮箱；强调保密"}
+                ],
+                fullDocumentation: `# 项目介绍(Teaser)
+
+## 概述
+
+Teaser是交易的'广告'。核心原则很简单：**1-2页吸引买家要求CIM**。
+
+好的teaser足够吸引人但又保留足够信息。
+
+## 分析步骤
+
+### 第1步：确定关键信息
+
+**做什么**：确定要包含的关键信息：行业、规模、地理位置、亮点
+
+**为什么**：teaser空间有限，必须精炼
+
+**注意**：用最少的词传达最多的信息
+
+### 第2步：设计布局
+
+**做什么**：设计1-2页布局：标题、亮点、财务概要、联系方式
+
+**为什么**：布局影响可读性
+
+**注意**：用表格展示财务；用图标突出
+
+### 第3步：撰写投资亮点
+
+**做什么**：列出3-5个关键投资亮点
+
+**为什么**：亮点是核心吸引力
+
+**注意**：每个亮点要具体：数字、排名、增长
+
+### 第4步：财务概要
+
+**做什么**：展示关键财务数据：收入、EBITDA、增长
+
+**为什么**：财务数据是价值基础
+
+**注意**：用表格；显示增长趋势
+
+### 第5步：添加公司信息
+
+**做什么**：添加基本信息：行业、地区、员工、产品
+
+**为什么**：基本信息帮助买家快速判断
+
+**注意**：匿名处理；不要透露公司名称
+
+### 第6步：联系方式和保密
+
+**做什么**：添加投行联系方式和保密提醒
+
+**为什么**：买家需要知道联系谁
+
+**注意**：联系人、电话、邮箱；强调保密
+
+## 关键原则
+
+1. **简洁有力** - 1-2页最多
+2. **亮点突出** - 强调关键卖点
+3. **数据支撑** - 用数字说话
+4. **匿名处理** - 保护卖方
+5. **行动导向** - 明确联系方式
+6. **保密声明** - 强调保密
+7. **视觉吸引** - 设计吸引人
+`
+            },
+
+            "dd-checklist": {
+                title: "尽职调查清单",
+                subtitle: "04-私募股权 · 流程工具",
+                badge: "基础技能",
+                oneliner: "创建和使用尽职调查清单，确保全面覆盖所有风险",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>尽职调查(Due Diligence)是私募股权的核心。<strong>清单确保不遗漏任何风险</strong>。</p><p>好的清单是多年经验积累的结果。</p>",
+                steps: [
+                    {title: "确定调查范围", what: "确定调查类型和深度：商业、财务、法律、税务、运营", why: "不同交易需要不同调查", tips: "成长股权侧重商业；收购侧重全面"},
+                    {title: "商业尽职调查", what: "调查：市场、竞争、产品、客户、团队、战略", why: "商业DD验证投资论点", tips: "访谈客户；访谈竞争对手"},
+                    {title: "财务尽职调查", what: "调查：历史财务、会计政策、应收应付、存货、资本支出", why: "财务DD验证数字真实性", tips: "检查审计报告；验证现金流"},
+                    {title: "法律尽职调查", what: "调查：公司架构、合同、诉讼、知识产权、合规", why: "法律DD识别法律风险", tips: "律师主导；重点检查重大合同"},
+                    {title: "税务尽职调查", what: "调查：税务申报、税务风险、税务优化机会", why: "税务DD影响交易结构和价值", tips: "检查3年申报；识别潜在责任"},
+                    {title: "运营尽职调查", what: "调查：生产、供应链、IT系统、人力资源、EHS", why: "运营DD识别运营风险和改进机会", tips: "现场访问；访谈运营团队"},
+                    {title: "组织发现", what: "汇总所有发现，分类：deal killer、风险、机会", why: "组织发现便于决策", tips: "用红绿灯系统：红/黄/绿"},
+                    {title: "提出条件", what: "基于DD发现提出交割条件：赔偿、 Escrow、调整", why: "DD发现应该反映在交易条款中", tips: "重大风险需要赔偿；不确定性需要escrow"}
+                ],
+                fullDocumentation: `# 尽职调查清单
+
+## 概述
+
+尽职调查(Due Diligence)是私募股权的核心。核心原则很简单：**清单确保不遗漏任何风险**。
+
+好的清单是多年经验积累的结果。
+
+## 分析步骤
+
+### 第1步：确定调查范围
+**做什么**：确定调查类型和深度：商业、财务、法律、税务、运营
+**为什么**：不同交易需要不同调查
+**注意**：成长股权侧重商业；收购侧重全面
+
+### 第2步：商业尽职调查
+**做什么**：调查：市场、竞争、产品、客户、团队、战略
+**为什么**：商业DD验证投资论点
+**注意**：访谈客户；访谈竞争对手
+
+### 第3步：财务尽职调查
+**做什么**：调查：历史财务、会计政策、应收应付、存货、资本支出
+**为什么**：财务DD验证数字真实性
+**注意**：检查审计报告；验证现金流
+
+### 第4步：法律尽职调查
+**做什么**：调查：公司架构、合同、诉讼、知识产权、合规
+**为什么**：法律DD识别法律风险
+**注意**：律师主导；重点检查重大合同
+
+### 第5步：税务尽职调查
+**做什么**：调查：税务申报、税务风险、税务优化机会
+**为什么**：税务DD影响交易结构和价值
+**注意**：检查3年申报；识别潜在责任
+
+### 第6步：运营尽职调查
+**做什么**：调查：生产、供应链、IT系统、人力资源、EHS
+**为什么**：运营DD识别运营风险和改进机会
+**注意**：现场访问；访谈运营团队
+
+### 第7步：组织发现
+**做什么**：汇总所有发现，分类：deal killer、风险、机会
+**为什么**：组织发现便于决策
+**注意**：用红绿灯系统：红/黄/绿
+
+### 第8步：提出条件
+**做什么**：基于DD发现提出交割条件：赔偿、 Escrow、调整
+**为什么**：DD发现应该反映在交易条款中
+**注意**：重大风险需要赔偿；不确定性需要escrow
+
+## 关键原则
+
+1. **清单确保全面** - 确保不遗漏任何风险
+2. **范围匹配** - 不同交易需要不同调查
+3. **商业验证论点** - 访谈客户；访谈竞争对手
+4. **财务验证数字** - 检查审计报告；验证现金流
+5. **法律识别风险** - 律师主导；重点检查重大合同
+6. **税务影响价值** - 检查3年申报；识别潜在责任
+7. **运营识别改进** - 现场访问；访谈运营团队
+8. **红绿灯系统** - 红/黄/绿分类
+9. **反映在条款** - DD发现应该反映在交易条款中
+`
+            },
+
+            "buyer-list": {
+                title: "买家名单",
+                subtitle: "03-M&A · 交易执行",
+                badge: "常用技能",
+                oneliner: "为M&A交易创建潜在买家名单",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>买家名单是卖方投行的基础工作。<strong>找到可能买这家公司的所有人</strong>。</p><p>名单包括战略买家和财务买家。</p>",
+                steps: [
+                    {title: "确定筛选标准", what: "确定筛选条件：行业、地区、规模、战略契合度、财务能力", why: "标准决定名单质量", tips: "不要太窄(名单太小)或太宽(噪音太多)"},
+                    {title: "识别战略买家", what: "识别同业或相关行业的上市公司和私企", why: "战略买家通常支付更高溢价", tips: "看竞争对手、供应商、客户的上下游"},
+                    {title: "识别财务买家", what: "识别PE/VC基金：专注行业、规模范围、阶段偏好", why: "财务买家决策快、条件少", tips: "用PE数据库；关注基金的可用资本"},
+                    {title: "收集联系信息", what: "收集每个买家的关键联系人：CEO、CFO、BD负责人", why: "联系到对的人很重要", tips: "用LinkedIn、公司网站、行业网络"},
+                    {title: "评估买家兴趣", what: "评估每个潜在买家的可能兴趣：高/中/低", why: "兴趣评估帮助优先排序", tips: "历史收购记录、战略匹配、财务能力"},
+                    {title: "创建名单表格", what: "创建表格：公司名称、类型、联系人、兴趣、优先级", why: "表格便于跟踪和管理", tips: "用颜色编码优先级；添加状态列"},
+                    {title: "准备接触材料", what: "为每个买家准备定制化的接触材料", why: "定制化增加成功率", tips: "强调与该买家相关的协同效应"}
+                ],
+                fullDocumentation: `# 买家名单
+
+## 概述
+
+买家名单是卖方投行的基础工作。核心原则很简单：**找到可能买这家公司的所有人**。
+
+名单包括战略买家和财务买家。
+
+## 分析步骤
+
+### 第1步：确定筛选标准
+**做什么**：确定筛选条件：行业、地区、规模、战略契合度、财务能力
+**为什么**：标准决定名单质量
+**注意**：不要太窄(名单太小)或太宽(噪音太多)
+
+### 第2步：识别战略买家
+**做什么**：识别同业或相关行业的上市公司和私企
+**为什么**：战略买家通常支付更高溢价
+**注意**：看竞争对手、供应商、客户的上下游
+
+### 第3步：识别财务买家
+**做什么**：识别PE/VC基金：专注行业、规模范围、阶段偏好
+**为什么**：财务买家决策快、条件少
+**注意**：用PE数据库；关注基金的可用资本
+
+### 第4步：收集联系信息
+**做什么**：收集每个买家的关键联系人：CEO、CFO、BD负责人
+**为什么**：联系到对的人很重要
+**注意**：用LinkedIn、公司网站、行业网络
+
+### 第5步：评估买家兴趣
+**做什么**：评估每个潜在买家的可能兴趣：高/中/低
+**为什么**：兴趣评估帮助优先排序
+**注意**：历史收购记录、战略匹配、财务能力
+
+### 第6步：创建名单表格
+**做什么**：创建表格：公司名称、类型、联系人、兴趣、优先级
+**为什么**：表格便于跟踪和管理
+**注意**：用颜色编码优先级；添加状态列
+
+### 第7步：准备接触材料
+**做什么**：为每个买家准备定制化的接触材料
+**为什么**：定制化增加成功率
+**注意**：强调与该买家相关的协同效应
+
+## 关键原则
+
+1. **找到所有人** - 找到可能买这家公司的所有人
+2. **标准质量** - 不要太窄或太宽
+3. **战略买家** - 通常支付更高溢价
+4. **财务买家** - 决策快、条件少
+5. **联系对人** - CEO、CFO、BD负责人
+6. **兴趣评估** - 高/中/低优先排序
+7. **表格管理** - 用颜色编码优先级
+8. **定制化** - 强调协同效应
+`
+            },
+
+            "strip-profile": {
+                title: "公司简介条",
+                subtitle: "03-M&A · 营销材料",
+                badge: "常用技能",
+                oneliner: "制作单页公司简介，用于CIM附录或独立分发",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>Strip profile是一页公司介绍。<strong>快速传达公司亮点</strong>。</p><p>用于CIM附录、邮件分发、会议材料。</p>",
+                steps: [
+                    {title: "确定核心信息", what: "确定要传达的核心信息：行业、规模、增长、盈利", why: "一页只能传达有限信息", tips: "聚焦最突出的3-5点"},
+                    {title: "设计布局", what: "设计一页布局：标题区、关键数字、亮点、图表", why: "布局决定信息密度和可读性", tips: "用表格或分栏；确保投影可读"},
+                    {title: "关键财务数据", what: "展示关键财务：收入、EBITDA、增长、利润率", why: "数字最有说服力", tips: "用表格；显示3-5年趋势"},
+                    {title: "投资亮点", what: "列出4-6个投资亮点", why: "亮点是核心吸引力", tips: "每个亮点一行；简洁有力"},
+                    {title: "添加可视化", what: "添加图表：收入增长、利润率、市场份额", why: "图表比文字更直观", tips: "用简单图表；不要过度设计"},
+                    {title: "联系信息", what: "添加投行联系信息", why: "有兴趣的人要知道联系谁", tips: "姓名、电话、邮箱"}
+                ],
+                fullDocumentation: `# 公司简介条
+
+## 概述
+
+Strip profile是一页公司介绍。核心原则很简单：**快速传达公司亮点**。
+
+用于CIM附录、邮件分发、会议材料。
+
+## 分析步骤
+
+### 第1步：确定核心信息
+**做什么**：确定要传达的核心信息：行业、规模、增长、盈利
+**为什么**：一页只能传达有限信息
+**注意**：聚焦最突出的3-5点
+
+### 第2步：设计布局
+**做什么**：设计一页布局：标题区、关键数字、亮点、图表
+**为什么**：布局决定信息密度和可读性
+**注意**：用表格或分栏；确保投影可读
+
+### 第3步：关键财务数据
+**做什么**：展示关键财务：收入、EBITDA、增长、利润率
+**为什么**：数字最有说服力
+**注意**：用表格；显示3-5年趋势
+
+### 第4步：投资亮点
+**做什么**：列出4-6个投资亮点
+**为什么**：亮点是核心吸引力
+**注意**：每个亮点一行；简洁有力
+
+### 第5步：添加可视化
+**做什么**：添加图表：收入增长、利润率、市场份额
+**为什么**：图表比文字更直观
+**注意**：用简单图表；不要过度设计
+
+### 第6步：联系信息
+**做什么**：添加投行联系信息
+**为什么**：有兴趣的人要知道联系谁
+**注意**：姓名、电话、邮箱
+
+## 关键原则
+
+1. **一页传达** - 快速传达公司亮点
+2. **核心聚焦** - 聚焦最突出的3-5点
+3. **布局可读** - 用表格或分栏
+4. **数字说话** - 收入、EBITDA、增长、利润率
+5. **简洁亮点** - 每个亮点一行
+6. **简单图表** - 不要过度设计
+7. **联系清晰** - 姓名、电话、邮箱
+`
+            },
+
+            "process-letter": {
+                title: "流程信(Process Letter)",
+                subtitle: "03-M&A · 交易启动",
+                badge: "进阶技能",
+                oneliner: "为卖方起草流程信，向潜在买家说明交易流程",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>Process letter向潜在买家说明交易流程。<strong>设定规则和预期</strong>。</p><p>说明时间表、流程、保密要求。</p>",
+                steps: [
+                    {title: "确定交易结构", what: "确定交易类型：资产出售 vs 股权出售；竞标 vs 谈判", why: "结构决定流程", tips: "资产出售可能更复杂但税务优惠"},
+                    {title: "设定时间表", what: "设定关键日期：第一轮、第二轮、最终报价、签约", why: "时间表创造紧迫感", tips: "6-8周是标准；太长买家失去兴趣"},
+                    {title: "说明流程步骤", what: "说明流程：签署NDA → 审查CIM → 管理层演示 → 数据室 → 报价", why: "清晰流程减少混乱", tips: "每个步骤的输出要明确"},
+                    {title: "设定报价要求", what: "说明报价格式： indication of interest格式、内容要求", why: "标准化报价便于比较", tips: "要求：价格、结构、条件、资金来源"},
+                    {title: "数据室规则", what: "说明数据室规则：开放时间、分级、信息申请流程", why: "数据室管理保护敏感信息", tips: "分级开放；记录所有访问"},
+                    {title: "保密要求", what: "强调保密要求和限制", why: "保密是卖方底线", tips: "明确限制：不得联系客户、供应商、员工"},
+                    {title: "联系人和下一步", what: "说明联系方式和下一步行动", why: "清晰的CTA提高响应率", tips: "指定联系人；给出回复截止日期"}
+                ],
+                fullDocumentation: `# 流程信(Process Letter)
+
+## 概述
+
+Process letter向潜在买家说明交易流程。核心原则很简单：**设定规则和预期**。
+
+说明时间表、流程、保密要求。
+
+## 分析步骤
+
+### 第1步：确定交易结构
+**做什么**：确定交易类型：资产出售 vs 股权出售；竞标 vs 谈判
+**为什么**：结构决定流程
+**注意**：资产出售可能更复杂但税务优惠
+
+### 第2步：设定时间表
+**做什么**：设定关键日期：第一轮、第二轮、最终报价、签约
+**为什么**：时间表创造紧迫感
+**注意**：6-8周是标准；太长买家失去兴趣
+
+### 第3步：说明流程步骤
+**做什么**：说明流程：签署NDA → 审查CIM → 管理层演示 → 数据室 → 报价
+**为什么**：清晰流程减少混乱
+**注意**：每个步骤的输出要明确
+
+### 第4步：设定报价要求
+**做什么**：说明报价格式： indication of interest格式、内容要求
+**为什么**：标准化报价便于比较
+**注意**：要求：价格、结构、条件、资金来源
+
+### 第5步：数据室规则
+**做什么**：说明数据室规则：开放时间、分级、信息申请流程
+**为什么**：数据室管理保护敏感信息
+**注意**：分级开放；记录所有访问
+
+### 第6步：保密要求
+**做什么**：强调保密要求和限制
+**为什么**：保密是卖方底线
+**注意**：明确限制：不得联系客户、供应商、员工
+
+### 第7步：联系人和下一步
+**做什么**：说明联系方式和下一步行动
+**为什么**：清晰的CTA提高响应率
+**注意**：指定联系人；给出回复截止日期
+
+## 关键原则
+
+1. **设定规则** - 设定规则和预期
+2. **时间表紧迫** - 6-8周是标准
+3. **流程清晰** - 每个步骤的输出要明确
+4. **报价标准** - 标准化报价便于比较
+5. **数据室分级** - 分级开放；记录访问
+6. **保密底线** - 明确限制
+7. **CTA清晰** - 指定联系人；给出截止日期
+`
+            },
+
+            "datapack": {
+                title: "数据包(Data Pack)",
+                subtitle: "03-M&A · 交易材料",
+                badge: "常用技能",
+                oneliner: "整理和打包交易数据给买家",
+                vertical: "03-M&A",
+                verticalLink: "vertical-03.html",
+                whatIsThis: "<p>数据包是给买家的数据集合。<strong>好的数据包加速尽职调查</strong>。</p><p>包括财务、运营、市场、法律数据。</p>",
+                steps: [
+                    {title: "确定数据范围", what: "确定包含的数据类别：财务、运营、市场、法律、其他", why: "范围决定数据包大小", tips: "CIM提到的数据都要包含"},
+                    {title: "收集财务数据", what: "收集：审计报告、管理账、预算、KPI、合同", why: "财务数据是买家最关心的", tips: "提供3-5年历史；用Excel格式"},
+                    {title: "收集运营数据", what: "收集：产能、产量、客户列表、供应商列表、员工数据", why: "运营数据帮助买家理解业务", tips: "客户/供应商可以匿名"},
+                    {title: "收集市场数据", what: "收集：市场报告、竞争分析、研究、行业数据", why: "市场数据支持投资论点", tips: "用第三方权威报告"},
+                    {title: "整理和命名", what: "整理文件、统一命名、建立目录结构", why: "好的组织让数据包好用", tips: "用清晰的文件夹结构；文件名包含日期"},
+                    {title: "添加说明文档", what: "添加README：数据包内容、文件说明、注意事项", why: "说明文档帮助买家快速上手", tips: "列出所有文件；说明单位"},
+                    {title: "上传和分发", what: "上传到数据室，设置访问权限，通知买家", why: "安全分发很重要", tips: "分级权限；记录下载"}
+                ],
+                fullDocumentation: `# 数据包(Data Pack)
+
+## 概述
+
+数据包是给买家的数据集合。核心原则很简单：**好的数据包加速尽职调查**。
+
+包括财务、运营、市场、法律数据。
+
+## 分析步骤
+
+### 第1步：确定数据范围
+**做什么**：确定包含的数据类别：财务、运营、市场、法律、其他
+**为什么**：范围决定数据包大小
+**注意**：CIM提到的数据都要包含
+
+### 第2步：收集财务数据
+**做什么**：收集：审计报告、管理账、预算、KPI、合同
+**为什么**：财务数据是买家最关心的
+**注意**：提供3-5年历史；用Excel格式
+
+### 第3步：收集运营数据
+**做什么**：收集：产能、产量、客户列表、供应商列表、员工数据
+**为什么**：运营数据帮助买家理解业务
+**注意**：客户/供应商可以匿名
+
+### 第4步：收集市场数据
+**做什么**：收集：市场报告、竞争分析、研究、行业数据
+**为什么**：市场数据支持投资论点
+**注意**：用第三方权威报告
+
+### 第5步：整理和命名
+**做什么**：整理文件、统一命名、建立目录结构
+**为什么**：好的组织让数据包好用
+**注意**：用清晰的文件夹结构；文件名包含日期
+
+### 第6步：添加说明文档
+**做什么**：添加README：数据包内容、文件说明、注意事项
+**为什么**：说明文档帮助买家快速上手
+**注意**：列出所有文件；说明单位
+
+### 第7步：上传和分发
+**做什么**：上传到数据室，设置访问权限，通知买家
+**为什么**：安全分发很重要
+**注意**：分级权限；记录下载
+
+## 关键原则
+
+1. **加速尽职调查** - 好的数据包加速尽职调查
+2. **数据范围** - CIM提到的数据都要包含
+3. **财务优先** - 买家最关心的
+4. **3-5年历史** - 用Excel格式
+5. **运营理解** - 客户/供应商可以匿名
+6. **市场数据** - 用第三方权威报告
+7. **清晰组织** - 清晰的文件夹结构
+8. **说明文档** - README帮助快速上手
+9. **安全分发** - 分级权限；记录下载
+`
+            },
+
+            "deal-tracker": {
+                title: "交易跟踪",
+                subtitle: "04-私募股权 · 市场情报",
+                badge: "基础技能",
+                oneliner: "跟踪市场交易动态，识别投资机会",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>交易跟踪是PE的眼和耳。<strong>了解市场在发生什么</strong>。</p><p>跟踪竞争对手的投资、市场交易、退出情况。</p>",
+                steps: [
+                    {title: "确定跟踪范围", what: "确定跟踪：行业、地区、交易规模、交易类型", why: "范围决定跟踪工作量", tips: "聚焦专注行业和地区"},
+                    {title: "收集交易信息", what: "从多种来源收集交易新闻、公告、数据库", why: "信息来源要全面", tips: "新闻扫描、PE数据库、行业网络"},
+                    {title: "记录关键信息", what: "记录：买卖双方、交易规模、倍数、时间、顾问", why: "关键信息帮助分析", tips: "用表格；标准化字段"},
+                    {title: "分析交易倍数", what: "分析交易倍数：EV/Revenue、EV/EBITDA、P/E", why: "倍数是估值参考", tips: "计算行业平均；看趋势"},
+                    {title: "分析交易模式", what: "分析市场模式：哪些行业活跃？哪些倍数高？谁是买家？", why: "模式指示市场方向", tips: "季度汇总；看同比变化"},
+                    {title: "更新和分发", what: "定期更新tracker，分发给团队", why: "tracker要有用必须更新", tips: "每周更新；突出新交易"},
+                    {title: "用于 sourcing", what: "用tracker信息联系潜在卖家或买家", why: "tracker的最终目的是促成交易", tips: "最近卖家的顾问可能是下次的来源"}
+                ],
+                fullDocumentation: `# 交易跟踪
+
+## 概述
+
+交易跟踪是PE的眼和耳。核心原则很简单：**了解市场在发生什么**。
+
+跟踪竞争对手的投资、市场交易、退出情况。
+
+## 分析步骤
+
+### 第1步：确定跟踪范围
+**做什么**：确定跟踪：行业、地区、交易规模、交易类型
+**为什么**：范围决定跟踪工作量
+**注意**：聚焦专注行业和地区
+
+### 第2步：收集交易信息
+**做什么**：从多种来源收集交易新闻、公告、数据库
+**为什么**：信息来源要全面
+**注意**：新闻扫描、PE数据库、行业网络
+
+### 第3步：记录关键信息
+**做什么**：记录：买卖双方、交易规模、倍数、时间、顾问
+**为什么**：关键信息帮助分析
+**注意**：用表格；标准化字段
+
+### 第4步：分析交易倍数
+**做什么**：分析交易倍数：EV/Revenue、EV/EBITDA、P/E
+**为什么**：倍数是估值参考
+**注意**：计算行业平均；看趋势
+
+### 第5步：分析交易模式
+**做什么**：分析市场模式：哪些行业活跃？哪些倍数高？谁是买家？
+**为什么**：模式指示市场方向
+**注意**：季度汇总；看同比变化
+
+### 第6步：更新和分发
+**做什么**：定期更新tracker，分发给团队
+**为什么**：tracker要有用必须更新
+**注意**：每周更新；突出新交易
+
+### 第7步：用于 sourcing
+**做什么**：用tracker信息联系潜在卖家或买家
+**为什么**：tracker的最终目的是促成交易
+**注意**：最近卖家的顾问可能是下次的来源
+
+## 关键原则
+
+1. **了解市场** - 了解市场在发生什么
+2. **聚焦专注** - 聚焦专注行业和地区
+3. **信息全面** - 多种来源
+4. **标准化字段** - 用表格
+5. **倍数参考** - 计算行业平均；看趋势
+6. **模式分析** - 季度汇总；看同比变化
+7. **每周更新** - tracker要有用必须更新
+8. **促成交易** - tracker的最终目的是促成交易
+`
+            },
+
+            "deal-sourcing": {
+                title: "交易寻找(Deal Sourcing)",
+                subtitle: "04-私募股权 · 核心流程",
+                badge: "核心技能",
+                oneliner: "系统化寻找和开发投资机会",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>没有项目就没有投资。<strong>交易寻找是PE的生命线</strong>。</p><p>好的交易来源包括：投资银行、公司直接、行业网络、数据库。</p>",
+                steps: [
+                    {title: "确定投资策略", what: "明确投资策略：行业、阶段、规模、地域", why: "策略决定sourcing方向", tips: "专注创造深度"},
+                    {title: "建立投行关系", what: "与投行MD/VP建立关系，定期沟通", why: "投行是最大项目来源", tips: "定期午餐/咖啡；提供价值（不要只索取）"},
+                    {title: "直接联系公司", what: "直接联系公司CEO/Owner，表达投资意向", why: "直接联系可能避开竞争", tips: "研究公司；准备好价值主张"},
+                    {title: "建立行业网络", what: "建立行业人脉：CEO、顾问、律师、会计师", why: "网络提供线索和推荐", tips: "参加行业会议；保持联系"},
+                    {title: "使用数据库和工具", what: "使用交易数据库、公司数据库、sourcing工具", why: "工具系统化sourcing", tips: "设alerts；定期扫描"},
+                    {title: "执行sourcing活动", what: "执行sourcing：会议、电话、邮件", why: "执行产生结果", tips: "设置KPI：每周联系数"},
+                    {title: "跟踪和follow up", what: "跟踪所有线索，定期follow up", why: "大多数项目需要多次接触", tips: "用CRM；设置提醒"},
+                    {title: "评估和优先排序", what: "评估每个机会：策略契合度、规模、时机、竞争", why: "时间有限，优先最好的", tips: "快速过滤；深入research重点机会"}
+                ],
+                fullDocumentation: `# 交易寻找(Deal Sourcing)
+
+## 概述
+
+没有项目就没有投资。核心原则很简单：**交易寻找是PE的生命线**。
+
+好的交易来源包括：投资银行、公司直接、行业网络、数据库。
+
+## 分析步骤
+
+### 第1步：确定投资策略
+**做什么**：明确投资策略：行业、阶段、规模、地域
+**为什么**：策略决定sourcing方向
+**注意**：专注创造深度
+
+### 第2步：建立投行关系
+**做什么**：与投行MD/VP建立关系，定期沟通
+**为什么**：投行是最大项目来源
+**注意**：定期午餐/咖啡；提供价值（不要只索取）
+
+### 第3步：直接联系公司
+**做什么**：直接联系公司CEO/Owner，表达投资意向
+**为什么**：直接联系可能避开竞争
+**注意**：研究公司；准备好价值主张
+
+### 第4步：建立行业网络
+**做什么**：建立行业人脉：CEO、顾问、律师、会计师
+**为什么**：网络提供线索和推荐
+**注意**：参加行业会议；保持联系
+
+### 第5步：使用数据库和工具
+**做什么**：使用交易数据库、公司数据库、sourcing工具
+**为什么**：工具系统化sourcing
+**注意**：设alerts；定期扫描
+
+### 第6步：执行sourcing活动
+**做什么**：执行sourcing：会议、电话、邮件
+**为什么**：执行产生结果
+**注意**：设置KPI：每周联系数
+
+### 第7步：跟踪和follow up
+**做什么**：跟踪所有线索，定期follow up
+**为什么**：大多数项目需要多次接触
+**注意**：用CRM；设置提醒
+
+### 第8步：评估和优先排序
+**做什么**：评估每个机会：策略契合度、规模、时机、竞争
+**为什么**：时间有限，优先最好的
+**注意**：快速过滤；深入research重点机会
+
+## 关键原则
+
+1. **生命线** - 交易寻找是PE的生命线
+2. **策略方向** - 专注创造深度
+3. **投行关系** - 投行是最大项目来源
+4. **直接联系** - 可能避开竞争
+5. **行业网络** - 提供线索和推荐
+6. **工具系统化** - 设alerts；定期扫描
+7. **执行KPI** - 每周联系数
+8. **CRM跟踪** - 用CRM；设置提醒
+9. **优先排序** - 时间有限，优先最好的
+`
+            },
+
+            "deal-screening": {
+                title: "交易筛选",
+                subtitle: "04-私募股权 · 流程优化",
+                badge: "基础技能",
+                oneliner: "快速评估和筛选投资机会",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>时间有限，机会很多。<strong>快速筛选聚焦最好的机会</strong>。</p><p>筛选标准：策略契合、回报潜力、可行性。</p>",
+                steps: [
+                    {title: "建立筛选框架", what: "建立筛选维度：策略、财务、运营、风险", why: "框架确保一致性", tips: "每个维度设置pass/fail标准"},
+                    {title: "快速信息收集", what: "快速收集关键信息：行业、规模、增长、盈利、位置", why: "基本信息足够初筛", tips: "用公开信息；不要深入DD"},
+                    {title: "策略契合评估", what: "评估：行业契合？规模合适？地域合适？阶段合适？", why: "策略不契合pass", tips: "严格按投资标准"},
+                    {title: "财务潜力评估", what: "评估：收入规模、增长、利润率、现金流、杠杆能力", why: "财务潜力决定回报", tips: "设置最小值：收入>$50M，增长>10%"},
+                    {title: "估值吸引力评估", what: "评估：当前估值、潜在倍数、创造价值空间", why: "买入价格决定回报", tips: "比较当前倍数vs退出倍数"},
+                    {title: "可行性评估", what: "评估：管理团队态度、竞争激烈程度、执行难度", why: "再好的项目，执行不了也没用", tips: "卖家动机很重要"},
+                    {title: "风险快速评估", what: "识别重大风险：deal killer", why: "重大风险可以快速排除", tips: "监管风险、关键人风险、技术风险"},
+                    {title: "优先排序", what: "通过筛选的项目按优先级排序：高/中/低", why: "优先级决定资源分配", tips: "高优先=深入研究；低优先=观望"}
+                ],
+                fullDocumentation: `# 交易筛选
+
+## 概述
+
+时间有限，机会很多。核心原则很简单：**快速筛选聚焦最好的机会**。
+
+筛选标准：策略契合、回报潜力、可行性。
+
+## 分析步骤
+
+### 第1步：建立筛选框架
+**做什么**：建立筛选维度：策略、财务、运营、风险
+**为什么**：框架确保一致性
+**注意**：每个维度设置pass/fail标准
+
+### 第2步：快速信息收集
+**做什么**：快速收集关键信息：行业、规模、增长、盈利、位置
+**为什么**：基本信息足够初筛
+**注意**：用公开信息；不要深入DD
+
+### 第3步：策略契合评估
+**做什么**：评估：行业契合？规模合适？地域合适？阶段合适？
+**为什么**：策略不契合pass
+**注意**：严格按投资标准
+
+### 第4步：财务潜力评估
+**做什么**：评估：收入规模、增长、利润率、现金流、杠杆能力
+**为什么**：财务潜力决定回报
+**注意**：设置最小值：收入>$50M，增长>10%
+
+### 第5步：估值吸引力评估
+**做什么**：评估：当前估值、潜在倍数、创造价值空间
+**为什么**：买入价格决定回报
+**注意**：比较当前倍数vs退出倍数
+
+### 第6步：可行性评估
+**做什么**：评估：管理团队态度、竞争激烈程度、执行难度
+**为什么**：再好的项目，执行不了也没用
+**注意**：卖家动机很重要
+
+### 第7步：风险快速评估
+**做什么**：识别重大风险：deal killer
+**为什么**：重大风险可以快速排除
+**注意**：监管风险、关键人风险、技术风险
+
+### 第8步：优先排序
+**做什么**：通过筛选的项目按优先级排序：高/中/低
+**为什么**：优先级决定资源分配
+**注意**：高优先=深入研究；低优先=观望
+
+## 关键原则
+
+1. **快速筛选** - 聚焦最好的机会
+2. **筛选框架** - 每个维度设置pass/fail标准
+3. **基本信息** - 用公开信息；不要深入DD
+4. **策略契合** - 严格按投资标准
+5. **财务潜力** - 设置最小值
+6. **估值吸引** - 比较当前倍数vs退出倍数
+7. **可行性** - 卖家动机很重要
+8. **风险排除** - 重大风险可以快速排除
+9. **优先分配** - 高优先=深入研究
+`
+            },
+
+            "dd-meeting-prep": {
+                title: "尽职调查会议准备",
+                subtitle: "04-私募股权 · 执行支持",
+                badge: "基础技能",
+                oneliner: "为与管理层的尽职调查会议做准备",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>与管理层的会议是DD的关键。<strong>好的准备确保问对问题</strong>。</p><p>准备议题、问题清单、数据要求。</p>",
+                steps: [
+                    {title: "回顾投资论点", what: "回顾投资论点：关键假设、风险、需要验证的事项", why: "会议要验证论点", tips: "列出3-5个必须验证的事项"},
+                    {title: "审阅已有材料", what: "审阅：CIM、财务报表、公开信息", why: "了解背景才能问好问题", tips: "标记需要澄清的点"},
+                    {title: "准备问题清单", what: "准备问题清单：战略、运营、财务、市场、竞争、组织", why: "问题清单确保不遗漏", tips: "优先重要问题；留出追问空间"},
+                    {title: "准备数据请求", what: "准备需要的数据请求：未提供的报告、详细数据", why: "数据请求应该提前发出", tips: "分类：必须、重要、nice to have"},
+                    {title: "确定参会人员", what: "确定谁参会：PE团队、外部顾问、公司方", why: "正确的人参会提高效率", tips: "运营DD需要运营专家；法律DD需要律师"},
+                    {title: "分配角色", what: "分配角色：谁主导？谁记笔记？谁问哪方面问题？", why: "角色分工避免混乱", tips: "一人主导；其他人补充"},
+                    {title: "准备会议物料", what: "准备：议程、问题清单、财务模型、笔和本", why: "物料让会议更高效", tips: "打印材料；提前发给参会人"}
+                ],
+                fullDocumentation: `# 尽职调查会议准备
+
+## 概述
+
+与管理层的会议是DD的关键。核心原则很简单：**好的准备确保问对问题**。
+
+准备议题、问题清单、数据要求。
+
+## 分析步骤
+
+### 第1步：回顾投资论点
+**做什么**：回顾投资论点：关键假设、风险、需要验证的事项
+**为什么**：会议要验证论点
+**注意**：列出3-5个必须验证的事项
+
+### 第2步：审阅已有材料
+**做什么**：审阅：CIM、财务报表、公开信息
+**为什么**：了解背景才能问好问题
+**注意**：标记需要澄清的点
+
+### 第3步：准备问题清单
+**做什么**：准备问题清单：战略、运营、财务、市场、竞争、组织
+**为什么**：问题清单确保不遗漏
+**注意**：优先重要问题；留出追问空间
+
+### 第4步：准备数据请求
+**做什么**：准备需要的数据请求：未提供的报告、详细数据
+**为什么**：数据请求应该提前发出
+**注意**：分类：必须、重要、nice to have
+
+### 第5步：确定参会人员
+**做什么**：确定谁参会：PE团队、外部顾问、公司方
+**为什么**：正确的人参会提高效率
+**注意**：运营DD需要运营专家；法律DD需要律师
+
+### 第6步：分配角色
+**做什么**：分配角色：谁主导？谁记笔记？谁问哪方面问题？
+**为什么**：角色分工避免混乱
+**注意**：一人主导；其他人补充
+
+### 第7步：准备会议物料
+**做什么**：准备：议程、问题清单、财务模型、笔和本
+**为什么**：物料让会议更高效
+**注意**：打印材料；提前发给参会人
+
+## 关键原则
+
+1. **准备确保** - 好的准备确保问对问题
+2. **验证论点** - 会议要验证论点
+3. **了解背景** - 标记需要澄清的点
+4. **问题清单** - 确保不遗漏
+5. **数据请求** - 分类：必须、重要、nice to have
+6. **正确的人** - 运营DD需要运营专家
+7. **角色分工** - 一人主导；其他人补充
+8. **物料高效** - 打印材料；提前发给参会人
+`
+            },
+
+            "unit-economics": {
+                title: "单体经济模型",
+                subtitle: "04-私募股权 · 分析工具",
+                badge: "核心技能",
+                oneliner: "分析企业最小经济单位(单客/单店)的盈利能力",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>Unit economics揭示商业模式真相。<strong>整体盈利可能掩盖单位亏损</strong>。</p><p>关键指标：CAC、LTV、payback period、margin。</p>",
+                steps: [
+                    {title: "定义单位", what: "定义最小经济单位：客户、订单、门店、座位", why: "单位定义要合理", tips: "SaaS用客户；零售用门店"},
+                    {title: "计算收入单位", what: "计算每单位收入：ARPU、AOV、ASP", why: "单位收入是起点", tips: "ARPU=月收入/用户数；AOV=订单总额/订单数"},
+                    {title: "计算成本单位", what: "计算每单位成本：COGS、服务成本、履约成本", why: "单位成本决定盈利能力", tips: "COGS=产品成本；服务成本=支持成本"},
+                    {title: "计算获客成本(CAC)", what: "计算CAC=营销费用/新客数量", why: "CAC决定增长成本", tips: "按渠道计算；关注LTV/CAC比率"},
+                    {title: "计算客户价值(LTV)", what: "计算LTV=ARPU×毛利率×客户寿命", why: "LTV是客户终身价值", tips: "客户寿命=1/流失率"},
+                    {title: "计算回收期", what: "计算回收期=CAC/(ARPU×毛利率)", why: "回收期越短越好", tips: "理想<12个月；容忍<24个月"},
+                    {title: "分析边际贡献", what: "计算每单位边际贡献=收入-可变成本", why: "边际贡献决定规模效应", tips: "正边际贡献+增长=规模经济"},
+                    {title: "评估规模潜力", what: "评估：单位经济是否可复制？规模后是否改善？", why: "好的单位经济可规模化", tips: "看行业标杆；问自己：1万个单位会怎样？"}
+                ],
+                fullDocumentation: `# 单体经济模型
+
+## 概述
+
+Unit economics揭示商业模式真相。核心原则很简单：**整体盈利可能掩盖单位亏损**。
+
+关键指标：CAC、LTV、payback period、margin。
+
+## 分析步骤
+
+### 第1步：定义单位
+**做什么**：定义最小经济单位：客户、订单、门店、座位
+**为什么**：单位定义要合理
+**注意**：SaaS用客户；零售用门店
+
+### 第2步：计算收入单位
+**做什么**：计算每单位收入：ARPU、AOV、ASP
+**为什么**：单位收入是起点
+**注意**：ARPU=月收入/用户数；AOV=订单总额/订单数
+
+### 第3步：计算成本单位
+**做什么**：计算每单位成本：COGS、服务成本、履约成本
+**为什么**：单位成本决定盈利能力
+**注意**：COGS=产品成本；服务成本=支持成本
+
+### 第4步：计算获客成本(CAC)
+**做什么**：计算CAC=营销费用/新客数量
+**为什么**：CAC决定增长成本
+**注意**：按渠道计算；关注LTV/CAC比率
+
+### 第5步：计算客户价值(LTV)
+**做什么**：计算LTV=ARPU×毛利率×客户寿命
+**为什么**：LTV是客户终身价值
+**注意**：客户寿命=1/流失率
+
+### 第6步：计算回收期
+**做什么**：计算回收期=CAC/(ARPU×毛利率)
+**为什么**：回收期越短越好
+**注意**：理想<12个月；容忍<24个月
+
+### 第7步：分析边际贡献
+**做什么**：计算每单位边际贡献=收入-可变成本
+**为什么**：边际贡献决定规模效应
+**注意**：正边际贡献+增长=规模经济
+
+### 第8步：评估规模潜力
+**做什么**：评估：单位经济是否可复制？规模后是否改善？
+**为什么**：好的单位经济可规模化
+**注意**：看行业标杆；问自己：1万个单位会怎样？
+
+## 关键原则
+
+1. **揭示真相** - 整体盈利可能掩盖单位亏损
+2. **单位合理** - SaaS用客户；零售用门店
+3. **ARPU/AOV** - 单位收入是起点
+4. **成本决定** - 单位成本决定盈利能力
+5. **CAC增长** - LTV/CAC比率
+6. **LTV价值** - 客户寿命=1/流失率
+7. **回收期** - 理想<12个月
+8. **边际贡献** - 正边际贡献+增长=规模经济
+9. **规模潜力** - 好的单位经济可规模化
+`
+            },
+
+            "returns-analysis": {
+                title: "回报分析",
+                subtitle: "04-私募股权 · 核心分析",
+                badge: "核心技能",
+                oneliner: "分析和展示私募股权投资的预期回报",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>回报分析是PE的核心。<strong>IRR和MOIC是终极指标</strong>。</p><p>分析投资回报来源：增长、杠杆、倍数扩张。</p>",
+                steps: [
+                    {title: "建立现金流模型", what: "建模投资期的现金流：投资、分红、退出", why: "现金流是IRR的基础", tips: "投资是负，收益是正"},
+                    {title: "计算IRR", what: "用XIRR或IRR函数计算内部收益率", why: "IRR是PE标准指标", tips: "IRR>20%是好交易；IRR>30%是优秀"},
+                    {title: "计算MOIC", what: "计算MOIC=总收益/总投资", why: "MOIC是绝对倍数", tips: "MOIC>2x是好交易；MOIC>3x是优秀"},
+                    {title: "分解回报来源", what: "分解回报：EBITDA增长、债务偿还、倍数扩张", why: "理解回报来源帮助讲故事", tips: "回报=增长+杠杆+倍数"},
+                    {title: "建立退出情景", what: "建立不同退出情景：IPO、战略出售、次级收购", why: "退出方式影响回报", tips: "战略出售通常倍数最高；IPO流动性最好"},
+                    {title: "敏感性分析", what: "测试不同假设的回报：退出倍数、增长、杠杆", why: "敏感性展示风险区间", tips: "用5×5矩阵；强调基准情景"},
+                    {title: "制作回报bridge", what: "制作回报bridge图：投资→退出收益", why: "Bridge图直观展示回报来源", tips: "从左到右：投资成本→EBITDA增长→债务偿还→退出倍数→退出价值"},
+                    {title: "与benchmark比较", what: "与基金目标、行业平均比较", why: "相对位置很重要", tips: "与基金IRR hurdle比较"}
+                ],
+                fullDocumentation: `# 回报分析
+
+## 概述
+
+回报分析是PE的核心。核心原则很简单：**IRR和MOIC是终极指标**。
+
+分析投资回报来源：增长、杠杆、倍数扩张。
+
+## 分析步骤
+
+### 第1步：建立现金流模型
+**做什么**：建模投资期的现金流：投资、分红、退出
+**为什么**：现金流是IRR的基础
+**注意**：投资是负，收益是正
+
+### 第2步：计算IRR
+**做什么**：用XIRR或IRR函数计算内部收益率
+**为什么**：IRR是PE标准指标
+**注意**：IRR>20%是好交易；IRR>30%是优秀
+
+### 第3步：计算MOIC
+**做什么**：计算MOIC=总收益/总投资
+**为什么**：MOIC是绝对倍数
+**注意**：MOIC>2x是好交易；MOIC>3x是优秀
+
+### 第4步：分解回报来源
+**做什么**：分解回报：EBITDA增长、债务偿还、倍数扩张
+**为什么**：理解回报来源帮助讲故事
+**注意**：回报=增长+杠杆+倍数
+
+### 第5步：建立退出情景
+**做什么**：建立不同退出情景：IPO、战略出售、次级收购
+**为什么**：退出方式影响回报
+**注意**：战略出售通常倍数最高；IPO流动性最好
+
+### 第6步：敏感性分析
+**做什么**：测试不同假设的回报：退出倍数、增长、杠杆
+**为什么**：敏感性展示风险区间
+**注意**：用5×5矩阵；强调基准情景
+
+### 第7步：制作回报bridge
+**做什么**：制作回报bridge图：投资→退出收益
+**为什么**：Bridge图直观展示回报来源
+**注意**：从左到右：投资成本→EBITDA增长→债务偿还→退出倍数→退出价值
+
+### 第8步：与benchmark比较
+**做什么**：与基金目标、行业平均比较
+**为什么**：相对位置很重要
+**注意**：与基金IRR hurdle比较
+
+## 关键原则
+
+1. **IRR优先** - IRR是PE标准
+2. **MOIC辅助** - MOIC提供绝对值
+3. **回报分解** - 理解回报来源
+4. **敏感性必须** - 展示风险区间
+5. **退出关键** - 退出方式影响回报
+6. **Bridge直观** - Bridge图展示来源
+7. **相对比较** - 与benchmark比较
+`
+            },
+
+            "portfolio-monitoring": {
+                title: "投资组合监控",
+                subtitle: "04-私募股权 · 持续管理",
+                badge: "核心技能",
+                oneliner: "持续监控投资组合公司，识别风险和机会",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>投资之后工作才开始。<strong>持续监控确保价值创造</strong>。</p><p>监控财务表现、运营指标、风险信号。</p>",
+                steps: [
+                    {title: "建立监控框架", what: "确定监控频率：月度/季度；监控内容：财务、运营、风险", why: "框架决定监控工作量", tips: "大部分公司季度监控；问题公司月度监控"},
+                    {title: "收集财务数据", what: "收集月报/季报：收入、EBITDA、现金流、Capex", why: "财务数据是健康度指标", tips: "与管理层确认；与预算比较"},
+                    {title: "收集运营数据", what: "收集KPI：客户数、留存率、转化率、产能", why: "运营指标领先财务", tips: "设置预警阈值"},
+                    {title: "评估表现vs预算", what: "比较实际vs预算，分析差异", why: "预算差异指示问题或机会", tips: "差异>10%需要解释"},
+                    {title: "识别风险信号", what: "识别风险：关键人流失、客户流失、竞争加剧、监管变化", why: "早期识别风险可以干预", tips: "建立风险信号清单；定期扫描"},
+                    {title: "董事会参与", what: "参加董事会会议，提供价值，监控进展", why: "董事会是影响和监控的最佳渠道", tips: "准备会议；跟进action items"},
+                    {title: "更新价值评估", what: "定期更新公司估值：最新市场、倍数、可比交易", why: "估值变化影响基金报告", tips: "每季度更新；保守估计"},
+                    {title: "报告和行动", what: "向投委会报告；必要时采取干预措施", why: "报告驱动决策", tips: "问题公司需要更频繁报告；准备行动计划"}
+                ],
+                fullDocumentation: `# 投资组合监控
+
+## 概述
+
+投资之后工作才开始。核心原则很简单：**持续监控确保价值创造**。
+
+监控财务表现、运营指标、风险信号。
+
+## 分析步骤
+
+### 第1步：建立监控框架
+**做什么**：确定监控频率：月度/季度；监控内容：财务、运营、风险
+**为什么**：框架决定监控工作量
+**注意**：大部分公司季度监控；问题公司月度监控
+
+### 第2步：收集财务数据
+**做什么**：收集月报/季报：收入、EBITDA、现金流、Capex
+**为什么**：财务数据是健康度指标
+**注意**：与管理层确认；与预算比较
+
+### 第3步：收集运营数据
+**做什么**：收集KPI：客户数、留存率、转化率、产能
+**为什么**：运营指标领先财务
+**注意**：设置预警阈值
+
+### 第4步：评估表现vs预算
+**做什么**：比较实际vs预算，分析差异
+**为什么**：预算差异指示问题或机会
+**注意**：差异>10%需要解释
+
+### 第5步：识别风险信号
+**做什么**：识别风险：关键人流失、客户流失、竞争加剧、监管变化
+**为什么**：早期识别风险可以干预
+**注意**：建立风险信号清单；定期扫描
+
+### 第6步：董事会参与
+**做什么**：参加董事会会议，提供价值，监控进展
+**为什么**：董事会是影响和监控的最佳渠道
+**注意**：准备会议；跟进action items
+
+### 第7步：更新价值评估
+**做什么**：定期更新公司估值：最新市场、倍数、可比交易
+**为什么**：估值变化影响基金报告
+**注意**：每季度更新；保守估计
+
+### 第8步：报告和行动
+**做什么**：向投委会报告；必要时采取干预措施
+**为什么**：报告驱动决策
+**注意**：问题公司需要更频繁报告；准备行动计划
+
+## 关键原则
+
+1. **投资后才开始** - 投资之后工作才开始
+2. **监控频率差异化** - 问题公司需要更频繁监控
+3. **运营领先财务** - 运营指标是领先指标
+4. **预算是基准** - 与预算比较揭示差异
+5. **风险预警** - 早期识别风险可以干预
+6. **董事会参与** - 董事会是重要渠道
+7. **定期估值** - 每季度更新估值
+8. **报告驱动行动** - 报告要产生行动
+`
+            },
+
+            "value-creation-plan": {
+                title: "价值创造计划",
+                subtitle: "04-私募股权 · 战略规划",
+                badge: "高阶技能",
+                oneliner: "为投资组合公司设计价值创造战略",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>PE不只是买和卖。<strong>主动创造价值才能获得超额回报</strong>。</p><p>价值创造计划识别机会：收入增长、利润率提升、运营优化。</p>",
+                steps: [
+                    {title: "分析当前状态", what: "全面分析公司：战略、运营、财务、组织", why: "了解现状才能设计改进", tips: "用SWOT；用benchmarking"},
+                    {title: "识别价值驱动因素", what: "识别价值杠杆：价格、销量、成本、资本效率", why: "价值驱动聚焦努力", tips: "用杜邦分析；用价值树"},
+                    {title: "设定价值创造目标", what: "设定目标：EBITDA增长、利润率提升、现金流改善", why: "明确的目标指引行动", tips: "目标要SMART；与投资论点一致"},
+                    {title: "设计收入增长计划", what: "设计收入增长：新产品、新市场、新渠道、定价优化", why: "收入增长是价值主要来源", tips: "交叉销售、追加销售、定价权"},
+                    {title: "设计利润率提升计划", what: "设计利润率提升：成本结构优化、供应链优化、自动化", why: "利润率提升直接增加EBITDA", tips: "流程优化、外包、共享服务"},
+                    {title: "设计资本效率计划", what: "设计资本效率：库存优化、应收账款管理、Capex优化", why: "资本效率改善现金流和ROIC", tips: "JIT、账期管理、Capex优先级"},
+                    {title: "制定实施路线图", what: "制定路线图：什么、谁、何时、资源、里程碑", why: "路线图将计划变行动", tips: "短期速赢+长期转型；季度里程碑"},
+                    {title: "分配责任和资源", what: "分配责任：谁负责什么？需要什么资源？", why: "责任落实确保执行", tips: "管理层负责；PE支持；必要时外部专家"},
+                    {title: "建立衡量和跟踪", what: "建立KPI、定期跟踪、季度review", why: "衡量驱动执行", tips: "每月跟踪；季度deep dive"},
+                    {title: "调整和优化", what: "根据结果调整计划", why: "计划需要适应现实", tips: "保持灵活性；学习迭代"}
+                ],
+                fullDocumentation: `# 价值创造计划
+
+## 概述
+
+PE不只是买和卖。核心原则很简单：**主动创造价值才能获得超额回报**。
+
+价值创造计划识别机会：收入增长、利润率提升、运营优化。
+
+## 分析步骤
+
+### 第1步：分析当前状态
+**做什么**：全面分析公司：战略、运营、财务、组织
+**为什么**：了解现状才能设计改进
+**注意**：用SWOT；用benchmarking
+
+### 第2步：识别价值驱动因素
+**做什么**：识别价值杠杆：价格、销量、成本、资本效率
+**为什么**：价值驱动聚焦努力
+**注意**：用杜邦分析；用价值树
+
+### 第3步：设定价值创造目标
+**做什么**：设定目标：EBITDA增长、利润率提升、现金流改善
+**为什么**：明确的目标指引行动
+**注意**：目标要SMART；与投资论点一致
+
+### 第4步：设计收入增长计划
+**做什么**：设计收入增长：新产品、新市场、新渠道、定价优化
+**为什么**：收入增长是价值主要来源
+**注意**：交叉销售、追加销售、定价权
+
+### 第5步：设计利润率提升计划
+**做什么**：设计利润率提升：成本结构优化、供应链优化、自动化
+**为什么**：利润率提升直接增加EBITDA
+**注意**：流程优化、外包、共享服务
+
+### 第6步：设计资本效率计划
+**做什么**：设计资本效率：库存优化、应收账款管理、Capex优化
+**为什么**：资本效率改善现金流和ROIC
+**注意**：JIT、账期管理、Capex优先级
+
+### 第7步：制定实施路线图
+**做什么**：制定路线图：什么、谁、何时、资源、里程碑
+**为什么**：路线图将计划变行动
+**注意**：短期速赢+长期转型；季度里程碑
+
+### 第8步：分配责任和资源
+**做什么**：分配责任：谁负责什么？需要什么资源？
+**为什么**：责任落实确保执行
+**注意**：管理层负责；PE支持；必要时外部专家
+
+### 第9步：建立衡量和跟踪
+**做什么**：建立KPI、定期跟踪、季度review
+**为什么**：衡量驱动执行
+**注意**：每月跟踪；季度deep dive
+
+### 第10步：调整和优化
+**做什么**：根据结果调整计划
+**为什么**：计划需要适应现实
+**注意**：保持灵活性；学习迭代
+
+## 关键原则
+
+1. **主动创造价值** - PE不只是买和卖
+2. **价值驱动聚焦** - 识别关键价值杠杆
+3. **SMART目标** - 明确的目标指引行动
+4. **收入增长优先** - 收入增长是价值主要来源
+5. **利润率提升** - 直接增加EBITDA
+6. **资本效率** - 改善现金流和ROIC
+7. **路线图** - 将计划变行动
+8. **责任落实** - 管理层负责；PE支持
+9. **衡量驱动** - 建立KPI；定期跟踪
+10. **灵活调整** - 计划需要适应现实
+`
+            },
+
+            "ai-readiness": {
+                title: "AI就绪评估",
+                subtitle: "04-私募股权 · 新兴领域",
+                badge: "新兴技能",
+                oneliner: "评估公司的AI应用潜力和风险",
+                vertical: "04-私募股权",
+                verticalLink: "vertical-04.html",
+                whatIsThis: "<p>AI正在改变各行各业。<strong>评估公司的AI就绪度越来越重要</strong>。</p><p>评估：数据基础、技术能力、人才储备、应用场景。</p>",
+                steps: [
+                    {title: "评估数据基础", what: "评估：数据量、数据质量、数据多样性、数据治理", why: "数据是AI的燃料", tips: "数据量够吗？结构化吗？有标签吗？"},
+                    {title: "评估技术基础", what: "评估：IT系统、云基础、API、数据处理能力", why: "技术基础决定AI可行性", tips: "遗留系统是障碍；云原生是优势"},
+                    {title: "评估AI人才", what: "评估：数据科学家、ML工程师、AI战略人才", why: "人才是AI执行的关键", tips: "内部团队vs外包；顾问帮助"},
+                    {title: "识别AI应用场景", what: "识别高价值AI场景：运营自动化、客户体验、产品创新、风险管理", why: "AI要有明确价值", tips: "从高价值低复杂度开始"},
+                    {title: "评估竞争优势", what: "评估：AI是否创造差异化优势？是否可复制？", why: "AI优势是可持续的吗？", tips: "专有数据是护城河"},
+                    {title: "评估风险和合规", what: "评估：数据隐私、算法偏见、监管合规、伦理风险", why: "AI带来新风险", tips: "GDPR、算法审计、人机协同"},
+                    {title: "制定AI路线图", what: "制定AI实施路线图：试点、扩展、转型", why: "AI是旅程不是目的地", tips: "从小开始；学习迭代"},
+                    {title: "量化AI价值", what: "量化AI的价值：成本节约、收入增长、效率提升", why: "价值量化支撑投资", tips: "用ROI；用案例研究"}
+                ],
+                fullDocumentation: `# AI就绪评估
+
+## 概述
+
+AI正在改变各行各业。核心原则很简单：**评估公司的AI就绪度越来越重要**。
+
+评估：数据基础、技术能力、人才储备、应用场景。
+
+## 分析步骤
+
+### 第1步：评估数据基础
+**做什么**：评估：数据量、数据质量、数据多样性、数据治理
+**为什么**：数据是AI的燃料
+**注意**：数据量够吗？结构化吗？有标签吗？
+
+### 第2步：评估技术基础
+**做什么**：评估：IT系统、云基础、API、数据处理能力
+**为什么**：技术基础决定AI可行性
+**注意**：遗留系统是障碍；云原生是优势
+
+### 第3步：评估AI人才
+**做什么**：评估：数据科学家、ML工程师、AI战略人才
+**为什么**：人才是AI执行的关键
+**注意**：内部团队vs外包；顾问帮助
+
+### 第4步：识别AI应用场景
+**做什么**：识别高价值AI场景：运营自动化、客户体验、产品创新、风险管理
+**为什么**：AI要有明确价值
+**注意**：从高价值低复杂度开始
+
+### 第5步：评估竞争优势
+**做什么**：评估：AI是否创造差异化优势？是否可复制？
+**为什么**：AI优势是可持续的吗？
+**注意**：专有数据是护城河
+
+### 第6步：评估风险和合规
+**做什么**：评估：数据隐私、算法偏见、监管合规、伦理风险
+**为什么**：AI带来新风险
+**注意**：GDPR、算法审计、人机协同
+
+### 第7步：制定AI路线图
+**做什么**：制定AI实施路线图：试点、扩展、转型
+**为什么**：AI是旅程不是目的地
+**注意**：从小开始；学习迭代
+
+### 第8步：量化AI价值
+**做什么**：量化AI的价值：成本节约、收入增长、效率提升
+**为什么**：价值量化支撑投资
+**注意**：用ROI；用案例研究
+
+## 关键原则
+
+1. **数据是燃料** - 没有数据就没有AI
+2. **技术基础** - 遗留系统是障碍
+3. **人才关键** - 需要AI技能
+4. **价值驱动** - AI要有明确价值
+5. **可持续优势** - 专有数据是护城河
+6. **风险合规** - AI带来新风险
+7. **迭代路线图** - 从小开始；学习迭代
+8. **量化价值** - ROI支撑投资
+`
+            },
+
+            "client-meeting": {
+                title: "客户会议",
+                subtitle: "05-财富管理 · 核心活动",
+                badge: "核心技能",
+                oneliner: "准备和执行与客户的有效会议",
+                vertical: "05-财富管理",
+                verticalLink: "vertical-05.html",
+                whatIsThis: "<p>客户会议是财富经理的核心工作。<strong>好的会议建立信任和关系</strong>。</p><p>会议类型：review、规划、危机处理。</p>",
+                steps: [
+                    {title: "确定会议目的", what: "明确会议目的：review、规划、教育、解决问题", why: "目的决定议程", tips: "一次会议一个主要目的"},
+                    {title: "准备客户信息", what: "复习：客户档案、投资组合、历史沟通、风险概况", why: "准备显示专业和关心", tips: "了解客户最近的生活事件"},
+                    {title: "准备会议材料", what: "准备：组合表现、市场回顾、建议方案", why: "材料支撑讨论", tips: "简洁可视化；不要过度信息"},
+                    {title: "设定议程", what: "设定议程和时间分配", why: "议程让会议高效", tips: "与客户分享议程；灵活调整"},
+                    {title: "开场建立关系", what: "闲聊：家庭、工作、生活", why: "关系是信任的基础", tips: "真诚关心；记住重要细节"},
+                    {title: "回顾表现", what: "回顾：投资组合表现、vs基准、实现的目标", why: "回顾建立可信度", tips: "诚实面对不佳表现；解释原因"},
+                    {title: "讨论市场和变化", what: "分享市场观点、经济变化、对客户的影响", why: "教育增加价值", tips: "简洁相关；不要overwhelm"},
+                    {title: "讨论目标和变化", what: "讨论：财务目标、风险承受度、生活变化", why: "目标可能变化；需要定期确认", tips: "主动询问；认真倾听"},
+                    {title: "提出建议", what: "基于讨论提出调整建议：rebalance、再配置、风险调整", why: "建议体现价值", tips: "解释为什么；获得认同"},
+                    {title: "确认行动", what: "确认下一步行动、时间表、责任", why: "会议要产生行动", tips: "发给客户会议纪要"},
+                    {title: "跟进", what: "跟进：发送感谢、执行行动、定期更新", why: "跟进强化关系", tips: "24小时内发感谢邮件"}
+                ],
+                fullDocumentation: `# 客户会议
+
+## 概述
+
+客户会议是财富经理的核心工作。核心原则很简单：**好的会议建立信任和关系**。
+
+会议类型：review、规划、危机处理。
+
+## 分析步骤
+
+### 第1步：确定会议目的
+**做什么**：明确会议目的：review、规划、教育、解决问题
+**为什么**：目的决定议程
+**注意**：一次会议一个主要目的
+
+### 第2步：准备客户信息
+**做什么**：复习：客户档案、投资组合、历史沟通、风险概况
+**为什么**：准备显示专业和关心
+**注意**：了解客户最近的生活事件
+
+### 第3步：准备会议材料
+**做什么**：准备：组合表现、市场回顾、建议方案
+**为什么**：材料支撑讨论
+**注意**：简洁可视化；不要过度信息
+
+### 第4步：设定议程
+**做什么**：设定议程和时间分配
+**为什么**：议程让会议高效
+**注意**：与客户分享议程；灵活调整
+
+### 第5步：开场建立关系
+**做什么**：闲聊：家庭、工作、生活
+**为什么**：关系是信任的基础
+**注意**：真诚关心；记住重要细节
+
+### 第6步：回顾表现
+**做什么**：回顾：投资组合表现、vs基准、实现的目标
+**为什么**：回顾建立可信度
+**注意**：诚实面对不佳表现；解释原因
+
+### 第7步：讨论市场和变化
+**做什么**：分享市场观点、经济变化、对客户的影响
+**为什么**：教育增加价值
+**注意**：简洁相关；不要overwhelm
+
+### 第8步：讨论目标和变化
+**做什么**：讨论：财务目标、风险承受度、生活变化
+**为什么**：目标可能变化；需要定期确认
+**注意**：主动询问；认真倾听
+
+### 第9步：提出建议
+**做什么**：基于讨论提出调整建议：rebalance、再配置、风险调整
+**为什么**：建议体现价值
+**注意**：解释为什么；获得认同
+
+### 第10步：确认行动
+**做什么**：确认下一步行动、时间表、责任
+**为什么**：会议要产生行动
+**注意**：发给客户会议纪要
+
+### 第11步：跟进
+**做什么**：跟进：发送感谢、执行行动、定期更新
+**为什么**：跟进强化关系
+**注意**：24小时内发感谢邮件
+
+## 关键原则
+
+1. **目的明确** - 一次会议一个主要目的
+2. **充分准备** - 准备显示专业和关心
+3. **关系优先** - 关系是信任的基础
+4. **诚实透明** - 诚实面对不佳表现
+5. **教育增值** - 教育增加价值
+6. **倾听理解** - 主动询问；认真倾听
+7. **建议有理** - 解释为什么；获得认同
+8. **会议有果** - 会议要产生行动
+9. **及时跟进** - 24小时内发感谢邮件
+`
+            },
+
+            "investment-proposal": {
+                title: "投资建议",
+                subtitle: "05-财富管理 · 核心输出",
+                badge: "核心技能",
+                oneliner: "向客户提出具体的投资建议",
+                vertical: "05-财富管理",
+                verticalLink: "vertical-05.html",
+                whatIsThis: "<p>投资建议是财富经理的核心产出。<strong>建议要清晰、有理、可执行</strong>。</p><p>包括：投资目标、策略、具体配置、时间表。</p>",
+                steps: [
+                    {title: "了解客户需求", what: "了解：投资目标、时间horizon、风险承受度、流动性需求", why: "建议要匹配客户需求", tips: "用风险问卷；深入访谈"},
+                    {title: "分析当前状况", what: "分析：当前配置、风险暴露、问题", why: "现状是建议的起点", tips: "识别机会和风险"},
+                    {title: "制定投资策略", what: "制定策略：资产配置、地区配置、行业配置、风格偏好", why: "策略驱动配置", tips: "与客户目标一致；考虑市场环境"},
+                    {title: "选择投资工具", what: "选择工具：ETF、Mutual Fund、个股、债券、另类", why: "工具实现策略", tips: "考虑成本、流动性、透明度"},
+                    {title: "设计配置方案", what: "设计：核心-卫星、战略-战术、或目标配置", why: "配置决定风险和回报", tips: "简化；客户要理解"},
+                    {title: "准备预期和风险", what: "准备：预期回报、波动、最大回撤、压力测试", why: "管理客户预期", tips: "展示不同情景；强调风险"},
+                    {title: "撰写建议书", what: "撰写：背景、分析、建议、实施", why: "建议书是正式文件", tips: "简洁清晰；可视化"},
+                    {title: "展示和讨论", what: "向客户展示建议，讨论问题", why: "客户理解才能认同", tips: "留出提问时间；不要overwhelm"},
+                    {title: "获得批准和执行", what: "获得客户批准，执行交易", why: "建议的价值在于执行", tips: "快速执行；确认执行"},
+                    {title: "跟踪和报告", what: "跟踪表现，定期报告", why: "跟踪验证建议", tips: "与预期比较；解释差异"}
+                ],
+                fullDocumentation: `# 投资建议
+
+## 概述
+
+投资建议是财富经理的核心产出。核心原则很简单：**建议要清晰、有理、可执行**。
+
+包括：投资目标、策略、具体配置、时间表。
+
+## 分析步骤
+
+### 第1步：了解客户需求
+**做什么**：了解：投资目标、时间horizon、风险承受度、流动性需求
+**为什么**：建议要匹配客户需求
+**注意**：用风险问卷；深入访谈
+
+### 第2步：分析当前状况
+**做什么**：分析：当前配置、风险暴露、问题
+**为什么**：现状是建议的起点
+**注意**：识别机会和风险
+
+### 第3步：制定投资策略
+**做什么**：制定策略：资产配置、地区配置、行业配置、风格偏好
+**为什么**：策略驱动配置
+**注意**：与客户目标一致；考虑市场环境
+
+### 第4步：选择投资工具
+**做什么**：选择工具：ETF、Mutual Fund、个股、债券、另类
+**为什么**：工具实现策略
+**注意**：考虑成本、流动性、透明度
+
+### 第5步：设计配置方案
+**做什么**：设计：核心-卫星、战略-战术、或目标配置
+**为什么**：配置决定风险和回报
+**注意**：简化；客户要理解
+
+### 第6步：准备预期和风险
+**做什么**：准备：预期回报、波动、最大回撤、压力测试
+**为什么**：管理客户预期
+**注意**：展示不同情景；强调风险
+
+### 第7步：撰写建议书
+**做什么**：撰写：背景、分析、建议、实施
+**为什么**：建议书是正式文件
+**注意**：简洁清晰；可视化
+
+### 第8步：展示和讨论
+**做什么**：向客户展示建议，讨论问题
+**为什么**：客户理解才能认同
+**注意**：留出提问时间；不要overwhelm
+
+### 第9步：获得批准和执行
+**做什么**：获得客户批准，执行交易
+**为什么**：建议的价值在于执行
+**注意**：快速执行；确认执行
+
+### 第10步：跟踪和报告
+**做什么**：跟踪表现，定期报告
+**为什么**：跟踪验证建议
+**注意**：与预期比较；解释差异
+
+## 关键原则
+
+1. **客户需求驱动** - 建议要匹配客户需求
+2. **现状分析** - 识别机会和风险
+3. **策略驱动** - 策略驱动配置
+4. **工具选择** - 考虑成本、流动性、透明度
+5. **配置决定** - 配置决定风险和回报
+6. **预期管理** - 展示不同情景；强调风险
+7. **清晰表达** - 简洁清晰；可视化
+8. **客户理解** - 留出提问时间
+9. **执行关键** - 快速执行；确认执行
+10. **跟踪验证** - 与预期比较
+`
+            },
+
+            "portfolio-rebalance": {
+                title: "投资组合再平衡",
+                subtitle: "05-财富管理 · 日常操作",
+                badge: "基础技能",
+                oneliner: "调整投资组合回到目标配置",
+                vertical: "05-财富管理",
+                verticalLink: "vertical-05.html",
+                whatIsThis: "<p>市场波动会让配置偏离目标。<strong>再平衡维持风险水平</strong>。</p><p>再平衡也可以低买高卖。</p>",
+                steps: [
+                    {title: "确定再平衡触发", what: "确定触发条件：时间(季度)或阈值(偏离5%)", why: "触发规则避免过度交易", tips: "5%阈值是常见；严格vs灵活"},
+                    {title: "计算当前配置", what: "计算各资产类别的当前权重和市值", why: "了解现状", tips: "用最新价格；包括现金"},
+                    {title: "计算目标配置", what: "计算目标配置和当前偏离", why: "偏离决定交易", tips: "偏离=当前权重-目标权重"},
+                    {title: "确定交易方向", what: "确定：卖出超配资产，买入低配资产", why: "再平衡是反向操作", tips: "卖高买低；这是纪律的优势"},
+                    {title: "计算交易规模", what: "计算每笔交易规模，考虑成本和税务", why: "成本影响再平衡收益", tips: "交易成本<预期收益；考虑税务影响"},
+                    {title: "选择执行方法", what: "选择：一次性 vs 分批；现金流入 vs 卖出", why: "执行方法影响执行效果", tips: "有新现金时用现金再平衡"},
+                    {title: "执行交易", what: "执行交易，注意价格和时机", why: "执行影响结果", tips: "用限价单；避免市场波动"},
+                    {title: "记录和报告", what: "记录再平衡操作，报告给客户", why: "记录是合规要求；报告是客户服务", tips: "解释原因；展示影响"}
+                ],
+                fullDocumentation: `# 投资组合再平衡
+
+## 概述
+
+市场波动会让配置偏离目标。核心原则很简单：**再平衡维持风险水平**。
+
+再平衡也可以低买高卖。
+
+## 分析步骤
+
+### 第1步：确定再平衡触发
+**做什么**：确定触发条件：时间(季度)或阈值(偏离5%)
+**为什么**：触发规则避免过度交易
+**注意**：5%阈值是常见；严格vs灵活
+
+### 第2步：计算当前配置
+**做什么**：计算各资产类别的当前权重和市值
+**为什么**：了解现状
+**注意**：用最新价格；包括现金
+
+### 第3步：计算目标配置
+**做什么**：计算目标配置和当前偏离
+**为什么**：偏离决定交易
+**注意**：偏离=当前权重-目标权重
+
+### 第4步：确定交易方向
+**做什么**：确定：卖出超配资产，买入低配资产
+**为什么**：再平衡是反向操作
+**注意**：卖高买低；这是纪律的优势
+
+### 第5步：计算交易规模
+**做什么**：计算每笔交易规模，考虑成本和税务
+**为什么**：成本影响再平衡收益
+**注意**：交易成本<预期收益；考虑税务影响
+
+### 第6步：选择执行方法
+**做什么**：选择：一次性 vs 分批；现金流入 vs 卖出
+**为什么**：执行方法影响执行效果
+**注意**：有新现金时用现金再平衡
+
+### 第7步：执行交易
+**做什么**：执行交易，注意价格和时机
+**为什么**：执行影响结果
+**注意**：用限价单；避免市场波动
+
+### 第8步：记录和报告
+**做什么**：记录再平衡操作，报告给客户
+**为什么**：记录是合规要求；报告是客户服务
+**注意**：解释原因；展示影响
+
+## 关键原则
+
+1. **触发规则** - 避免过度交易
+2. **计算准确** - 用最新价格
+3. **反向操作** - 卖高买低
+4. **成本控制** - 交易成本<预期收益
+5. **方法选择** - 有新现金时用现金再平衡
+6. **执行时机** - 用限价单；避免市场波动
+7. **记录报告** - 解释原因；展示影响
+8. **纪律执行** - 纪律是再平衡的优势
+`
+            },
+
+            "tax-loss-harvesting": {
+                title: "税收损失收割",
+                subtitle: "05-财富管理 · 税务优化",
+                badge: "进阶技能",
+                oneliner: "通过卖出亏损资产减少税务负担",
+                vertical: "05-财富管理",
+                verticalLink: "vertical-05.html",
+                whatIsThis: "<p>税收损失收割是免费午餐。<strong>把亏损变成税务优势</strong>。</p><p>卖出亏损资产抵消资本利得，降低税负。</p>",
+                steps: [
+                    {title: "识别机会", what: "扫描组合找出未实现损失的头寸", why: "识别机会是第一步", tips: "年末集中；全年关注"},
+                    {title: "计算税务影响", what: "计算：损失金额、可抵消利得、预期省税", why: "量化税务收益", tips: "短期损失先抵短期利得"},
+                    {title: "考虑wash sale规则", what: "注意wash sale规则：30天内不能买回同一证券", why: "违反wash sale规则失去抵扣", tips: "30天前/后；买相似但不相同"},
+                    {title: "寻找替代品", what: "为卖出资产寻找替代品：相似但不相同", why: "替代品保持市场敞口", tips: "用sector ETF替换单股；用相似公司"},
+                    {title: "评估影响", what: "评估：交易成本、偏离度、长期影响", why: "不要为了省税破坏策略", tips: "交易成本<税务收益；保持配置"},
+                    {title: "执行交易", what: "执行卖出和买入", why: "执行很重要", tips: "同时执行减少市场风险"},
+                    {title: "记录和跟踪", what: "记录wash sale截止日期，跟踪损失使用", why: "记录是合规要求", tips: "维护wash sale日历"}
+                ],
+                fullDocumentation: `# 税收损失收割
+
+## 概述
+
+税收损失收割是免费午餐。核心原则很简单：**把亏损变成税务优势**。
+
+卖出亏损资产抵消资本利得，降低税负。
+
+## 分析步骤
+
+### 第1步：识别机会
+**做什么**：扫描组合找出未实现损失的头寸
+**为什么**：识别机会是第一步
+**注意**：年末集中；全年关注
+
+### 第2步：计算税务影响
+**做什么**：计算：损失金额、可抵消利得、预期省税
+**为什么**：量化税务收益
+**注意**：短期损失先抵短期利得
+
+### 第3步：考虑wash sale规则
+**做什么**：注意wash sale规则：30天内不能买回同一证券
+**为什么**：违反wash sale规则失去抵扣
+**注意**：30天前/后；买相似但不相同
+
+### 第4步：寻找替代品
+**做什么**：为卖出资产寻找替代品：相似但不相同
+**为什么**：替代品保持市场敞口
+**注意**：用sector ETF替换单股；用相似公司
+
+### 第5步：评估影响
+**做什么**：评估：交易成本、偏离度、长期影响
+**为什么**：不要为了省税破坏策略
+**注意**：交易成本<税务收益；保持配置
+
+### 第6步：执行交易
+**做什么**：执行卖出和买入
+**为什么**：执行很重要
+**注意**：同时执行减少市场风险
+
+### 第7步：记录和跟踪
+**做什么**：记录wash sale截止日期，跟踪损失使用
+**为什么**：记录是合规要求
+**注意**：维护wash sale日历
+
+## 关键原则
+
+1. **免费午餐** - 把亏损变成税务优势
+2. **识别机会** - 扫描组合找出未实现损失
+3. **量化收益** - 计算预期省税
+4. **wash sale规则** - 30天内不能买回同一证券
+5. **替代品** - 保持市场敞口
+6. **评估影响** - 不要为了省税破坏策略
+7. **同时执行** - 减少市场风险
+8. **记录跟踪** - 维护wash sale日历
+`
+            },
+
+            "client-report": {
+                title: "客户报告",
+                subtitle: "05-财富管理 · 定期输出",
+                badge: "基础技能",
+                oneliner: "撰写客户报告，展示组合表现和活动",
+                vertical: "05-财富管理",
+                verticalLink: "vertical-05.html",
+                whatIsThis: "<p>客户报告是客户服务的核心。<strong>报告展示你的价值</strong>。</p><p>报告包括：表现、活动、市场展望、建议。</p>",
+                steps: [
+                    {title: "确定报告频率", what: "确定：月度、季度、年度", why: "频率平衡价值和成本", tips: "季度是标准；重要客户月度"},
+                    {title: "收集数据", what: "收集：组合表现、交易记录、市值、收益", why: "准确数据是报告基础", tips: "从系统导出；验证准确性"},
+                    {title: "分析表现", what: "分析：vs基准、vs目标、归因分析", why: "归因分析增加价值", tips: "资产配置贡献 vs 证券选择贡献"},
+                    {title: "总结活动", what: "总结：交易、rebalance、策略变化", why: "活动展示你的工作", tips: "解释每个交易的理由"},
+                    {title: "市场回顾和展望", what: "提供：市场回顾、经济展望、对客户的影响", why: "教育和洞察增加价值", tips: "简洁相关；不要overwhelm"},
+                    {title: "提出建议", what: "如有必要，提出调整建议", why: "报告不是只回顾，也要前瞻", tips: "建议要具体；行动要明确"},
+                    {title: "设计报告", what: "设计：布局、图表、表格、颜色", why: "好的设计易读专业", tips: "一致风格；可视化关键数字"},
+                    {title: "质量检查", what: "QC：数据正确、拼写、格式、链接", why: "错误破坏可信度", tips: "用检查清单；找人review"},
+                    {title: "分发和跟进", what: "发送报告，跟进客户反馈", why: "报告是沟通的起点", tips: "询问是否需要详细讨论"}
+                ],
+                fullDocumentation: `# 客户报告
+
+## 概述
+
+客户报告是客户服务的核心。核心原则很简单：**报告展示你的价值**。
+
+报告包括：表现、活动、市场展望、建议。
+
+## 分析步骤
+
+### 第1步：确定报告频率
+**做什么**：确定：月度、季度、年度
+**为什么**：频率平衡价值和成本
+**注意**：季度是标准；重要客户月度
+
+### 第2步：收集数据
+**做什么**：收集：组合表现、交易记录、市值、收益
+**为什么**：准确数据是报告基础
+**注意**：从系统导出；验证准确性
+
+### 第3步：分析表现
+**做什么**：分析：vs基准、vs目标、归因分析
+**为什么**：归因分析增加价值
+**注意**：资产配置贡献 vs 证券选择贡献
+
+### 第4步：总结活动
+**做什么**：总结：交易、rebalance、策略变化
+**为什么**：活动展示你的工作
+**注意**：解释每个交易的理由
+
+### 第5步：市场回顾和展望
+**做什么**：提供：市场回顾、经济展望、对客户的影响
+**为什么**：教育和洞察增加价值
+**注意**：简洁相关；不要overwhelm
+
+### 第6步：提出建议
+**做什么**：如有必要，提出调整建议
+**为什么**：报告不是只回顾，也要前瞻
+**注意**：建议要具体；行动要明确
+
+### 第7步：设计报告
+**做什么**：设计：布局、图表、表格、颜色
+**为什么**：好的设计易读专业
+**注意**：一致风格；可视化关键数字
+
+### 第8步：质量检查
+**做什么**：QC：数据正确、拼写、格式、链接
+**为什么**：错误破坏可信度
+**注意**：用检查清单；找人review
+
+### 第9步：分发和跟进
+**做什么**：发送报告，跟进客户反馈
+**为什么**：报告是沟通的起点
+**注意**：询问是否需要详细讨论
+
+## 关键原则
+
+1. **报告展示价值** - 报告展示你的工作
+2. **频率平衡** - 季度是标准；重要客户月度
+3. **数据准确** - 从系统导出；验证准确性
+4. **归因分析** - 增加价值
+5. **活动展示** - 解释每个交易的理由
+6. **教育洞察** - 简洁相关；不要overwhelm
+7. **前瞻建议** - 报告不是只回顾，也要前瞻
+8. **设计专业** - 一致风格；可视化关键数字
+9. **质量第一** - 错误破坏可信度
+10. **沟通起点** - 询问是否需要详细讨论
+`
+            },
+
+            "accrual-schedule": {
+                title: "应计进度表",
+                subtitle: "06-会计 · 核心流程",
+                badge: "基础技能",
+                oneliner: "跟踪和记录应计和预付费用",
+                vertical: "06-会计",
+                verticalLink: "vertical-06.html",
+                whatIsThis: "<p>应计是权责发生制的核心。<strong>确保费用匹配正确的期间</strong>。</p><p>应计项目：工资、利息、租金、税费。</p>",
+                steps: [
+                    {title: "识别应计项目", what: "识别所有应计项目：工资、利息、租金、税费、佣金", why: "遗漏应计会扭曲财务", tips: "建立应计清单；每月review"},
+                    {title: "计算应计金额", what: "计算本期应计：期间×费率", why: "准确计算确保财务正确", tips: "工资=工作天数×日工资；利息=本金×利率×天数"},
+                    {title: "记录应计分录", what: "记录分录：借费用，贷应计负债", why: "分录记录应计", tips: "每月末记录；下月初冲回"},
+                    {title: "跟踪预付费用", what: "跟踪预付：保险、租金、订阅、维护", why: "预付要按期摊销", tips: "建立摊销表；每月摊销"},
+                    {title: "建立摊销表", what: "建立摊销表：开始日期、金额、期间、每月摊销", why: "摊销表确保准确摊销", tips: "Excel自动计算；设置提醒"},
+                    {title: "月末调整", what: "月末：记录新应计、摊销预付、冲回上月应计", why: "月末调整是关键控制点", tips: "用checklist；确保所有项目覆盖"},
+                    {title: " reconcile 和分析", what: "季度 reconcile 应计余额，分析波动", why: "Reconcile发现错误", tips: "与合同比较；与上年比较"},
+                    {title: "披露和报告", what: "在财务报表正确分类和披露应计", why: "正确披露是会计准则要求", tips: "流动vs非流动；重大应计单独列示"}
+                ],
+                fullDocumentation: `# 应计进度表
+
+## 概述
+
+应计是权责发生制的核心。核心原则很简单：**确保费用匹配正确的期间**。
+
+应计项目：工资、利息、租金、税费。
+
+## 分析步骤
+
+### 第1步：识别应计项目
+**做什么**：识别所有应计项目：工资、利息、租金、税费、佣金
+**为什么**：遗漏应计会扭曲财务
+**注意**：建立应计清单；每月review
+
+### 第2步：计算应计金额
+**做什么**：计算本期应计：期间×费率
+**为什么**：准确计算确保财务正确
+**注意**：工资=工作天数×日工资；利息=本金×利率×天数
+
+### 第3步：记录应计分录
+**做什么**：记录分录：借费用，贷应计负债
+**为什么**：分录记录应计
+**注意**：每月末记录；下月初冲回
+
+### 第4步：跟踪预付费用
+**做什么**：跟踪预付：保险、租金、订阅、维护
+**为什么**：预付要按期摊销
+**注意**：建立摊销表；每月摊销
+
+### 第5步：建立摊销表
+**做什么**：建立摊销表：开始日期、金额、期间、每月摊销
+**为什么**：摊销表确保准确摊销
+**注意**：Excel自动计算；设置提醒
+
+### 第6步：月末调整
+**做什么**：月末：记录新应计、摊销预付、冲回上月应计
+**为什么**：月末调整是关键控制点
+**注意**：用checklist；确保所有项目覆盖
+
+### 第7步： reconcile 和分析
+**做什么**：季度 reconcile 应计余额，分析波动
+**为什么**：Reconcile发现错误
+**注意**：与合同比较；与上年比较
+
+### 第8步：披露和报告
+**做什么**：在财务报表正确分类和披露应计
+**为什么**：正确披露是会计准则要求
+**注意**：流动vs非流动；重大应计单独列示
+
+## 关键原则
+
+1. **权责发生制** - 费用匹配正确的期间
+2. **应计清单** - 建立应计清单；每月review
+3. **准确计算** - 期间×费率
+4. **分录记录** - 每月末记录；下月初冲回
+5. **预付摊销** - 建立摊销表；每月摊销
+6. **月末调整** - 用checklist；确保所有项目覆盖
+7. **定期 reconcile** - 与合同比较
+8. **正确披露** - 流动vs非流动
+`
+            },
+
+            "break-trace": {
+                title: "余额分解追踪",
+                subtitle: "06-会计 · 分析工具",
+                badge: "进阶技能",
+                oneliner: "追踪账户余额从期初到期末的变化",
+                vertical: "06-会计",
+                verticalLink: "vertical-06.html",
+                whatIsThis: "<p>Break trace解释余额变化。<strong>从期初+变化=期末</strong>。</p><p>用于审计和分析账户波动原因。</p>",
+                steps: [
+                    {title: "选择追踪账户", what: "选择要追踪的账户：应收账款、存货、应付款", why: "break trace用于重要账户", tips: "余额大或波动大的账户"},
+                    {title: "获取期初余额", what: "获取上期末余额作为本期期初", why: "期初是起点", tips: "与上期核对；确保连续"},
+                    {title: "识别所有变动", what: "识别所有影响该账户的变动：增加、减少、调整", why: "完整变化解释期末余额", tips: "看明细账；看日记账"},
+                    {title: "分类变动", what: "分类：业务活动、会计调整、错误更正、估值变化", why: "分类帮助理解", tips: "业务活动是正常；其他需要解释"},
+                    {title: "量化变动", what: "量化每类变动金额", why: "量化便于验证", tips: "加总应该等于净变化"},
+                    {title: "验证平衡", what: "验证：期初+变动=期末", why: "验证确保完整", tips: "如果不平，找到遗漏"},
+                    {title: "分析异常", what: "分析异常或重大变动：原因？合理性？", why: "异常可能指示错误或风险", tips: "询问管理层；与预期比较"},
+                    {title: "编制追踪表", what: "编制break trace表：清晰的bridge", why: "bridge表易于理解", tips: "从左到右：期初→增加→减少→期末"}
+                ],
+                fullDocumentation: `# 余额分解追踪
+
+## 概述
+
+Break trace解释余额变化。核心原则很简单：**从期初+变化=期末**。
+
+用于审计和分析账户波动原因。
+
+## 分析步骤
+
+### 第1步：选择追踪账户
+**做什么**：选择要追踪的账户：应收账款、存货、应付款
+**为什么**：break trace用于重要账户
+**注意**：余额大或波动大的账户
+
+### 第2步：获取期初余额
+**做什么**：获取上期末余额作为本期期初
+**为什么**：期初是起点
+**注意**：与上期核对；确保连续
+
+### 第3步：识别所有变动
+**做什么**：识别所有影响该账户的变动：增加、减少、调整
+**为什么**：完整变化解释期末余额
+**注意**：看明细账；看日记账
+
+### 第4步：分类变动
+**做什么**：分类：业务活动、会计调整、错误更正、估值变化
+**为什么**：分类帮助理解
+**注意**：业务活动是正常；其他需要解释
+
+### 第5步：量化变动
+**做什么**：量化每类变动金额
+**为什么**：量化便于验证
+**注意**：加总应该等于净变化
+
+### 第6步：验证平衡
+**做什么**：验证：期初+变动=期末
+**为什么**：验证确保完整
+**注意**：如果不平，找到遗漏
+
+### 第7步：分析异常
+**做什么**：分析异常或重大变动：原因？合理性？
+**为什么**：异常可能指示错误或风险
+**注意**：询问管理层；与预期比较
+
+### 第8步：编制追踪表
+**做什么**：编制break trace表：清晰的bridge
+**为什么**：bridge表易于理解
+**注意**：从左到右：期初→增加→减少→期末
+
+## 关键原则
+
+1. **期初+变化=期末** - 基本公式
+2. **重要账户** - 余额大或波动大的账户
+3. **期初连续** - 与上期核对
+4. **完整变动** - 看明细账；看日记账
+5. **分类理解** - 业务活动 vs 其他
+6. **量化验证** - 加总应该等于净变化
+7. **异常分析** - 询问管理层
+8. **bridge表** - 清晰的bridge
+`
+            },
+
+            "nav-tieout": {
+                title: "净值对账",
+                subtitle: "06-会计 · 基金会计",
+                badge: "核心技能",
+                oneliner: "验证基金净值的计算准确性",
+                vertical: "06-会计",
+                verticalLink: "vertical-06.html",
+                whatIsThis: "<p>NAV（Net Asset Value）是基金的核心指标。<strong>NAV必须准确</strong>。</p><p>对账确保NAV计算无误。</p>",
+                steps: [
+                    {title: "获取各系统数据", what: "从投资系统、会计系统、托管行获取数据", why: "多来源数据需要核对", tips: "确保同期；货币一致"},
+                    {title: "核对持仓", what: "核对：股票数量、债券面值、衍生品头寸", why: "持仓差异导致NAV差异", tips: "逐只证券核对；注意fractional shares"},
+                    {title: "核对价格", what: "核对：收盘价、估值价、基金净值", why: "价格差异影响NAV", tips: "用一致来源；注意场外交易定价"},
+                    {title: "核对现金", what: "核对：现金余额、应收应付、待结算", why: "现金是NAV重要部分", tips: "包括待清算交易；考虑结算期"},
+                    {title: "核对费用和收入", what: "核对：管理费、业绩费、其他费用、收入", why: "费用影响NAV", tips: "计算accrual；注意payable/receivable"},
+                    {title: "计算NAV", what: "按标准公式计算NAV", why: "计算验证手动正确性", tips: "资产-负债=NAV；除以份额"},
+                    {title: "比较和解释差异", what: "比较各系统NAV，解释差异", why: "差异需要解释", tips: "小的定价差异可接受；大差异要调查"},
+                    {title: "调整和修正", what: "如必要，调整NAV", why: "准确NAV是基金生命", tips: "调整要文档；保持审计轨迹"},
+                    {title: "报告和披露", what: "报告NAV和NAV对账结果", why: "透明度是监管要求", tips: "向托管行确认；向投资者披露"}
+                ],
+                fullDocumentation: `# 净值对账
+
+## 概述
+
+NAV（Net Asset Value）是基金的核心指标。核心原则很简单：**NAV必须准确**。
+
+对账确保NAV计算无误。
+
+## 分析步骤
+
+### 第1步：获取各系统数据
+**做什么**：从投资系统、会计系统、托管行获取数据
+**为什么**：多来源数据需要核对
+**注意**：确保同期；货币一致
+
+### 第2步：核对持仓
+**做什么**：核对：股票数量、债券面值、衍生品头寸
+**为什么**：持仓差异导致NAV差异
+**注意**：逐只证券核对；注意fractional shares
+
+### 第3步：核对价格
+**做什么**：核对：收盘价、估值价、基金净值
+**为什么**：价格差异影响NAV
+**注意**：用一致来源；注意场外交易定价
+
+### 第4步：核对现金
+**做什么**：核对：现金余额、应收应付、待结算
+**为什么**：现金是NAV重要部分
+**注意**：包括待清算交易；考虑结算期
+
+### 第5步：核对费用和收入
+**做什么**：核对：管理费、业绩费、其他费用、收入
+**为什么**：费用影响NAV
+**注意**：计算accrual；注意payable/receivable
+
+### 第6步：计算NAV
+**做什么**：按标准公式计算NAV
+**为什么**：计算验证手动正确性
+**注意**：资产-负债=NAV；除以份额
+
+### 第7步：比较和解释差异
+**做什么**：比较各系统NAV，解释差异
+**为什么**：差异需要解释
+**注意**：小的定价差异可接受；大差异要调查
+
+### 第8步：调整和修正
+**做什么**：如必要，调整NAV
+**为什么**：准确NAV是基金生命
+**注意**：调整要文档；保持审计轨迹
+
+### 第9步：报告和披露
+**做什么**：报告NAV和NAV对账结果
+**为什么**：透明度是监管要求
+**注意**：向托管行确认；向投资者披露
+
+## 关键原则
+
+1. **NAV必须准确** - NAV是基金生命
+2. **多系统核对** - 投资系统、会计系统、托管行
+3. **持仓核对** - 逐只证券核对
+4. **价格一致** - 用一致来源
+5. **现金完整** - 包括待清算交易
+6. **费用收入** - 计算accrual
+7. **差异解释** - 大差异要调查
+8. **调整文档** - 保持审计轨迹
+9. **透明披露** - 向托管行确认
+`
+            },
+
+            "variance-commentary": {
+                title: "差异分析说明",
+                subtitle: "06-会计 · 管理报告",
+                badge: "基础技能",
+                oneliner: "分析实际vs预算的差异并编写说明",
+                vertical: "06-会计",
+                verticalLink: "vertical-06.html",
+                whatIsThis: "<p>预算vs实际有差异很正常。<strong>关键是要解释为什么</strong>。</p><p>差异说明帮助管理层理解和决策。</p>",
+                steps: [
+                    {title: "计算差异", what: "计算：差异金额、差异百分比、方向(有利/不利)", why: "量化差异是第一步", tips: "差异=实际-预算；%差异=差异/预算"},
+                    {title: "确定重要性", what: "确定哪些差异重要：金额大、%差异大、关键项目", why: "不是所有差异都需要解释", tips: "设定阈值：金额>$10k或%差异>5%"},
+                    {title: "分析差异原因", what: "分析原因：销量变化、价格变化、效率变化、时间差异", why: "原因分析有价值", tips: "分解差异；驱动因素分析"},
+                    {title: "区分类型", what: "区分：永久差异、临时差异、时间差异", why: "不同类型不同处理", tips: "永久差异需要调整预算；临时差异会回归"},
+                    {title: "评估影响", what: "评估对全年预测的影响", why: "本月差异影响全年吗？", tips: "更新全年预测；识别趋势"},
+                    {title: "编写说明", what: "编写差异说明：简洁、清晰、可操作", why: "说明要容易理解", tips: "三段式：发生了什么、为什么、怎么做"},
+                    {title: "可视化", what: "用图表展示差异：瀑布图、趋势图", why: "图表一目了然", tips: "突出重大差异；用颜色编码"},
+                    {title: "提出建议", what: "如有必要，提出行动建议", why: "说明不只是回顾，也要前瞻", tips: "建议要具体；负责人和时间"},
+                    {title: "分发和跟进", what: "分发给相关人员，跟踪行动", why: "分发确保传达；跟进确保执行", tips: "管理层、部门负责人、财务"}
+                ],
+                fullDocumentation: `# 差异分析说明
+
+## 概述
+
+预算vs实际有差异很正常。核心原则很简单：**关键是要解释为什么**。
+
+差异说明帮助管理层理解和决策。
+
+## 分析步骤
+
+### 第1步：计算差异
+**做什么**：计算：差异金额、差异百分比、方向(有利/不利)
+**为什么**：量化差异是第一步
+**注意**：差异=实际-预算；%差异=差异/预算
+
+### 第2步：确定重要性
+**做什么**：确定哪些差异重要：金额大、%差异大、关键项目
+**为什么**：不是所有差异都需要解释
+**注意**：设定阈值：金额>$10k或%差异>5%
+
+### 第3步：分析差异原因
+**做什么**：分析原因：销量变化、价格变化、效率变化、时间差异
+**为什么**：原因分析有价值
+**注意**：分解差异；驱动因素分析
+
+### 第4步：区分类型
+**做什么**：区分：永久差异、临时差异、时间差异
+**为什么**：不同类型不同处理
+**注意**：永久差异需要调整预算；临时差异会回归
+
+### 第5步：评估影响
+**做什么**：评估对全年预测的影响
+**为什么**：本月差异影响全年吗？
+**注意**：更新全年预测；识别趋势
+
+### 第6步：编写说明
+**做什么**：编写差异说明：简洁、清晰、可操作
+**为什么**：说明要容易理解
+**注意**：三段式：发生了什么、为什么、怎么做
+
+### 第7步：可视化
+**做什么**：用图表展示差异：瀑布图、趋势图
+**为什么**：图表一目了然
+**注意**：突出重大差异；用颜色编码
+
+### 第8步：提出建议
+**做什么**：如有必要，提出行动建议
+**为什么**：说明不只是回顾，也要前瞻
+**注意**：建议要具体；负责人和时间
+
+### 第9步：分发和跟进
+**做什么**：分发给相关人员，跟踪行动
+**为什么**：分发确保传达；跟进确保执行
+**注意**：管理层、部门负责人、财务
+
+## 关键原则
+
+1. **解释为什么** - 关键是要解释为什么
+2. **量化差异** - 差异金额、百分比
+3. **重要性阈值** - 不是所有差异都需要解释
+4. **原因分析** - 分解差异；驱动因素分析
+5. **类型区分** - 永久差异 vs 临时差异
+6. **全年影响** - 更新全年预测
+7. **三段式说明** - 发生了什么、为什么、怎么做
+8. **可视化** - 瀑布图、趋势图
+9. **前瞻建议** - 建议要具体
+10. **跟进执行** - 跟踪行动
+`
+            },
+
+            "roll-forward": {
+                title: "滚动结转",
+                subtitle: "06-会计 · 核心方法",
+                badge: "基础技能",
+                oneliner: "展示账户从期初到期末的完整滚动",
+                vertical: "06-会计",
+                verticalLink: "vertical-06.html",
+                whatIsThis: "<p>Roll forward展示完整流动。<strong>期初余额+增加-减少=期末余额</strong>。</p><p>用于资产负债表所有重要账户。</p>",
+                steps: [
+                    {title: "选择账户", what: "选择要roll forward的账户：现金、应收、存货、PP&E", why: "重要账户都要roll forward", tips: "每个资产负债表项目"},
+                    {title: "获取期初余额", what: "获取上期末余额作为本期期初", why: "连续性很重要", tips: "与上期核对"},
+                    {title: "识别增加项目", what: "识别所有增加：采购、借入、资本化", why: "增加要完整", tips: "看明细账；看日记账"},
+                    {title: "识别减少项目", what: "识别所有减少：销售、偿还、折旧、处置", why: "减少要完整", tips: "不要遗漏处置、折旧"},
+                    {title: "计算期末余额", what: "期末=期初+增加-减少", why: "验证计算", tips: "应该与资产负债表一致"},
+                    {title: "验证平衡", what: "验证roll forward平衡", why: "不平衡说明有遗漏", tips: "检查是否有遗漏项"},
+                    {title: "编制roll forward表", what: "编制清晰的roll forward表", why: "roll forward表易于理解", tips: "用表格；列：期初、增加、减少、期末"},
+                    {title: "分析重大变动", what: "分析重大增减：原因？合理性？", why: "分析增加价值", tips: "与预算比较；与上年比较"},
+                    {title: "用于对账", what: "用roll forward对账资产负债表项目", why: "roll forward是对账工具", tips: "应收账款、存货、PP&E、债务"}
+                ],
+                fullDocumentation: `# 滚动结转
+
+## 概述
+
+Roll forward展示完整流动。核心原则很简单：**期初余额+增加-减少=期末余额**。
+
+用于资产负债表所有重要账户。
+
+## 分析步骤
+
+### 第1步：选择账户
+**做什么**：选择要roll forward的账户：现金、应收、存货、PP&E
+**为什么**：重要账户都要roll forward
+**注意**：每个资产负债表项目
+
+### 第2步：获取期初余额
+**做什么**：获取上期末余额作为本期期初
+**为什么**：连续性很重要
+**注意**：与上期核对
+
+### 第3步：识别增加项目
+**做什么**：识别所有增加：采购、借入、资本化
+**为什么**：增加要完整
+**注意**：看明细账；看日记账
+
+### 第4步：识别减少项目
+**做什么**：识别所有减少：销售、偿还、折旧、处置
+**为什么**：减少要完整
+**注意**：不要遗漏处置、折旧
+
+### 第5步：计算期末余额
+**做什么**：期末=期初+增加-减少
+**为什么**：验证计算
+**注意**：应该与资产负债表一致
+
+### 第6步：验证平衡
+**做什么**：验证roll forward平衡
+**为什么**：不平衡说明有遗漏
+**注意**：检查是否有遗漏项
+
+### 第7步：编制roll forward表
+**做什么**：编制清晰的roll forward表
+**为什么**：roll forward表易于理解
+**注意**：用表格；列：期初、增加、减少、期末
+
+### 第8步：分析重大变动
+**做什么**：分析重大增减：原因？合理性？
+**为什么**：分析增加价值
+**注意**：与预算比较；与上年比较
+
+### 第9步：用于对账
+**做什么**：用roll forward对账资产负债表项目
+**为什么**：roll forward是对账工具
+**注意**：应收账款、存货、PP&E、债务
+
+## 关键原则
+
+1. **期初+增加-减少=期末** - 基本公式
+2. **完整流动** - 展示完整流动
+3. **连续性** - 与上期核对
+4. **增加完整** - 看明细账；看日记账
+5. **减少完整** - 不要遗漏处置、折旧
+6. **验证平衡** - 不平衡说明有遗漏
+7. **表格清晰** - 列：期初、增加、减少、期末
+8. **分析价值** - 与预算比较
+9. **对账工具** - 用于资产负债表项目
+`
+            },
+
+            "kyc-rules": {
+                title: "KYC规则管理",
+                subtitle: "07-合规 · 规则引擎",
+                badge: "进阶技能",
+                oneliner: "设计和实施KYC合规规则",
+                vertical: "07-合规",
+                verticalLink: "vertical-07.html",
+                whatIsThis: "<p>KYC规则引擎自动化合规检查。<strong>用规则降低合规成本</strong>。</p><p>规则包括：PEP筛查、制裁检查、风险评估。</p>",
+                steps: [
+                    {title: "定义规则范围", what: "定义规则涵盖：客户准入、持续监控、交易监控", why: "范围决定规则复杂度", tips: "从简单开始；逐步扩展"},
+                    {title: "设计准入规则", what: "设计：最低要求、自动拒绝、需要人工审核", why: "准入规则过滤高风险客户", tips: "高风险国家自动拒绝；PEP需要人工审核"},
+                    {title: "设计风险规则", what: "设计：风险评分模型、风险等级判定", why: "风险规则自动化评估", tips: "打分系统：国家、行业、产品、渠道"},
+                    {title: "设计监控规则", what: "设计：触发事件、阈值、警报", why: "监控规则持续评估", tips: "大额交易、异常活动、关系变化"},
+                    {title: "整合数据源", what: "整合：制裁名单、PEP数据库、不良记录", why: "规则需要数据支持", tips: "API对接；定期更新"},
+                    {title: "实施规则引擎", what: "实施：规则引擎、工作流、用户界面", why: "引擎执行规则", tips: "购买vs自建；考虑灵活性"},
+                    {title: "测试和优化", what: "测试规则：假阳性、假阴性、调整阈值", why: "规则需要校准", tips: "监控假阳性率；调整灵敏度"},
+                    {title: "建立异常处理", what: "建立异常处理流程：谁处理、时限、记录", why: "异常需要人工处理", tips: "SLA：24小时；记录决策"},
+                    {title: "报告和审计", what: "产生合规报告：规则执行结果、异常统计", why: "报告满足监管要求", tips: "定期报告；保留记录"}
+                ],
+                fullDocumentation: `# KYC规则管理
+
+## 概述
+
+KYC规则引擎自动化合规检查。核心原则很简单：**用规则降低合规成本**。
+
+规则包括：PEP筛查、制裁检查、风险评估。
+
+## 分析步骤
+
+### 第1步：定义规则范围
+**做什么**：定义规则涵盖：客户准入、持续监控、交易监控
+**为什么**：范围决定规则复杂度
+**注意**：从简单开始；逐步扩展
+
+### 第2步：设计准入规则
+**做什么**：设计：最低要求、自动拒绝、需要人工审核
+**为什么**：准入规则过滤高风险客户
+**注意**：高风险国家自动拒绝；PEP需要人工审核
+
+### 第3步：设计风险规则
+**做什么**：设计：风险评分模型、风险等级判定
+**为什么**：风险规则自动化评估
+**注意**：打分系统：国家、行业、产品、渠道
+
+### 第4步：设计监控规则
+**做什么**：设计：触发事件、阈值、警报
+**为什么**：监控规则持续评估
+**注意**：大额交易、异常活动、关系变化
+
+### 第5步：整合数据源
+**做什么**：整合：制裁名单、PEP数据库、不良记录
+**为什么**：规则需要数据支持
+**注意**：API对接；定期更新
+
+### 第6步：实施规则引擎
+**做什么**：实施：规则引擎、工作流、用户界面
+**为什么**：引擎执行规则
+**注意**：购买vs自建；考虑灵活性
+
+### 第7步：测试和优化
+**做什么**：测试规则：假阳性、假阴性、调整阈值
+**为什么**：规则需要校准
+**注意**：监控假阳性率；调整灵敏度
+
+### 第8步：建立异常处理
+**做什么**：建立异常处理流程：谁处理、时限、记录
+**为什么**：异常需要人工处理
+**注意**：SLA：24小时；记录决策
+
+### 第9步：报告和审计
+**做什么**：产生合规报告：规则执行结果、异常统计
+**为什么**：报告满足监管要求
+**注意**：定期报告；保留记录
+
+## 关键原则
+
+1. **规则降低成本** - 自动化合规检查
+2. **从简单开始** - 逐步扩展
+3. **准入规则** - 过滤高风险客户
+4. **风险评分** - 打分系统
+5. **监控规则** - 持续评估
+6. **数据源整合** - API对接；定期更新
+7. **引擎灵活** - 考虑灵活性
+8. **测试校准** - 监控假阳性率
+9. **异常处理** - SLA：24小时
+10. **报告审计** - 定期报告；保留记录
+`
+            },
+
+            "ppt-gen": {
+                title: "PPT生成",
+                subtitle: "工具 · 自动化",
+                badge: "工具技能",
+                oneliner: "使用工具自动化生成PPT演示文稿",
+                vertical: "工具",
+                verticalLink: "index.html",
+                whatIsThis: "<p>手动做PPT很慢。<strong>用工具自动化生成PPT</strong>。</p><p>工具：python-pptx、VBA、在线API。</p>",
+                steps: [
+                    {title: "确定内容和结构", what: "确定要生成的内容和slide结构", why: "内容和结构是生成的输入", tips: "用模板定义结构"},
+                    {title: "准备数据源", what: "准备数据：Excel、CSV、数据库、API", why: "数据是内容来源", tips: "数据格式要规范"},
+                    {title: "选择工具", what: "选择生成工具：python-pptx、VBA、在线服务", why: "不同工具适合不同需求", tips: "python-pptx灵活；VBA与Excel集成"},
+                    {title: "设计模板", what: "设计PPT模板：母版、布局、样式", why: "模板确保输出一致", tips: "创建主题色、字体"},
+                    {title: "编写生成脚本", what: "编写脚本：读数据→填充模板→保存PPT", why: "脚本自动化生成", tips: "模块化；可复用"},
+                    {title: "处理图表和可视化", what: "生成图表：柱状图、折线图、饼图", why: "图表让数据可视化", tips: "用matplotlib或excel图表"},
+                    {title: "处理文本和格式", what: "填充文本、应用格式、对齐、颜色", why: "格式确保专业", tips: "用样式保持一致"},
+                    {title: "测试和验证", what: "测试生成结果：内容正确、格式无误", why: "测试确保质量", tips: "多个案例测试"},
+                    {title: "批量生成", what: "批量生成：多个客户、多个报告", why: "自动化节省时间", tips: "设置循环；处理错误"},
+                    {title: "人工review和调整", what: "人工review生成的PPT，做必要调整", why: "人工review保证质量", tips: "检查拼写、格式、逻辑"}
+                ],
+                fullDocumentation: `# PPT生成
+
+## 概述
+
+手动做PPT很慢。核心原则很简单：**用工具自动化生成PPT**。
+
+工具：python-pptx、VBA、在线API。
+
+## 分析步骤
+
+### 第1步：确定内容和结构
+**做什么**：确定要生成的内容和slide结构
+**为什么**：内容和结构是生成的输入
+**注意**：用模板定义结构
+
+### 第2步：准备数据源
+**做什么**：准备数据：Excel、CSV、数据库、API
+**为什么**：数据是内容来源
+**注意**：数据格式要规范
+
+### 第3步：选择工具
+**做什么**：选择生成工具：python-pptx、VBA、在线服务
+**为什么**：不同工具适合不同需求
+**注意**：python-pptx灵活；VBA与Excel集成
+
+### 第4步：设计模板
+**做什么**：设计PPT模板：母版、布局、样式
+**为什么**：模板确保输出一致
+**注意**：创建主题色、字体
+
+### 第5步：编写生成脚本
+**做什么**：编写脚本：读数据→填充模板→保存PPT
+**为什么**：脚本自动化生成
+**注意**：模块化；可复用
+
+### 第6步：处理图表和可视化
+**做什么**：生成图表：柱状图、折线图、饼图
+**为什么**：图表让数据可视化
+**注意**：用matplotlib或excel图表
+
+### 第7步：处理文本和格式
+**做什么**：填充文本、应用格式、对齐、颜色
+**为什么**：格式确保专业
+**注意**：用样式保持一致
+
+### 第8步：测试和验证
+**做什么**：测试生成结果：内容正确、格式无误
+**为什么**：测试确保质量
+**注意**：多个案例测试
+
+### 第9步：批量生成
+**做什么**：批量生成：多个客户、多个报告
+**为什么**：自动化节省时间
+**注意**：设置循环；处理错误
+
+### 第10步：人工review和调整
+**做什么**：人工review生成的PPT，做必要调整
+**为什么**：人工review保证质量
+**注意**：检查拼写、格式、逻辑
+
+## 关键原则
+
+1. **自动化生成** - 用工具自动化生成PPT
+2. **内容结构** - 用模板定义结构
+3. **数据规范** - 数据格式要规范
+4. **工具选择** - python-pptx灵活；VBA与Excel集成
+5. **模板一致** - 创建主题色、字体
+6. **脚本模块化** - 模块化；可复用
+7. **图表可视化** - 用matplotlib或excel图表
+8. **样式一致** - 用样式保持一致
+9. **批量处理** - 设置循环；处理错误
+10. **人工review** - 检查拼写、格式、逻辑
+`
+            },
+
+            "xlsx-gen": {
+                title: "Excel生成",
+                subtitle: "工具 · 自动化",
+                badge: "工具技能",
+                oneliner: "使用工具自动化生成Excel工作簿",
+                vertical: "工具",
+                verticalLink: "index.html",
+                whatIsThis: "<p>Excel是金融分析的通用语言。<strong>用工具生成Excel模型</strong>。</p><p>工具：openpyxl、xlsxwriter、pandas。</p>",
+                steps: [
+                    {title: "确定输出结构", what: "确定工作簿结构：sheets、表格、公式", why: "结构决定生成难度", tips: "简单结构更易生成"},
+                    {title: "准备数据源", what: "准备数据：从数据库、API、其他Excel", why: "数据是输入", tips: "数据格式要规范"},
+                    {title: "选择工具", what: "选择：openpyxl(读写)、xlsxwriter(只写)、pandas(数据分析)", why: "不同工具有不同优势", tips: "xlsxwriter最快；openpyxl最全"},
+                    {title: "创建工作簿和sheet", what: "创建工作簿、添加sheet、命名sheet", why: "基本结构", tips: "有意义的sheet名"},
+                    {title: "写入数据", what: "写入数据：单元格、范围、表格", why: "数据是核心", tips: "批量写入；格式化"},
+                    {title: "添加公式", what: "添加Excel公式：SUM、AVERAGE、IF、VLOOKUP", why: "公式让Excel动态", tips: "用Excel公式而非计算值"},
+                    {title: "设置格式", what: "设置格式：数字、对齐、颜色、边框、字体", why: "格式让Excel专业", tips: "用样式；保持一致"},
+                    {title: "添加图表", what: "添加图表：类型、数据系列、格式", why: "图表可视化数据", tips: "简单图表；不要过度"},
+                    {title: "验证和测试", what: "验证：公式正确、格式正确、数据完整", why: "验证确保质量", tips: "打开Excel检查；公式重新计算"},
+                    {title: "保存和保护", what: "保存文件，设置保护：只读、密码", why: "保护防止意外修改", tips: "保护公式；允许输入区"}
+                ],
+                fullDocumentation: `# Excel生成
+
+## 概述
+
+Excel是金融分析的通用语言。核心原则很简单：**用工具生成Excel模型**。
+
+工具：openpyxl、xlsxwriter、pandas。
+
+## 分析步骤
+
+### 第1步：确定输出结构
+**做什么**：确定工作簿结构：sheets、表格、公式
+**为什么**：结构决定生成难度
+**注意**：简单结构更易生成
+
+### 第2步：准备数据源
+**做什么**：准备数据：从数据库、API、其他Excel
+**为什么**：数据是输入
+**注意**：数据格式要规范
+
+### 第3步：选择工具
+**做什么**：选择：openpyxl(读写)、xlsxwriter(只写)、pandas(数据分析)
+**为什么**：不同工具有不同优势
+**注意**：xlsxwriter最快；openpyxl最全
+
+### 第4步：创建工作簿和sheet
+**做什么**：创建工作簿、添加sheet、命名sheet
+**为什么**：基本结构
+**注意**：有意义的sheet名
+
+### 第5步：写入数据
+**做什么**：写入数据：单元格、范围、表格
+**为什么**：数据是核心
+**注意**：批量写入；格式化
+
+### 第6步：添加公式
+**做什么**：添加Excel公式：SUM、AVERAGE、IF、VLOOKUP
+**为什么**：公式让Excel动态
+**注意**：用Excel公式而非计算值
+
+### 第7步：设置格式
+**做什么**：设置格式：数字、对齐、颜色、边框、字体
+**为什么**：格式让Excel专业
+**注意**：用样式；保持一致
+
+### 第8步：添加图表
+**做什么**：添加图表：类型、数据系列、格式
+**为什么**：图表可视化数据
+**注意**：简单图表；不要过度
+
+### 第9步：验证和测试
+**做什么**：验证：公式正确、格式正确、数据完整
+**为什么**：验证确保质量
+**注意**：打开Excel检查；公式重新计算
+
+### 第10步：保存和保护
+**做什么**：保存文件，设置保护：只读、密码
+**为什么**：保护防止意外修改
+**注意**：保护公式；允许输入区
+
+## 关键原则
+
+1. **Excel是通用语言** - 用工具生成Excel模型
+2. **结构简单** - 简单结构更易生成
+3. **数据规范** - 数据格式要规范
+4. **工具选择** - xlsxwriter最快；openpyxl最全
+5. **sheet命名** - 有意义的sheet名
+6. **批量写入** - 批量写入；格式化
+7. **公式动态** - 用Excel公式而非计算值
+8. **样式一致** - 用样式；保持一致
+9. **验证质量** - 打开Excel检查
+10. **保护文件** - 保护公式；允许输入区
+`
+            },
+
+            "skill-builder": {
+                title: "技能构建器",
+                subtitle: "工具 · 元工具",
+                badge: "元工具",
+                oneliner: "创建和编辑金融技能文档",
+                vertical: "工具",
+                verticalLink: "index.html",
+                whatIsThis: "<p>技能构建器创建新技能。<strong>结构化文档化专业知识</strong>。</p><p>技能包括：描述、工作流、最佳实践、示例。</p>",
+                steps: [
+                    {title: "确定技能范围", what: "确定技能：做什么？谁用？什么场景？", why: "范围决定文档内容", tips: "聚焦特定任务；不要太宽"},
+                    {title: "收集最佳实践", what: "收集：标准做法、常见错误、专家技巧", why: "最佳实践是技能价值", tips: "采访专家；看标杆"},
+                    {title: "定义工作流", what: "定义步骤：输入、过程、输出、检查点", why: "工作流是技能核心", tips: "5-10步；每步有目的"},
+                    {title: "编写技能描述", what: "编写：名称、描述、触发词、输出", why: "描述帮助用户理解", tips: "用例子；用场景"},
+                    {title: "添加关键原则", what: "添加：必须遵守的原则、关键约束", why: "原则确保正确执行", tips: "用粗体突出；简洁"},
+                    {title: "编写详细步骤", what: "详细说明每步：做什么、怎么做、为什么", why: "详细步骤指导执行", tips: "逐步说明；用例子"},
+                    {title: "添加常见问题", what: "添加：FAQ、故障排除、常见错误", why: "FAQ减少问题", tips: "基于真实问题"},
+                    {title: "添加示例", what: "添加：完整示例、代码片段、模板", why: "示例帮助学习", tips: "真实案例；可复用"},
+                    {title: "测试和迭代", what: "测试技能：让人执行、收集反馈、改进", why: "测试验证质量", tips: "多个用户测试；迭代改进"}
+                ],
+                fullDocumentation: `# 技能构建器
+
+## 概述
+
+技能构建器创建新技能。核心原则很简单：**结构化文档化专业知识**。
+
+技能包括：描述、工作流、最佳实践、示例。
+
+## 分析步骤
+
+### 第1步：确定技能范围
+**做什么**：确定技能：做什么？谁用？什么场景？
+**为什么**：范围决定文档内容
+**注意**：聚焦特定任务；不要太宽
+
+### 第2步：收集最佳实践
+**做什么**：收集：标准做法、常见错误、专家技巧
+**为什么**：最佳实践是技能价值
+**注意**：采访专家；看标杆
+
+### 第3步：定义工作流
+**做什么**：定义步骤：输入、过程、输出、检查点
+**为什么**：工作流是技能核心
+**注意**：5-10步；每步有目的
+
+### 第4步：编写技能描述
+**做什么**：编写：名称、描述、触发词、输出
+**为什么**：描述帮助用户理解
+**注意**：用例子；用场景
+
+### 第5步：添加关键原则
+**做什么**：添加：必须遵守的原则、关键约束
+**为什么**：原则确保正确执行
+**注意**：用粗体突出；简洁
+
+### 第6步：编写详细步骤
+**做什么**：详细说明每步：做什么、怎么做、为什么
+**为什么**：详细步骤指导执行
+**注意**：逐步说明；用例子
+
+### 第7步：添加常见问题
+**做什么**：添加：FAQ、故障排除、常见错误
+**为什么**：FAQ减少问题
+**注意**：基于真实问题
+
+### 第8步：添加示例
+**做什么**：添加：完整示例、代码片段、模板
+**为什么**：示例帮助学习
+**注意**：真实案例；可复用
+
+### 第9步：测试和迭代
+**做什么**：测试技能：让人执行、收集反馈、改进
+**为什么**：测试验证质量
+**注意**：多个用户测试；迭代改进
+
+## 关键原则
+
+1. **结构化文档** - 结构化文档化专业知识
+2. **范围聚焦** - 聚焦特定任务；不要太宽
+3. **最佳实践** - 采访专家；看标杆
+4. **工作流核心** - 5-10步；每步有目的
+5. **描述清晰** - 用例子；用场景
+6. **原则突出** - 用粗体突出；简洁
+7. **步骤详细** - 逐步说明；用例子
+8. **FAQ减少问题** - 基于真实问题
+9. **示例帮助学习** - 真实案例；可复用
+10. **测试迭代** - 多个用户测试；迭代改进
+`
+            }
+        };
+
+        // 全局变量存储目录信息
+        var tocItems = [];
+
+        // Markdown渲染函数
+        function renderMarkdown(markdown) {
+            if (!markdown) return '';
+
+            // 清空目录
+            tocItems = [];
+
+            var html = markdown;
+
+            // 处理代码块 ```language...```
+            html = html.replace(/```(\w*)\n([\s\S]*?)```/g, function(match, lang, code) {
+                return '<pre><code class="language-' + lang + '">' + escapeHtml(code.trim()) + '</code></pre>';
+            });
+
+            // 处理行内代码 `...`
+            html = html.replace(/`([^`]+)`/g, '<code class="inline-code">$1</code>');
+
+            // 处理标题 # ## ### ####，并添加id和收集目录信息
+            var headingCounter = { h1: 0, h2: 0, h3: 0 };
+            html = html.replace(/^#### (.*)$/gm, function(match, title) {
+                headingCounter.h3++;
+                var id = 'heading-' + headingCounter.h1 + '-' + headingCounter.h2 + '-' + headingCounter.h3;
+                tocItems.push({ title: title, level: 4, id: id });
+                return '<h4 id="' + id + '">' + title + '</h4>';
+            });
+            html = html.replace(/^### (.*)$/gm, function(match, title) {
+                headingCounter.h2++;
+                headingCounter.h3 = 0;
+                var id = 'heading-' + headingCounter.h1 + '-' + headingCounter.h2;
+                tocItems.push({ title: title, level: 3, id: id });
+                return '<h3 id="' + id + '">' + title + '</h3>';
+            });
+            html = html.replace(/^## (.*)$/gm, function(match, title) {
+                headingCounter.h1++;
+                headingCounter.h2 = 0;
+                var id = 'heading-' + headingCounter.h1;
+                tocItems.push({ title: title, level: 2, id: id });
+                return '<h2 id="' + id + '">' + title + '</h2>';
+            });
+            html = html.replace(/^# (.*)$/gm, function(match, title) {
+                headingCounter.h1 = 1;
+                headingCounter.h2 = 0;
+                var id = 'heading-' + headingCounter.h1;
+                tocItems.push({ title: title, level: 1, id: id });
+                return '<h1 id="' + id + '">' + title + '</h1>';
+            });
+
+            // 处理加粗 **...**
+            html = html.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+
+            // 处理斜体 *...*
+            html = html.replace(/\*([^*]+)\*/g, '<em>$1</em>');
+
+            // 处理无序列表 -...
+            html = html.replace(/^- (.*)$/gm, '<li>$1</li>');
+            html = html.replace(/(<li>.*<\/li>\n?)+/g, '<ul>$&</ul>');
+
+            // 处理有序列表 1. ...
+            html = html.replace(/^\d+\. (.*)$/gm, '<oli>$1</oli>');
+            html = html.replace(/(<oli>.*<\/oli>\n?)+/g, function(match) {
+                var items = match.replace(/<\/?oli>/g, function(m, p) {
+                    return m === '<oli>' ? '<li>' : '</li>';
+                });
+                return '<ol>' + items + '</ol>';
+            });
+
+            // 处理分隔线 ---
+            html = html.replace(/^---$/gm, '<hr>');
+
+            // 处理段落（非空行）
+            var lines = html.split('\n');
+            var result = [];
+            var inCodeBlock = false;
+
+            for (var i = 0; i < lines.length; i++) {
+                var line = lines[i].trim();
+
+                // 跳过已处理的HTML标签
+                if (line.match(/^<(h[1-6]|ul|ol|li|pre|hr|code)/)) {
+                    result.push(line);
+                    continue;
+                }
+
+                // 跳过空行
+                if (!line) {
+                    result.push('');
+                    continue;
+                }
+
+                // 普通文本转为段落
+                if (!line.match(/^<[^>]+>/)) {
+                    result.push('<p>' + line + '</p>');
+                } else {
+                    result.push(line);
+                }
+            }
+
+            return result.join('\n');
+        }
+
+        // 生成目录函数
+        function generateToc() {
+            var tocList = document.getElementById('tocList');
+            if (!tocList) return;
+
+            // 清空现有目录
+            tocList.innerHTML = '';
+
+            // 添加步骤目录
+            var stepsSection = document.querySelector('.steps-section-title');
+            if (stepsSection) {
+                var stepItems = document.querySelectorAll('.step-title');
+                stepItems.forEach(function(item, index) {
+                    var li = document.createElement('li');
+                    li.className = 'toc-item';
+                    var a = document.createElement('a');
+                    a.href = '#step-' + (index + 1);
+                    a.className = 'toc-link level-2';
+                    a.textContent = (index + 1) + '. ' + item.textContent;
+                    a.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        document.getElementById('step-' + (index + 1)).scrollIntoView({ behavior: 'smooth' });
+                    });
+                    li.appendChild(a);
+                    tocList.appendChild(li);
+                });
+            }
+
+            // 添加完整文档目录
+            tocItems.forEach(function(item) {
+                var li = document.createElement('li');
+                li.className = 'toc-item';
+                var a = document.createElement('a');
+                a.href = '#' + item.id;
+                a.className = 'toc-link level-' + item.level;
+                a.textContent = item.title;
+                a.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById(item.id).scrollIntoView({ behavior: 'smooth', block: 'start' });
+                });
+                li.appendChild(a);
+                tocList.appendChild(li);
+            });
+        }
+
+        // 滚动高亮当前章节
+        function setupScrollSpy() {
+            var headings = document.querySelectorAll('.doc-content h1, .doc-content h2, .doc-content h3, .doc-content h4, .step-item');
+            var tocLinks = document.querySelectorAll('.toc-link');
+
+            function updateActiveToc() {
+                var scrollPosition = window.scrollY + 150;
+
+                var currentHeading = null;
+                headings.forEach(function(heading) {
+                    if (heading.offsetTop <= scrollPosition) {
+                        currentHeading = heading;
+                    }
+                });
+
+                tocLinks.forEach(function(link) {
+                    link.classList.remove('active');
+                });
+
+                if (currentHeading) {
+                    var id = currentHeading.id;
+                    var activeLink = document.querySelector('.toc-link[href="#' + id + '"]');
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            }
+
+            window.addEventListener('scroll', updateActiveToc);
+            updateActiveToc();
+        }
+
+        function escapeHtml(text) {
+            return text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        function getSkillId() {
+            var params = window.location.search.substring(1).split('&');
+            for (var i = 0; i < params.length; i++) {
+                var pair = params[i].split('=');
+                if (pair[0] === 'skill') {
+                    return decodeURIComponent(pair[1] || 'comps');
+                }
+            }
+            return 'comps';
+        }
+
+        function renderSkillPage(skillId) {
+            var skill = skillMetadata[skillId];
+            if (!skill) {
+                document.getElementById('skillContent').innerHTML =
+                    '<div style="text-align:center;padding:4rem;"><h3>技能未找到</h3><p><a href="index.html">返回首页</a></p></div>';
+                return;
+            }
+
+            var html = '';
+
+            html += '<nav class="breadcrumb">';
+            html += '<a href="index.html">首页</a>';
+            html += '<span class="breadcrumb-separator">→</span>';
+            html += '<a href="' + skill.verticalLink + '">' + skill.vertical + '</a>';
+            html += '<span class="breadcrumb-separator">→</span>';
+            html += '<span>' + skill.title + '</span>';
+            html += '</nav>';
+
+            html += '<header class="skill-header">';
+            html += '<span class="skill-badge">' + skill.badge + '</span>';
+            html += '<h1 class="skill-title">' + skill.title + '</h1>';
+            html += '<div class="skill-subtitle">' + skill.subtitle + '</div>';
+            html += '</header>';
+
+            html += '<div class="oneliner-box">';
+            html += '<div class="oneliner-label">一句话解释</div>';
+            html += '<div class="oneliner-text">' + skill.oneliner + '</div>';
+            html += '</div>';
+
+            html += '<div class="what-is-this">';
+            html += '<h2>什么是' + skill.title.split(' ')[0] + '？</h2>';
+            html += skill.whatIsThis;
+            html += '</div>';
+
+            html += '<h2 class="steps-section-title">分析步骤</h2>';
+            html += '<div class="steps-list">';
+
+            for (var i = 0; i < skill.steps.length; i++) {
+                var step = skill.steps[i];
+                html += '<div class="step-item" id="step-' + (i + 1) + '">';
+                html += '<div class="step-num">' + (i + 1) + '</div>';
+                html += '<div class="step-content">';
+                html += '<div class="step-title">' + step.title + '</div>';
+                html += '<div class="step-what">';
+                html += '<div class="step-what-label">做什么</div>';
+                html += '<div class="step-what-text">' + step.what + '</div>';
+                html += '</div>';
+                html += '<div class="step-why">';
+                html += '<div class="step-why-label">为什么</div>';
+                html += '<div class="step-why-text">' + step.why + '</div>';
+                html += '</div>';
+                if (step.tips) {
+                    html += '<div class="step-tips"><strong>注意：</strong>' + step.tips + '</div>';
+                }
+                html += '</div>';
+                html += '</div>';
+            }
+
+            html += '</div>';
+
+            html += '<div class="docs-section">';
+            html += '<h2 class="docs-title">📄 完整参考文档</h2>';
+            html += '<div class="docs-content">';
+
+            if (skill.fullDocumentation) {
+                html += '<div class="doc-content">';
+                html += renderMarkdown(skill.fullDocumentation);
+                html += '</div>';
+            } else {
+                html += '<p>文档内容暂未加载</p>';
+            }
+
+            html += '</div>';
+            html += '</div>';
+
+            html += '<div class="skill-nav">';
+            html += '<a href="' + skill.verticalLink + '" class="skill-nav-btn">← 返回' + skill.vertical + '</a>';
+            html += '<a href="index.html" class="skill-nav-btn">返回首页</a>';
+            html += '</div>';
+
+            document.getElementById('skillContent').innerHTML = html;
+
+            // 生成目录并设置滚动监听
+            setTimeout(function() {
+                generateToc();
+                setupScrollSpy();
+            }, 100);
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            var skillId = getSkillId();
+            renderSkillPage(skillId);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>私募股权 - 技能列表</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+            --accent-purple: #6B46C1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+        .nav { position: sticky; top: 0; background: rgba(253, 248, 243, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .nav-logo { font-family: 'Noto Serif SC', serif; font-weight: 700; text-decoration: none; }
+        .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--ink-light); text-decoration: none; }
+        .vertical-hero { background: linear-gradient(135deg, var(--accent-purple) 0%, #4C1D95 100%); color: white; padding: 5rem 2rem; text-align: center; }
+        .vertical-hero h1 { font-family: 'Noto Serif SC', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+        .skill-card { background: white; border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.75rem; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        .skill-card:hover { border-color: var(--accent-purple); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.1); }
+        .skill-badge { display: inline-block; padding: 0.25rem 0.625rem; background: var(--cream); border-radius: 50px; font-size: 0.7rem; font-family: 'JetBrains Mono', monospace; color: var(--accent-purple); margin-bottom: 0.75rem; }
+        .skill-card h3 { font-family: 'Noto Serif SC', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .footer { text-align: center; padding: 3rem 2rem; color: var(--ink-light); font-size: 0.875rem; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">📊 金融技能库</a>
+        <a href="index.html" class="nav-back">← 返回首页</a>
+    </nav>
+
+    <div class="vertical-hero">
+        <h1>🎯 私募股权 (PE)</h1>
+        <p>PE投资全流程 — 项目筛选、尽调、IC备忘录、投后监控等10个技能</p>
+    </div>
+
+    <div class="container">
+        <h2 style="font-family: 'Noto Serif SC', serif; font-size: 1.75rem; margin-bottom: 2rem;">PE投资流程</h2>
+        <div class="skills-grid">
+            <a href="skill.html?skill=deal-screening" class="skill-card">
+                <span class="skill-badge">入门</span>
+                <h3>🔍 项目筛选</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">快速判断一个CIM/Teaser值不值得深入看</p>
+            </a>
+
+            <a href="skill.html?skill=dd-checklist" class="skill-card">
+                <span class="skill-badge">基础</span>
+                <h3>📋 尽调清单</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">商业、财务、法律、运营四大维度的尽调问题清单</p>
+            </a>
+
+            <a href="skill.html?skill=dd-meeting-prep" class="skill-card">
+                <span class="skill-badge">准备</span>
+                <h3>📝 尽调会议准备</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">准备和管理尽调会议，问对问题</p>
+            </a>
+
+            <a href="skill.html?skill=unit-economics" class="skill-card">
+                <span class="skill-badge">分析</span>
+                <h3>📊 单元经济</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">分析最小盈利单元——单店、单个客户、单用户经济模型</p>
+            </a>
+
+            <a href="skill.html?skill=ic-memo" class="skill-card">
+                <span class="skill-badge">核心</span>
+                <h3>📄 IC备忘录</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">投委会审批材料——综合尽调、财务、交易条款</p>
+            </a>
+
+            <a href="skill.html?skill=portfolio-monitoring" class="skill-card">
+                <span class="skill-badge">投后</span>
+                <h3>📈 投后监控</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">持续监控被投企业——财务、运营、风险</p>
+            </a>
+
+            <a href="skill.html?skill=value-creation-plan" class="skill-card">
+                <span class="skill-badge">增值</span>
+                <h3>🚀 价值创造计划</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">投后如何为企业增值——100天计划、EBITDA提升路径</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 金融分析技能库学习版 | 基于 Anthropic Claude FSI 插件库</p>
+    </div>
+</body>
+</html>

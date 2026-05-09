@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>运营KYC + 合作伙伴</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+            --accent-slate: #475569;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+        .nav { position: sticky; top: 0; background: rgba(253, 248, 243, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .nav-logo { font-family: 'Noto Serif SC', serif; font-weight: 700; text-decoration: none; }
+        .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--ink-light); text-decoration: none; }
+        .vertical-hero { background: linear-gradient(135deg, var(--accent-slate) 0%, #334155 100%); color: white; padding: 5rem 2rem; text-align: center; }
+        .vertical-hero h1 { font-family: 'Noto Serif SC', serif; font-size: clamp(2rem, 5vw, 3rem); font-weight: 700; margin-bottom: 1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .section { margin-bottom: 4rem; }
+        .section-title { font-family: 'Noto Serif SC', serif; font-size: 1.75rem; font-weight: 600; margin-bottom: 1.5rem; color: var(--accent-slate); }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+        .skill-card { background: white; border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.5rem; transition: all 0.3s ease; }
+        .skill-card:hover { border-color: var(--accent-slate); transform: translateY(-2px); }
+        .skill-badge { display: inline-block; padding: 0.25rem 0.625rem; background: var(--cream); border-radius: 50px; font-size: 0.7rem; color: var(--accent-slate); margin-bottom: 0.5rem; }
+        .skill-card h3 { font-family: 'Noto Serif SC', serif; font-size: 1.125rem; font-weight: 600; margin-bottom: 0.5rem; }
+        .partner-logos { display: flex; gap: 2rem; flex-wrap: wrap; justify-content: center; margin-top: 2rem; }
+        .partner-logo { background: white; border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem 2rem; text-align: center; }
+        .footer { text-align: center; padding: 3rem 2rem; color: var(--ink-light); font-size: 0.875rem; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">📊 金融技能库</a>
+        <a href="index.html" class="nav-back">← 返回首页</a>
+    </nav>
+
+    <div class="vertical-hero">
+        <h1>🔐 运营KYC + 合作伙伴</h1>
+        <p>合规运营 & 数据源集成</p>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h2 class="section-title">07-运营KYC (2个技能)</h2>
+            <div class="skills-grid">
+                <a href="skill.html?skill=kyc-parse" class="skill-card">
+                    <span class="skill-badge">合规</span>
+                    <h3>📄 文档解析</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">自动解析KYC文档——护照、营业执照、银行对账单</p>
+                </a>
+
+                <a href="skill.html?skill=kyc-rules" class="skill-card">
+                    <span class="skill-badge">合规</span>
+                    <h3>⚖️ 规则引擎</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">KYC合规检查规则引擎——制裁名单、PEP、受益人</p>
+                </a>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">08-合作伙伴数据源</h2>
+            <p style="color: var(--ink-light); margin-bottom: 2rem;">这些技能集成了外部数据服务，提供专业的金融数据支持：</p>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>📊 LSEG (伦敦证交所)</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">8个技能 - 市场数据、固收、外汇、衍生品</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>🏢 S&P Global</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">3个技能 - 公司数据、信用评级、行业分析</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>📈 FactSet</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">财务数据、估值、共识预期</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>☀️ Morningstar</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">基金数据、股票分析、ESG评级</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>📊 Moody's</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">信用风险、固定收益分析</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>💼 PitchBook</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">PE/VC数据、交易、退出分析</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>🤖 Daloopa</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">自动化财务数据提取</p>
+                </div>
+
+                <div class="skill-card">
+                    <h3>🎙️ Aiera</h3>
+                    <p style="color: var(--ink-light); font-size: 0.9375rem;">财报电话会议转录与分析</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 金融分析技能库学习版 | 基于 Anthropic Claude FSI 插件库</p>
+    </div>
+</body>
+</html>

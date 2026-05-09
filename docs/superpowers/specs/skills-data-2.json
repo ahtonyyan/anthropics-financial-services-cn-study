@@ -1,0 +1,1037 @@
+[
+  {
+    "id": "01-客户报告",
+    "name": "Client Report / 客户报告",
+    "domain": "05-财富管理",
+    "domainName": "财富管理",
+    "description": "Generate professional client-facing performance reports with portfolio returns, allocation breakdowns, and market commentary. Suitable for quarterly or annual distribution. Triggers on 'client report', 'performance report', 'quarterly report for [client]', 'generate reports', or 'client statement'.",
+    "triggers": [
+      "client report",
+      "performance report",
+      "quarterly report",
+      "generate reports",
+      "client statement"
+    ],
+    "steps": [
+      "Step 1: Report Parameters - Gather client name, household, reporting period, accounts, benchmark, and firm branding",
+      "Step 2: Performance Summary - Produce household summary table with QTD/YTD/1-Year/3-Year/5-Year/ITD returns vs benchmark, and per-account breakdown",
+      "Step 3: Allocation Overview - Current allocation table with asset class, percentage, dollar value, and benchmark comparison",
+      "Step 4: Holdings Detail - Security-level detail with shares, price, value, portfolio weight, and quarterly return",
+      "Step 5: Market Commentary - Brief market summary tailored to client sophistication level",
+      "Step 6: Activity Summary - Trades, contributions, withdrawals, dividends, fees, and rebalancing activity",
+      "Step 7: Planning Notes - Progress toward goals, plan changes, action items, next review date",
+      "Step 8: Output - PDF report (8-12 pages) with firm branding, Word doc, optional Excel appendix"
+    ],
+    "concepts": [
+      "portfolio return",
+      "benchmark comparison",
+      "asset allocation",
+      "alpha",
+      "QTD",
+      "YTD",
+      "annualized return",
+      "performance attribution",
+      "net-of-fees performance",
+      "IPS (Investment Policy Statement)"
+    ],
+    "tags": [
+      "reporting",
+      "client-facing",
+      "performance",
+      "wealth-management"
+    ]
+  },
+  {
+    "id": "02-客户会议准备",
+    "name": "Client Review Prep / 客户会议准备",
+    "domain": "05-财富管理",
+    "domainName": "财富管理",
+    "description": "Prepare for client review meetings with portfolio performance summary, allocation analysis, talking points, and action items. Pulls together account data into a concise meeting-ready format. Use before quarterly reviews, annual checkups, or ad-hoc client meetings. Triggers on 'client review', 'meeting prep for [client]', 'quarterly review', 'prep for [client name]', or 'client meeting'.",
+    "triggers": [
+      "client review",
+      "meeting prep",
+      "quarterly review",
+      "annual checkup",
+      "client meeting"
+    ],
+    "steps": [
+      "Step 1: Client Context - Gather client name, household members, account types, total AUM, IPS details, life stage, last meeting date",
+      "Step 2: Portfolio Performance - Performance tables (QTD/YTD/1-Year/3-Year/Since Inception) with attribution of top contributors and detractors",
+      "Step 3: Allocation Review - Current vs target allocation table with drift flags for IPS rebalancing threshold (3-5%)",
+      "Step 4: Talking Points - Generate meeting agenda: market overview, portfolio performance, allocation review, planning updates, action items",
+      "Step 5: Proactive Recommendations - Rebalancing trades, TLH opportunities, cash deployment, Roth conversion, beneficiary updates, insurance review",
+      "Step 6: Output - One-page summary, performance table, allocation pie chart, recommended actions, meeting agenda"
+    ],
+    "concepts": [
+      "AUM",
+      "Investment Policy Statement (IPS)",
+      "alpha",
+      "performance attribution",
+      "rebalancing threshold",
+      "allocation drift",
+      "tax-loss harvesting",
+      "Roth conversion",
+      "life stage planning"
+    ],
+    "tags": [
+      "meeting-prep",
+      "client-review",
+      "wealth-management",
+      "proactive-recommendations"
+    ]
+  },
+  {
+    "id": "03-财务规划",
+    "name": "Financial Plan / 财务规划",
+    "domain": "05-财富管理",
+    "domainName": "财富管理",
+    "description": "Build or update a comprehensive financial plan covering retirement projections, education funding, estate planning, and cash flow analysis. Use for new client onboarding, annual plan reviews, or scenario modeling. Triggers on 'financial plan', 'retirement plan', 'can I retire', 'education funding', 'estate plan', 'cash flow analysis', or 'plan update'.",
+    "triggers": [
+      "financial plan",
+      "retirement plan",
+      "can I retire",
+      "education funding",
+      "estate plan",
+      "cash flow analysis",
+      "plan update"
+    ],
+    "steps": [
+      "Step 1: Client Profile - Demographics, employment, accounts, income sources, expenses, liabilities, insurance, estate documents",
+      "Step 2: Cash Flow Analysis - Annual projections with inflation, tax rates, savings rate assumptions",
+      "Step 3: Retirement Projections - Accumulation and distribution phases with Monte Carlo simulation, sustainable withdrawal rate, RMDs",
+      "Step 4: Goal-Specific Analysis - Education funding (529 plans), estate planning (trusts, gifting), risk management (insurance needs)",
+      "Step 5: Scenario Modeling - Base case, early retirement, market downturn, higher spending, longevity, long-term care events",
+      "Step 6: Recommendations - Savings rate, asset allocation, tax optimization, insurance gaps, estate updates, beneficiary review",
+      "Step 7: Output - Financial plan document (15-25 pages), cash flow spreadsheet, retirement charts, goal analysis, action checklist"
+    ],
+    "concepts": [
+      "Monte Carlo simulation",
+      "withdrawal rate",
+      "RMD (Required Minimum Distributions)",
+      "529 plan",
+      "estate tax",
+      "Social Security timing",
+      "inflation-adjusted spending",
+      "probability of success",
+      "gifting strategy",
+      "cash flow projection",
+      "fiduciary standards"
+    ],
+    "tags": [
+      "financial-planning",
+      "retirement",
+      "estate-planning",
+      "education-funding",
+      "scenario-modeling"
+    ]
+  },
+  {
+    "id": "04-投资提案",
+    "name": "Investment Proposal / 投资提案",
+    "domain": "05-财富管理",
+    "domainName": "财富管理",
+    "description": "Create professional investment proposals for prospective clients. Covers the firm's approach, proposed allocation, expected outcomes, and fee structure. Use when pitching new clients or presenting a new investment strategy. Triggers on 'investment proposal', 'prospect presentation', 'pitch new client', 'proposal for [client]', or 'new client presentation'.",
+    "triggers": [
+      "investment proposal",
+      "prospect presentation",
+      "pitch new client",
+      "proposal for client",
+      "new client presentation"
+    ],
+    "steps": [
+      "Step 1: Prospect Context - Gather prospect details, current situation, assets, goals, risk tolerance, constraints, fee sensitivity, competition",
+      "Step 2: Proposal Structure - Build 6 sections: About Our Firm, Understanding Your Needs, Proposed Investment Strategy, Expected Outcomes, Fee Structure, Getting Started",
+      "Step 3: Customization - Match tone to prospect type, address concentrated stock, compare to robo-advisors if needed, lead with value for price-sensitive prospects",
+      "Step 4: Output - PowerPoint presentation (12-15 slides), PDF leave-behind, one-page email summary"
+    ],
+    "concepts": [
+      "asset allocation",
+      "Monte Carlo probability",
+      "risk tolerance",
+      "ESG preferences",
+      "advisory fee schedule",
+      "tax-loss harvesting",
+      "asset location",
+      "investment vehicles (ETFs, mutual funds, alternatives)",
+      "Monte Carlo simulation",
+      "max drawdown",
+      "volatility"
+    ],
+    "tags": [
+      "proposal",
+      "new-client",
+      "pitch",
+      "wealth-management"
+    ]
+  },
+  {
+    "id": "05-组合再平衡",
+    "name": "Portfolio Rebalance / 组合再平衡",
+    "domain": "05-财富管理",
+    "domainName": "财富管理",
+    "description": "Analyze portfolio allocation drift and generate rebalancing trade recommendations across accounts. Considers tax implications, transaction costs, and wash sale rules. Triggers on 'rebalance', 'portfolio drift', 'allocation check', 'rebalancing trades', or 'my portfolio is out of balance'.",
+    "triggers": [
+      "rebalance",
+      "portfolio drift",
+      "allocation check",
+      "rebalancing trades",
+      "portfolio out of balance"
+    ],
+    "steps": [
+      "Step 1: Current State - Capture account types, holdings, market values, cost basis, unrealized gains/losses",
+      "Step 2: Drift Analysis - Compare current allocation to IPS targets, flag positions exceeding rebalancing band (3-5%)",
+      "Step 3: Trade Recommendations - Generate trades with tax-aware rules: prefer tax-advantaged accounts, avoid short-term gains, harvest losses, watch wash sales",
+      "Step 4: Asset Location Review - Optimize placement: bonds/REITs in tax-deferred, growth assets in Roth, tax-efficient equity in taxable",
+      "Step 5: Implementation - Total trades, estimated costs, tax impact, net allocation drift effect",
+      "Step 6: Output - Drift analysis table, trade list (Excel), tax impact summary, before/after allocation"
+    ],
+    "concepts": [
+      "rebalancing bands",
+      "asset location",
+      "wash sale rules",
+      "tax-loss harvesting",
+      "cost basis",
+      "unrealized gains",
+      "IPS targets",
+      "transaction costs",
+      "short-term vs long-term gains",
+      "tax-deferred accounts"
+    ],
+    "tags": [
+      "rebalancing",
+      "tax-aware",
+      "asset-location",
+      "wealth-management"
+    ]
+  },
+  {
+    "id": "06-税损收割",
+    "name": "Tax-Loss Harvesting / 税损收割",
+    "domain": "05-财富管理",
+    "domainName": "财富管理",
+    "description": "Identify tax-loss harvesting opportunities across taxable accounts. Finds positions with unrealized losses, suggests replacement securities, and tracks wash sale windows. Triggers on 'tax-loss harvesting', 'TLH', 'harvest losses', 'tax losses', 'unrealized losses', or 'year-end tax planning'.",
+    "triggers": [
+      "tax-loss harvesting",
+      "TLH",
+      "harvest losses",
+      "tax losses",
+      "unrealized losses",
+      "year-end tax planning"
+    ],
+    "steps": [
+      "Step 1: Identify Candidates - Scan taxable accounts for unrealized losses, prioritize by largest absolute loss, short-term losses first, largest % loss",
+      "Step 2: Gain/Loss Budget - Calculate realized gains/losses YTD, carryforward losses, target harvesting amount, estimate tax savings",
+      "Step 3: Replacement Securities - Suggest replacements maintaining similar exposure but not substantially identical (wash sale rule)",
+      "Step 4: Wash Sale Check - Check all household accounts for 30-day lookback and forward, verify no DRIP triggers",
+      "Step 5: Execution Plan - Trade list with sell/buy pairs, estimated proceeds, losses, replacement rationale",
+      "Step 6: Post-Harvest Tracking - After 30+ days, optionally swap back, update cost basis records",
+      "Step 7: Output - Harvest opportunity list (Excel), trade execution sheet, wash sale calendar, tax savings estimate"
+    ],
+    "concepts": [
+      "unrealized losses",
+      "wash sale rules",
+      "substantially identical securities",
+      "short-term vs long-term capital gains",
+      "cost basis step-down",
+      "carryforward losses",
+      "marginal tax rate",
+      "DRIP (dividend reinvestment plan)",
+      "tracking error",
+      "replacement securities"
+    ],
+    "tags": [
+      "tax-planning",
+      "harvesting",
+      "wash-sale",
+      "wealth-management"
+    ]
+  },
+  {
+    "id": "01-应计调度",
+    "name": "Accrual Schedule / 应计调度",
+    "domain": "06-基金管理",
+    "domainName": "基金管理",
+    "description": "Build the period-end accrual schedule — for each accrual, compute the entry, cite the support, and draft the JE. Use during month-end close; the JE is a draft for controller approval, not a posting.",
+    "triggers": [
+      "month-end close",
+      "accrual schedule",
+      "journal entry draft",
+      "period-end accrual",
+      "accrual computation"
+    ],
+    "steps": [
+      "For each accrual on the policy list: derive accrual name, basis (contractual amount with source), period portion, already booked (from GL), this-period accrual",
+      "Draft JE: Dr expense account / Cr accrued liability with memo citing support reference",
+      "Note reversing entries if policy marks accrual as auto-reversing",
+      "Output: One table (the schedule) plus a JE draft block — do not post, staged for controller sign-off"
+    ],
+    "concepts": [
+      "accrual accounting",
+      "journal entry (JE)",
+      "month-end close",
+      "reversing entries",
+      "accrued liability",
+      "expense accrual",
+      "controller approval",
+      "GL (General Ledger)"
+    ],
+    "tags": [
+      "fund-operations",
+      "accounting",
+      "month-end-close",
+      "journal-entries"
+    ]
+  },
+  {
+    "id": "02-断点追溯",
+    "name": "Break Trace / 断点追溯",
+    "domain": "06-基金管理",
+    "domainName": "基金管理",
+    "description": "Root-cause a reconciliation break to its source transaction or posting — follow the audit trail from the break row back to the originating entry on each side and state what differs and why. Use after gl-recon has classified a break.",
+    "triggers": [
+      "break trace",
+      "root-cause break",
+      "reconciliation break",
+      "audit trail",
+      "break investigation"
+    ],
+    "steps": [
+      "Pull the GL side — fetch journal entry via internal-gl MCP: entry id, posting date, source system, batch id, preparer",
+      "Pull the subledger side — fetch matching transaction via subledger MCP: trade id, dates, counterparty, source feed, FX rate",
+      "Diff the attributes — line up posting date, FX rate/date, account mapping, quantity sign, amount sign",
+      "Write root cause as a single sentence: '<side> <did what> because <reason>'",
+      "Output JSON per break: key, root_cause, owner (ops/reference-data/accounting/upstream-system), expected_clear_date, action (monitor/adjust/raise-ticket/suppress)"
+    ],
+    "concepts": [
+      "reconciliation break",
+      "root-cause analysis",
+      "audit trail",
+      "GL journal entry",
+      "subledger transaction",
+      "FX rate mismatch",
+      "mapping break",
+      "timing break",
+      "duplicate posting"
+    ],
+    "tags": [
+      "reconciliation",
+      "root-cause",
+      "fund-operations",
+      "audit"
+    ]
+  },
+  {
+    "id": "03-总账对账",
+    "name": "GL Recon / 总账对账",
+    "domain": "06-基金管理",
+    "domainName": "基金管理",
+    "description": "Reconcile general ledger to subledger for a trade date or period — match at the position or transaction level, surface breaks, and classify each break by likely cause. Use for daily or month-end recon runs across asset classes.",
+    "triggers": [
+      "GL reconciliation",
+      "general ledger recon",
+      "subledger reconciliation",
+      "daily recon",
+      "month-end recon",
+      "break report"
+    ],
+    "steps": [
+      "Step 1: Normalize both sides — align to common key and comparison columns, coerce types",
+      "Step 2: Match — full-outer-join on key, classify as Matched/Amount break/Quantity break/Timing break/GL only/Subledger only",
+      "Step 3: Classify likely cause — Timing, FX, Mapping, Duplicate/missing post, Fee/accrual, Data quality",
+      "Step 4: Output — Break report (one row per break, sorted by absolute delta) and Summary (counts/totals by bucket and cause)"
+    ],
+    "concepts": [
+      "general ledger",
+      "subledger",
+      "full-outer-join",
+      "break classification",
+      "timing break",
+      "FX break",
+      "mapping break",
+      "tolerance threshold",
+      "reconciliation"
+    ],
+    "tags": [
+      "reconciliation",
+      "fund-operations",
+      "GL",
+      "break-analysis"
+    ]
+  },
+  {
+    "id": "04-NAV核对",
+    "name": "NAV Tie-Out / NAV核对",
+    "domain": "06-基金管理",
+    "domainName": "基金管理",
+    "description": "Tie an LP statement to the fund's NAV pack — recompute the LP's capital account from the NAV components and flag any line that doesn't agree. Use before LP statements are distributed.",
+    "triggers": [
+      "NAV tie-out",
+      "LP statement verification",
+      "NAV reconciliation",
+      "capital account verification",
+      "statement check"
+    ],
+    "steps": [
+      "Recompute the LP capital account: Beginning capital + Contributions - Distributions + Allocated net income - Carried interest = Ending capital",
+      "Pull each input from the NAV pack: LP commitment %, fund-level P&L, fees, expenses, waterfall outputs",
+      "Compare each line on the statement to recomputed value (tolerance: 0.01)",
+      "Additional checks: ending capital = next period beginning, sum of all LP capitals = fund NAV, commitment figures agree",
+      "Output: Pass/fail per line, recomputed vs statement values, list of flags"
+    ],
+    "concepts": [
+      "NAV (Net Asset Value)",
+      "LP (Limited Partner) capital account",
+      "carried interest",
+      "capital call",
+      "distribution",
+      "waterfall",
+      "fund P&L",
+      "commitment register"
+    ],
+    "tags": [
+      "NAV",
+      "fund-operations",
+      "LP-reporting",
+      "verification"
+    ]
+  },
+  {
+    "id": "05-滚动结转",
+    "name": "Roll-Forward / 滚动结转",
+    "domain": "06-基金管理",
+    "domainName": "基金管理",
+    "description": "Build a roll-forward schedule for a balance-sheet account — beginning balance plus activity less reversals equals ending balance, with each component tied to GL. Use for month-end close packages and audit support.",
+    "triggers": [
+      "roll-forward",
+      "balance sheet roll-forward",
+      "month-end close",
+      "audit support",
+      "beginning to ending balance"
+    ],
+    "steps": [
+      "Build roll-forward structure: Beginning + Additions + Accruals - Reversals - Payments +/- Reclasses +/- FX = Ending",
+      "Tie each line: Beginning from prior close, each activity line from GL query (cited), Ending from GL at period-end",
+      "Verify schedule must foot: all components must sum to ending balance",
+      "If gap exists, surface unexplained item (do not plug)",
+      "Output: Roll-forward table with 'ties to' column citing GL query/document per line, plus foot check (pass/fail)"
+    ],
+    "concepts": [
+      "roll-forward",
+      "balance sheet",
+      "GL tie-out",
+      "accruals",
+      "reversals",
+      "reclasses",
+      "FX translation",
+      "audit support",
+      "foot check"
+    ],
+    "tags": [
+      "fund-operations",
+      "accounting",
+      "month-end-close",
+      "audit"
+    ]
+  },
+  {
+    "id": "06-差异评述",
+    "name": "Variance Commentary / 差异评述",
+    "domain": "06-基金管理",
+    "domainName": "基金管理",
+    "description": "Write flux commentary for every P&L and balance-sheet line over threshold — current vs prior period and vs budget, with the driver explained from underlying activity. Use for the month-end close package and management reporting.",
+    "triggers": [
+      "variance commentary",
+      "flux analysis",
+      "P&L commentary",
+      "month-end commentary",
+      "management reporting",
+      "budget variance"
+    ],
+    "steps": [
+      "Apply threshold: flag lines where absolute variance >= materiality threshold (default 5%) or line is on 'always comment' list (revenue, headcount cost, cash)",
+      "For each flagged line: show Current/Prior/Budget values, delta vs prior and vs budget (amount and %)",
+      "Explain driver: one sentence explaining WHY (not restating the number) from underlying activity via internal-gl MCP",
+      "If driver unclear, write 'driver unclear — flag for controller'",
+      "Output: Commentary table plus short narrative (3-5 sentences) summarizing biggest movers"
+    ],
+    "concepts": [
+      "flux analysis",
+      "variance analysis",
+      "materiality threshold",
+      "budget comparison",
+      "P&L commentary",
+      "balance sheet analysis",
+      "management reporting",
+      "driver analysis"
+    ],
+    "tags": [
+      "fund-operations",
+      "reporting",
+      "variance-analysis",
+      "month-end-close"
+    ]
+  },
+  {
+    "id": "01-文档解析",
+    "name": "KYC Doc Parse / 文档解析",
+    "domain": "07-运营KYC",
+    "domainName": "运营KYC",
+    "description": "Parse an investor or client onboarding packet into structured KYC fields — identity, ownership, control, source of funds, and document inventory. Use as the first step of KYC screening; output feeds the rules engine.",
+    "triggers": [
+      "KYC document parsing",
+      "onboarding packet",
+      "identity verification",
+      "document extraction",
+      "KYC screening"
+    ],
+    "steps": [
+      "Step 1: Inventory the packet — list every document by type (identity, entity formation, ownership, address, source of funds, tax forms)",
+      "Step 2: Extract structured fields into JSON — applicant_type, legal_name, dob, nationality, address, id_documents, beneficial_owners, controllers, source_of_funds, pep_declared, tax_forms, documents_received. Use null for missing fields, never guess",
+      "Step 3: Flag obvious gaps — expired IDs, address proof older than 3 months, missing UBO chart for entities. These are inventory gaps for kyc-rules"
+    ],
+    "concepts": [
+      "KYC (Know Your Customer)",
+      "AML (Anti-Money Laundering)",
+      "onboarding",
+      "UBO (Ultimate Beneficial Owner)",
+      "PEP (Politically Exposed Person)",
+      "W-8BEN-E",
+      "CRS self-certification",
+      "source of funds",
+      "identity verification",
+      "entity formation documents"
+    ],
+    "tags": [
+      "KYC",
+      "onboarding",
+      "document-processing",
+      "compliance"
+    ]
+  },
+  {
+    "id": "02-规则引擎",
+    "name": "KYC Rules / 规则引擎",
+    "domain": "07-运营KYC",
+    "domainName": "运营KYC",
+    "description": "Apply the firm's KYC/AML rules grid to a parsed onboarding record — assign a risk rating, list every rule outcome with the rule cited, and flag what's missing or escalation-worthy. Use after kyc-doc-parse; this skill decides nothing, it scores and routes.",
+    "triggers": [
+      "KYC rules engine",
+      "risk rating",
+      "AML screening",
+      "rules grid",
+      "KYC assessment",
+      "compliance check"
+    ],
+    "steps": [
+      "Step 1: Risk-rate — compute risk rating from grid factors: jurisdiction, applicant type, ownership opacity, PEP exposure, sanctions/adverse media, source of funds clarity. Output: low/medium/high with factor table",
+      "Step 2: Required-document check — list required docs for applicant_type at this risk rating, mark received/missing/expired",
+      "Step 3: Rule outcomes — for every applicable rule, output: rule id, rule text, outcome (pass/fail/n/a), evidence fields. Cite the rule always",
+      "Step 4: Disposition — output JSON with risk_rating, disposition (clear/request-docs/escalate-EDD/decline-recommend), missing_documents, escalation_reasons, rule_outcomes. This skill never approves — only escalators and humans do"
+    ],
+    "concepts": [
+      "KYC rules grid",
+      "risk rating",
+      "EDD (Enhanced Due Diligence)",
+      "PEP screening",
+      "sanctions screening",
+      "adverse media",
+      "jurisdiction risk",
+      "beneficial ownership",
+      "source of funds verification",
+      "compliance escalation"
+    ],
+    "tags": [
+      "KYC",
+      "AML",
+      "risk-rating",
+      "compliance",
+      "rules-engine"
+    ]
+  },
+  {
+    "id": "01-债券相对价值",
+    "name": "Bond Relative Value / 债券相对价值",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Perform relative value analysis on bonds by combining pricing, yield curve context, credit spreads, and scenario stress testing. Use when analyzing bond richness/cheapness, computing spread decomposition, comparing bonds, assessing bond value vs curves, or running rate shock scenarios.",
+    "triggers": [
+      "bond relative value",
+      "bond richness/cheapness",
+      "spread decomposition",
+      "bond comparison",
+      "rate shock scenario",
+      "bond valuation"
+    ],
+    "steps": [
+      "Step 1: Price the Bond(s) — call bond_price for target and comparison bonds, extract yield, Z-spread, duration, convexity, DV01",
+      "Step 2: Get Risk-Free Curve — call interest_rate_curve, interpolate at bond maturity for G-spread",
+      "Step 3: Get Credit Curve — call credit_curve for issuer country/type, extract credit spread, compute residual = G-spread minus credit curve",
+      "Step 4: Run Scenarios — call yieldbook_scenario with parallel shifts (-100bp to +100bp)",
+      "Step 5: Historical Context — call tscc_historical_pricing_summaries for spread percentile analysis",
+      "Step 6: Synthesize — combine spread decomposition, scenario results, historical context into rich/cheap assessment"
+    ],
+    "concepts": [
+      "G-spread",
+      "Z-spread",
+      "credit curve",
+      "residual spread",
+      "DV01",
+      "convexity",
+      "duration",
+      "yield curve",
+      "scenario analysis",
+      "spread decomposition",
+      "rich/cheap assessment",
+      "OAS (Option-Adjusted Spread)"
+    ],
+    "tags": [
+      "fixed-income",
+      "LSEG",
+      "bond-analysis",
+      "relative-value",
+      "spread-analysis"
+    ]
+  },
+  {
+    "id": "02-债券期货基差",
+    "name": "Bond Futures Basis / 债券期货基差",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Analyze the bond futures basis by pricing futures, identifying the cheapest-to-deliver, and comparing with yield curves to assess delivery option value and basis trading opportunities. Use when analyzing bond futures, computing the basis, identifying CTD bonds, calculating implied repo rates, or evaluating basis trades.",
+    "triggers": [
+      "bond futures basis",
+      "cheapest-to-deliver",
+      "CTD bond",
+      "implied repo rate",
+      "basis trade",
+      "bond futures analysis"
+    ],
+    "steps": [
+      "Step 1: Price the Future — call bond_future_price, extract CTD, delivery basket, conversion factors, contract DV01",
+      "Step 2: Price the CTD Bond — call bond_price for CTD, extract clean/dirty price, yield, duration, DV01",
+      "Step 3: Compute Basis Metrics — gross basis, carry, net basis (BNOC), implied repo rate, compare to market repo",
+      "Step 4: Yield Curve Context — call interest_rate_curve for repo proxy",
+      "Step 5: Historical Context — call tscc_historical_pricing_summaries for 3M basis trend and percentile",
+      "Step 6: Sovereign Credit (optional) — call credit_curve for credit-driven distortions"
+    ],
+    "concepts": [
+      "bond futures",
+      "cheapest-to-deliver (CTD)",
+      "conversion factor",
+      "gross basis",
+      "net basis (BNOC)",
+      "implied repo rate",
+      "carry",
+      "delivery option value",
+      "DV01",
+      "repo market"
+    ],
+    "tags": [
+      "fixed-income",
+      "LSEG",
+      "futures",
+      "basis-trading",
+      "CTD-analysis"
+    ]
+  },
+  {
+    "id": "03-互换曲线策略",
+    "name": "Swap Curve Strategy / 互换曲线策略",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Analyze the interest rate swap curve by pricing swaps at multiple tenors, overlaying government and inflation curves, and identifying curve trade opportunities. Use when analyzing swap curves, computing swap spreads, decomposing real rates, identifying steepener/flattener/butterfly trades, or comparing swap rates across currencies.",
+    "triggers": [
+      "swap curve analysis",
+      "swap spreads",
+      "real rate decomposition",
+      "steepener trade",
+      "flattener trade",
+      "butterfly trade",
+      "curve strategy"
+    ],
+    "steps": [
+      "Step 1: Discover Swap Templates — call ir_swap in list mode for target currency",
+      "Step 2: Build Swap Curve — call ir_swap in price mode for standard tenors (2Y, 5Y, 7Y, 10Y, 20Y, 30Y)",
+      "Step 3: Overlay Government Curve — call interest_rate_curve, compute swap spread at each tenor",
+      "Step 4: Inflation Decomposition — call inflation_curve, compute real rate = nominal swap rate minus inflation breakeven",
+      "Step 5: Compute Curve Metrics — 2s10s slope, 5s30s slope, 2s5s10s butterfly, curve shape classification",
+      "Step 6: Synthesize — swap curve table, spreads, real rate decomposition, curve metrics, trade recommendations with DV01-neutral sizing"
+    ],
+    "concepts": [
+      "interest rate swap",
+      "par swap rate",
+      "swap spread",
+      "DV01-neutral sizing",
+      "inflation breakeven",
+      "real rate",
+      "curve slope",
+      "butterfly trade",
+      "steepener/flattener",
+      "carry/roll-down",
+      "term structure"
+    ],
+    "tags": [
+      "rates",
+      "LSEG",
+      "swap-curve",
+      "curve-trading",
+      "inflation"
+    ]
+  },
+  {
+    "id": "04-FX套利",
+    "name": "FX Carry Trade / FX套利",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Evaluate FX carry trade opportunities by combining spot rates, forward points, interest rate differentials, volatility surface analysis, and historical price trends. Use when analyzing carry trades, comparing FX forward curves, assessing carry-to-vol ratios, or evaluating currency pair opportunities.",
+    "triggers": [
+      "FX carry trade",
+      "carry-to-vol ratio",
+      "currency carry",
+      "FX forward curve",
+      "currency pair analysis",
+      "FX strategy"
+    ],
+    "steps": [
+      "Step 1: Get Spot Rate — call fx_spot_price for currency pair, note bid-ask spread",
+      "Step 2: Price the Forward — call fx_forward_price at target tenor, compute annualized carry",
+      "Step 3: Map Carry Curve — call fx_forward_curve for all tenors, identify sweet-spot tenor",
+      "Step 4: Assess Vol Risk — call fx_vol_surface, extract ATM vol, 25d risk reversal, butterfly, compute carry-to-vol ratio",
+      "Step 5: Historical Context — call tscc_historical_pricing_summaries for 1Y daily data, assess 52-week range and trend",
+      "Step 6: Synthesize — carry profile table, vol surface summary, carry trade recommendation with conviction level"
+    ],
+    "concepts": [
+      "carry trade",
+      "forward points",
+      "annualized carry",
+      "carry-to-vol ratio",
+      "ATM implied volatility",
+      "risk reversal (25-delta)",
+      "butterfly",
+      "FX spot rate",
+      "interest rate differential",
+      "volatility surface"
+    ],
+    "tags": [
+      "FX",
+      "LSEG",
+      "carry-trade",
+      "volatility",
+      "currency"
+    ]
+  },
+  {
+    "id": "05-期权波动率",
+    "name": "Option Volatility Analysis / 期权波动率分析",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Analyze option volatility by combining vol surface data, option pricing with Greeks, and historical price data to assess implied vs realized volatility. Use when pricing options, analyzing volatility surfaces, computing Greeks, assessing vol premiums, or evaluating vol trading strategies.",
+    "triggers": [
+      "option volatility",
+      "vol surface analysis",
+      "implied vs realized volatility",
+      "option Greeks",
+      "vol premium",
+      "vol trading strategy"
+    ],
+    "steps": [
+      "Step 1: Vol Surface Snapshot — call equity_vol_surface or fx_vol_surface, extract ATM vol term structure, 25d risk reversals, butterflies",
+      "Step 2: Template Discovery — call option_template_list for valid expiries and strikes",
+      "Step 3: Option Pricing — call option_value for specific options, extract premium, delta, gamma, vega, theta, implied vol",
+      "Step 4: Historical Data — call tscc_historical_pricing_summaries for 1Y daily history",
+      "Step 5: Realized Vol Computation — compute realized vol over 20d/60d/90d windows, compare to implied",
+      "Step 6: Synthesize — vol surface summary, Greeks table, implied vs realized comparison, strategy recommendations"
+    ],
+    "concepts": [
+      "implied volatility",
+      "realized volatility",
+      "vol surface",
+      "Greeks (delta, gamma, vega, theta, rho)",
+      "risk reversal",
+      "butterfly (smile curvature)",
+      "vol premium",
+      "ATM vol",
+      "term structure",
+      "skew"
+    ],
+    "tags": [
+      "derivatives",
+      "LSEG",
+      "volatility",
+      "options",
+      "Greeks"
+    ]
+  },
+  {
+    "id": "06-宏观利率监控",
+    "name": "Macro Rates Monitor / 宏观利率监控",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Build macroeconomic and rates dashboards combining macro indicators, yield curves, inflation breakevens, and swap rates. Use when monitoring macro conditions, analyzing yield curve shape, decomposing real vs nominal rates, assessing policy rate expectations, or evaluating financial conditions.",
+    "triggers": [
+      "macro dashboard",
+      "rates monitor",
+      "macroeconomic analysis",
+      "yield curve shape",
+      "real vs nominal rates",
+      "financial conditions"
+    ],
+    "steps": [
+      "Step 1: Pull Macro Indicators — call qa_macroeconomic for GDP, CPI/PCE, unemployment, PMI",
+      "Step 2: Yield Curve Snapshot — call interest_rate_curve for government curve, compute 2s10s and 3M-10Y slopes",
+      "Step 3: Inflation Decomposition — call inflation_curve, compute real rates at each tenor",
+      "Step 4: Swap Spreads — call ir_swap at 2Y/5Y/10Y, compute swap spreads for financial conditions",
+      "Step 5: Historical Context — call tscc_historical_pricing_summaries for benchmark yield historical context",
+      "Step 6: Synthesize — macro summary table, yield curve snapshot, real rate decomposition, swap spreads, overall assessment"
+    ],
+    "concepts": [
+      "GDP growth",
+      "CPI/PCE inflation",
+      "unemployment rate",
+      "PMI (Purchasing Managers Index)",
+      "yield curve slope",
+      "real rate",
+      "inflation breakeven",
+      "swap spread",
+      "financial conditions",
+      "economic cycle",
+      "central bank policy"
+    ],
+    "tags": [
+      "macro",
+      "LSEG",
+      "rates",
+      "dashboard",
+      "economic-cycle"
+    ]
+  },
+  {
+    "id": "07-股票研究",
+    "name": "Equity Research / 股票研究",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Generate comprehensive equity research snapshots combining analyst consensus estimates, company fundamentals, historical prices, and macroeconomic context. Use when researching stocks, comparing estimates to actuals, analyzing company financials, assessing equity valuations, or building investment cases.",
+    "triggers": [
+      "equity research",
+      "stock analysis",
+      "consensus estimates",
+      "company fundamentals",
+      "equity valuation",
+      "investment case"
+    ],
+    "steps": [
+      "Step 1: Consensus Snapshot — call qa_ibes_consensus for FY1/FY2 estimates (EPS, Revenue, EBITDA, DPS)",
+      "Step 2: Historical Fundamentals — call qa_company_fundamentals for 3-5 fiscal years, extract growth, margins, leverage, ROE/ROIC",
+      "Step 3: Price Performance — call qa_historical_equity_price for 1Y history, compute YTD return, beta, 52-week range",
+      "Step 4: Recent Price Detail — call tscc_historical_pricing_summaries for 3M daily data",
+      "Step 5: Macro Context — call qa_macroeconomic for GDP, CPI, policy rate in company's primary market",
+      "Step 6: Synthesize — consensus tables, financials summary, valuation metrics (forward P/E), macro backdrop, investment thesis"
+    ],
+    "concepts": [
+      "IBES consensus",
+      "EPS estimates",
+      "revenue growth",
+      "gross margin",
+      "operating margin",
+      "ROE/ROIC",
+      "forward P/E",
+      "EV/EBITDA",
+      "dividend yield",
+      "beta",
+      "analyst dispersion"
+    ],
+    "tags": [
+      "equity",
+      "LSEG",
+      "research",
+      "valuation",
+      "fundamentals"
+    ]
+  },
+  {
+    "id": "08-固收组合",
+    "name": "Fixed Income Portfolio / 固收组合",
+    "domain": "08-合作伙伴/LSEG",
+    "domainName": "合作伙伴-LSEG",
+    "description": "Review fixed income portfolios by pricing multiple bonds, retrieving reference data, analyzing cashflows, and running scenario analysis. Use when reviewing bond portfolios, computing portfolio duration and DV01, analyzing cashflow waterfalls, stress testing rate scenarios, or assessing portfolio composition.",
+    "triggers": [
+      "fixed income portfolio",
+      "bond portfolio review",
+      "portfolio duration",
+      "DV01 analysis",
+      "cashflow waterfall",
+      "rate stress test"
+    ],
+    "steps": [
+      "Step 1: Price All Bonds — call bond_price for all holdings, extract yield, duration, DV01, convexity, spread",
+      "Step 2: Aggregate Portfolio Metrics — compute market-value weighted portfolio yield, duration, DV01, convexity",
+      "Step 3: Enrich with Reference Data — call yieldbook_bond_reference for sector, rating, maturity, currency breakdowns",
+      "Step 4: Project Cashflows — call yieldbook_cashflow, aggregate into quarterly cashflow waterfall",
+      "Step 5: Run Scenarios — call yieldbook_scenario with standard shocks (-200bp to +200bp)",
+      "Step 6: Curve Context — call interest_rate_curve for spread-to-curve context",
+      "Step 7: Synthesize — portfolio summary, composition breakdown, cashflow waterfall, scenario P&L table"
+    ],
+    "concepts": [
+      "portfolio duration",
+      "DV01",
+      "convexity",
+      "yield to worst (YTW)",
+      "cashflow waterfall",
+      "scenario P&L",
+      "market-value weighted average",
+      "credit rating",
+      "maturity bucket",
+      "key rate duration",
+      "OAS"
+    ],
+    "tags": [
+      "fixed-income",
+      "LSEG",
+      "portfolio-analysis",
+      "stress-testing",
+      "cashflow"
+    ]
+  },
+  {
+    "id": "01-tear-sheet",
+    "name": "Tear Sheet / 公司简报",
+    "domain": "08-合作伙伴/S&P-Global",
+    "domainName": "合作伙伴-S&P-Global",
+    "description": "Generate professional company tear sheets using S&P Capital IQ data via the Kensho LLM-ready API MCP server. Supports four audience types: equity research, investment banking/M&A, corporate development, and sales/business development. Produces audience-specific Word documents with company profile, financials, valuation, segments, earnings, and relationships.",
+    "triggers": [
+      "tear sheet",
+      "company one-pager",
+      "company profile",
+      "fact sheet",
+      "company snapshot",
+      "equity research summary",
+      "M&A company profile",
+      "corporate development target profile",
+      "sales meeting prep"
+    ],
+    "steps": [
+      "Step 1: Identify Inputs — company name/ticker, audience type (ER/IB-MA/CorpDev/Sales-BD), comparable companies (optional), page length preference",
+      "Step 2: Read Audience-Specific Reference — load the appropriate reference file for the audience type",
+      "Step 3: Pull Data via S&P Global MCP — company info, financials (4 fiscal years), segments, valuation, consensus, earnings, relationships, peers, M&A activity",
+      "Step 3b: Calculate Derived Metrics — margins, growth rates, efficiency ratios, capital structure, segment mix",
+      "Step 3c: Verify Data Files — check all intermediate files are present and populated",
+      "Step 4: Format as DOCX — apply style configuration, component functions, page length defaults, output to /mnt/user-data/outputs/"
+    ],
+    "concepts": [
+      "S&P Capital IQ",
+      "Kensho API",
+      "tear sheet",
+      "trading comps",
+      "consensus estimates",
+      "segment analysis",
+      "valuation multiples (EV/Revenue, EV/EBITDA, P/E)",
+      "M&A activity",
+      "business relationships",
+      "IBES consensus",
+      "DOCX generation",
+      "audience-specific reporting"
+    ],
+    "tags": [
+      "S&P-Global",
+      "tear-sheet",
+      "company-profile",
+      "M&A",
+      "equity-research"
+    ]
+  },
+  {
+    "id": "02-earnings-preview",
+    "name": "Earnings Preview / 盈利预览",
+    "domain": "08-合作伙伴/S&P-Global",
+    "domainName": "合作伙伴-S&P-Global",
+    "description": "Generate a concise 4-5 page equity research earnings preview for a single company. Analyzes the most recent earnings transcript, competitor landscape, valuation, and recent news to produce a professional HTML report with charts, tables, and full source traceability.",
+    "triggers": [
+      "earnings preview",
+      "earnings report",
+      "quarterly preview",
+      "pre-earnings analysis",
+      "earnings estimate"
+    ],
+    "steps": [
+      "Phase 1: Company Profile & Setup — parse ticker, get company info, next earnings date, business description",
+      "Phase 2: Earnings Transcript Analysis (MANDATORY) — get latest earnings transcript, extract verbatim quotes, guidance, key drivers, headwinds, Q&A themes",
+      "Phase 3: Competitor Analysis — get top 5-7 competitors, collect prices, EPS, market caps, consensus estimates",
+      "Phase 4: News & Sector Intelligence — Kensho Grounding searches for estimates, analyst ratings, risks, recent news, sector context",
+      "Phase 5: Financial Data Collection — 8 quarters of financials, segment data, earnings dates",
+      "Phase 6: Verification & Calculations — read ALL intermediate files, compute margins, growth rates, P/E ratios, verify cross-checks",
+      "Phase 7: Generate HTML Report — 4-5 pages with cover/thesis, estimates/themes/news, figures (8 charts/tables), appendix",
+      "Phase 8: Output — write HTML file, open in browser, summarize key findings"
+    ],
+    "concepts": [
+      "earnings transcript analysis",
+      "consensus EPS estimates",
+      "LTM P/E",
+      "NTM P/E",
+      "verbal quote verification",
+      "Kensho Grounding",
+      "S&P Capital IQ kfinance",
+      "competitor comparison",
+      "segment analysis",
+      "margin trends",
+      "Chart.js visualization",
+      "intermediate file data integrity",
+      "data traceability"
+    ],
+    "tags": [
+      "S&P-Global",
+      "earnings",
+      "equity-research",
+      "HTML-report",
+      "transcript-analysis"
+    ]
+  },
+  {
+    "id": "03-funding-digest",
+    "name": "Funding Digest / 融资摘要",
+    "domain": "08-合作伙伴/S&P-Global",
+    "domainName": "合作伙伴-S&P-Global",
+    "description": "Generate a polished one-page PowerPoint slide summarizing key takeaways from recent funding rounds and notable capital markets activity across watched sectors or companies. Uses S&P Global Capital IQ data to produce professional deal flow briefings with valuation data and Capital IQ deal links.",
+    "triggers": [
+      "deal flow digest",
+      "weekly funding recap",
+      "deal roundup",
+      "transaction summary",
+      "capital markets update",
+      "funding digest",
+      "funding activity briefing"
+    ],
+    "steps": [
+      "Step 1: Establish Coverage & Period — determine sectors, specific companies, time period (default: last 7 days)",
+      "Step 2: Build the Company Universe — seed companies from sector-seeds.md, pre-validate via get_info_from_identifiers, expand via competitors, validate expanded universe",
+      "Step 3: Pull Funding Rounds — get_rounds_of_funding_from_identifiers in batches, enrich with detailed round info, extract transaction_id, dates, amounts, valuations, investors",
+      "Step 4: Pull Company Context — get_company_summary for notable deals",
+      "Step 5: Identify Highlights & Trends — flag notable deals ($100M+, down rounds, new unicorns), identify trends, select 3-5 key takeaways",
+      "Step 6: Generate Company Logos — two-tier pipeline: simple-icons npm package or initial-based fallback via sharp",
+      "Step 7: Generate the One-Page PPTX — monochrome executive design, stat cards, key takeaways, top deals table with Capital IQ links",
+      "Step 8: QA the Slide — content QA (markitdown), visual QA (PDF conversion), link QA",
+      "Step 9: Present Results — copy to outputs, share file, provide verbal summary"
+    ],
+    "concepts": [
+      "funding rounds",
+      "pre-money valuation",
+      "post-money valuation",
+      "Capital IQ deal links",
+      "deal flow analysis",
+      "unicorn tracking",
+      "down rounds",
+      "Series A/B/C/D",
+      "investor syndicate",
+      "sector-seeded universe building",
+      "entity resolution",
+      "pptxgenjs",
+      "simple-icons"
+    ],
+    "tags": [
+      "S&P-Global",
+      "funding",
+      "deal-flow",
+      "PPTX",
+      "capital-markets"
+    ]
+  }
+]

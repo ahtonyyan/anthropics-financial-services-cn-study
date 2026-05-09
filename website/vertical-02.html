@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>权益研究 - 技能列表</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --coral-dark: #C4483A;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+            --card-bg: #FFFFFF;
+            --accent-green: #2D7A5B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-light);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--coral);
+        }
+
+        .vertical-hero {
+            background: linear-gradient(135deg, var(--accent-green) 0%, #1a5c3d 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .vertical-hero h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .vertical-hero p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .vertical-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .vertical-stat {
+            text-align: center;
+        }
+
+        .vertical-stat-value {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .vertical-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: var(--coral);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            margin-left: auto;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--accent-green);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        .skill-badge {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            background: var(--cream);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--accent-green);
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-card .oneliner {
+            font-size: 0.9375rem;
+            color: var(--ink-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .skill-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8125rem;
+            color: var(--ink-light);
+        }
+
+        .workflow-diagram {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .workflow-diagram h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .workflow-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .workflow-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1rem;
+            background: var(--cream);
+            border-radius: 1rem;
+            position: relative;
+        }
+
+        .workflow-step-number {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: var(--accent-green);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin: 0 auto 0.75rem;
+        }
+
+        .workflow-step-title {
+            font-weight: 600;
+            font-size: 0.9375rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .workflow-step-desc {
+            font-size: 0.8125rem;
+            color: var(--ink-light);
+        }
+
+        .workflow-arrow {
+            font-size: 1.5rem;
+            color: var(--ink-light);
+        }
+
+        .role-card {
+            background: linear-gradient(135deg, rgba(45, 122, 91, 0.05) 0%, rgba(45, 122, 91, 0.02) 100%);
+            border: 1px solid rgba(45, 122, 91, 0.2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .role-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .role-card p {
+            color: var(--ink-light);
+            margin-bottom: 1rem;
+        }
+
+        .role-responsibilities {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .role-responsibilities li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.9375rem;
+            color: var(--ink-light);
+        }
+
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--ink-light);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        @media (max-width: 768px) {
+            .workflow-steps {
+                flex-direction: column;
+            }
+
+            .workflow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">📊 金融技能库</a>
+        <a href="index.html" class="nav-back">← 返回首页</a>
+    </nav>
+
+    <div class="vertical-hero">
+        <h1>📈 权益研究</h1>
+        <p>卖方分析师技能 — 财报分析、覆盖启动、晨会纪要、选股筛选等9个技能</p>
+        <div class="vertical-stats">
+            <div class="vertical-stat">
+                <div class="vertical-stat-value">9</div>
+                <div class="vertical-stat-label">技能数量</div>
+            </div>
+            <div class="vertical-stat">
+                <div class="vertical-stat-value">卖方</div>
+                <div class="vertical-stat-label">职业方向</div>
+            </div>
+            <div class="vertical-stat">
+                <div class="vertical-stat-value">高频</div>
+                <div class="vertical-stat-label">使用频率</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Role Overview -->
+        <div class="role-card">
+            <h3>💼 什么是权益研究（Equity Research）？</h3>
+            <p><strong>卖方分析师</strong>是在证券公司（如中金、中信、高盛）研究部门工作的专业人士。你的工作是：</p>
+            <ul class="role-responsibilities">
+                <li>📊 分析公司财务，预测未来业绩</li>
+                <li>📄 写研究报告，给出"买入/卖出"评级</li>
+                <li>🎤 跟基金经理交流，推销你的观点</li>
+                <li>📰 跟踪行业动态，发掘投资机会</li>
+            </ul>
+        </div>
+
+        <!-- Workflow -->
+        <div class="workflow-diagram">
+            <h3>🔄 卖方分析师的日常工作流程</h3>
+            <div class="workflow-steps">
+                <div class="workflow-step">
+                    <div class="workflow-step-number">1</div>
+                    <div class="workflow-step-title">财报分析</div>
+                    <div class="workflow-step-desc">季报发布后24-48小时内出报告</div>
+                </div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">
+                    <div class="workflow-step-number">2</div>
+                    <div class="workflow-step-title">晨会纪要</div>
+                    <div class="workflow-step-desc">每天早上总结重要信息</div>
+                </div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">
+                    <div class="workflow-step-number">3</div>
+                    <div class="workflow-step-title">模型更新</div>
+                    <div class="workflow-step-desc">调整盈利预测和目标价</div>
+                </div>
+                <span class="workflow-arrow">→</span>
+                <div class="workflow-step">
+                    <div class="workflow-step-number">4</div>
+                    <div class="workflow-step-title">深度报告</div>
+                    <div class="workflow-step-desc">覆盖启动、行业全景</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Core Skills -->
+        <div style="margin-bottom: 3rem;">
+            <div class="section-title">
+                核心技能 <span class="section-badge">高频使用</span>
+            </div>
+            <div class="skills-grid">
+                <a href="skill.html?skill=earnings" class="skill-card">
+                    <span class="skill-badge">核心</span>
+                    <h3>📊 财报分析</h3>
+                    <p class="oneliner">季报出来后，拉财报+电话纪要+SEC文件，做Beat/Miss分析，生成8-12页研报</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>🔥 高频</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=earnings-preview" class="skill-card">
+                    <span class="skill-badge">核心</span>
+                    <h3>📅 财报前瞻</h3>
+                    <p class="oneliner">季报发布前，预测财报数据，为客户做准备</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>🔥 季度</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=morning-note" class="skill-card">
+                    <span class="skill-badge">日常</span>
+                    <h3>☀️ 晨会纪要</h3>
+                    <p class="oneliner">每天早上总结重要新闻、股价变动、行业动态，发给销售和交易团队</p>
+                    <div class="skill-meta">
+                        <span>⚡ 初级</span>
+                        <span>🔥 每日</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=model-update" class="skill-card">
+                    <span class="skill-badge">核心</span>
+                    <h3>🔧 模型更新</h3>
+                    <p class="oneliner">根据财报和新信息，调整盈利预测和目标价</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>🔥 高频</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=initiating-coverage" class="skill-card">
+                    <span class="skill-badge">深度</span>
+                    <h3>🚀 覆盖启动报告</h3>
+                    <p class="oneliner">首次覆盖一家公司，写50-80页深度报告，建立财务模型</p>
+                    <div class="skill-meta">
+                        <span>⚡ 高级</span>
+                        <span>📄 一次性</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=sector-overview" class="skill-card">
+                    <span class="skill-badge">深度</span>
+                    <h3>🗺️ 行业全景</h3>
+                    <p class="oneliner">分析整个行业格局、竞争态势、发展趋势</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>📄 定期</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Advanced Skills -->
+        <div style="margin-bottom: 3rem;">
+            <div class="section-title">
+                进阶技能
+            </div>
+            <div class="skills-grid">
+                <a href="skill.html?skill=thesis-tracker" class="skill-card">
+                    <span class="skill-badge">进阶</span>
+                    <h3>🎯 投资论点跟踪</h3>
+                    <p class="oneliner">持续验证你的投资观点，及时更新评级和目标价</p>
+                    <div class="skill-meta">
+                        <span>⚡ 高级</span>
+                        <span>🔄 持续</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=catalyst-calendar" class="skill-card">
+                    <span class="skill-badge">进阶</span>
+                    <h3>📅 催化剂日历</h3>
+                    <p class="oneliner">跟踪会影响股价的事件：财报、产品发布、监管变化</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>📅 持续</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=idea-generation" class="skill-card">
+                    <span class="skill-badge">进阶</span>
+                    <h3>🔍 选股筛选</h3>
+                    <p class="oneliner">用量化指标筛选股票，找被低估的标的</p>
+                    <div class="skill-meta">
+                        <span>⚡ 高级</span>
+                        <span>📊 定期</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div style="margin-top: 4rem;">
+            <div class="section-title">常见问题</div>
+            <div style="background: white; border: 1px solid var(--border); border-radius: 1rem; padding: 1.5rem;">
+                <p style="margin-bottom: 1rem;"><strong>❓ 卖方 vs 买方有什么区别？</strong></p>
+                <p style="color: var(--ink-light); margin-bottom: 1.5rem;">卖方在证券公司，做研究卖报告；买方在基金公司，用研究做投资决策。卖方更注重覆盖广度和交流能力，买方更注重深度和实战业绩。</p>
+
+                <p style="margin-bottom: 1rem;"><strong>❓ 卖方分析师的一天是怎样的？</strong></p>
+                <p style="color: var(--ink-light); margin-bottom: 1.5rem;">早上7点到公司，开晨会，写晨会纪要。上午看新闻、回复客户邮件。下午做模型、写报告。晚上5点发日报。季报季可能要加班到深夜。</p>
+
+                <p style="margin-bottom: 1rem;"><strong>❓ 需要什么技能？</strong></p>
+                <p style="color: var(--ink-light);">财务分析（会计基础）、估值建模（DCF/Comps）、行业研究、沟通能力（和客户交流）、写作能力（写报告）。</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 金融分析技能库学习版 | 基于 Anthropic Claude FSI 插件库</p>
+    </div>
+
+    <script>
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

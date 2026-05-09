@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>金融分析 - 技能列表</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --coral-dark: #C4483A;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+            --card-bg: #FFFFFF;
+            --accent-blue: #2D5B8B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--cream);
+            color: var(--ink);
+            line-height: 1.7;
+        }
+
+        /* Navigation */
+        .nav {
+            position: sticky;
+            top: 0;
+            background: rgba(253, 248, 243, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: var(--ink);
+            text-decoration: none;
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--ink-light);
+            text-decoration: none;
+            font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+
+        .nav-back:hover {
+            color: var(--coral);
+        }
+
+        /* Hero */
+        .vertical-hero {
+            background: linear-gradient(135deg, var(--accent-blue) 0%, #1a3a5c 100%);
+            color: white;
+            padding: 5rem 2rem;
+            text-align: center;
+        }
+
+        .vertical-hero h1 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .vertical-hero p {
+            font-size: 1.125rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .vertical-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .vertical-stat {
+            text-align: center;
+        }
+
+        .vertical-stat-value {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+
+        .vertical-stat-label {
+            font-size: 0.875rem;
+            opacity: 0.8;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Section */
+        .section-title {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            background: var(--coral);
+            color: white;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            border-radius: 50px;
+            margin-left: auto;
+        }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--coral);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .skill-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .skill-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+        }
+
+        .skill-badge {
+            display: inline-block;
+            padding: 0.25rem 0.625rem;
+            background: var(--cream);
+            border-radius: 50px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--coral);
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-badge.core {
+            background: rgba(232, 93, 76, 0.1);
+            color: var(--coral);
+        }
+
+        .skill-badge.advanced {
+            background: rgba(45, 91, 139, 0.1);
+            color: var(--accent-blue);
+        }
+
+        .skill-card h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+        }
+
+        .skill-card .oneliner {
+            font-size: 0.9375rem;
+            color: var(--ink-light);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .skill-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.8125rem;
+            color: var(--ink-light);
+        }
+
+        .skill-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+        }
+
+        /* Learning Path Box */
+        .learning-path {
+            background: linear-gradient(135deg, rgba(232, 93, 76, 0.05) 0%, rgba(232, 93, 76, 0.02) 100%);
+            border: 1px solid rgba(232, 93, 76, 0.2);
+            border-radius: 1.5rem;
+            padding: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .learning-path h3 {
+            font-family: 'Noto Serif SC', serif;
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .learning-path p {
+            color: var(--ink-light);
+            margin-bottom: 1rem;
+        }
+
+        .learning-path ol {
+            margin-left: 1.25rem;
+            color: var(--ink-light);
+        }
+
+        .learning-path li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* FAQ */
+        .faq-section {
+            margin-top: 4rem;
+        }
+
+        .faq-item {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .faq-question {
+            font-family: 'Noto Serif SC', serif;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .faq-answer {
+            color: var(--ink-light);
+            font-size: 0.9375rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--ink-light);
+            font-size: 0.875rem;
+            border-top: 1px solid var(--border);
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .vertical-hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .vertical-stats {
+                gap: 2rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">📊 金融技能库</a>
+        <a href="index.html" class="nav-back">← 返回首页</a>
+    </nav>
+
+    <div class="vertical-hero">
+        <h1>📊 金融分析</h1>
+        <p>核心建模技能 — 所有金融分析的基础，包含估值、建模、Excel等13个技能</p>
+        <div class="vertical-stats">
+            <div class="vertical-stat">
+                <div class="vertical-stat-value">13</div>
+                <div class="vertical-stat-label">技能数量</div>
+            </div>
+            <div class="vertical-stat">
+                <div class="vertical-stat-value">核心</div>
+                <div class="vertical-stat-label">难度级别</div>
+            </div>
+            <div class="vertical-stat">
+                <div class="vertical-stat-value">必学</div>
+                <div class="vertical-stat-label">推荐优先级</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Learning Path -->
+        <div class="learning-path">
+            <h3>🎯 学习路径建议</h3>
+            <p>这是所有金融分析的起点，建议按以下顺序学习：</p>
+            <ol>
+                <li>先学<strong>可比公司分析</strong> — 理解估值的基本逻辑</li>
+                <li>再学<strong>DCF估值</strong> — 掌握绝对估值法</li>
+                <li>然后学<strong>LBO</strong> — 了解PE视角</li>
+                <li>接着学<strong>三表模型</strong> — 打好财务预测基础</li>
+                <li>最后学<strong>Excel审计</strong> — 保证模型质量</li>
+            </ol>
+        </div>
+
+        <!-- Core Skills -->
+        <div style="margin-bottom: 3rem;">
+            <div class="section-title">
+                核心建模技能 <span class="section-badge">必学</span>
+            </div>
+            <div class="skills-grid">
+                <a href="skill.html?skill=comps" class="skill-card">
+                    <span class="skill-badge core">必学</span>
+                    <h3>📊 可比公司分析</h3>
+                    <p class="oneliner">选4-6家同业公司，拉取运营指标和估值倍数，用统计分布判断目标公司是高估还是低估</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>⏱️ 2-3小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=dcf" class="skill-card">
+                    <span class="skill-badge core">必学</span>
+                    <h3>💰 DCF估值模型</h3>
+                    <p class="oneliner">预测未来5-10年自由现金流，用WACC折现回现值，加上终值，得出企业价值</p>
+                    <div class="skill-meta">
+                        <span>⚡ 高级</span>
+                        <span>⏱️ 4-6小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=lbo" class="skill-card">
+                    <span class="skill-badge core">进阶</span>
+                    <h3>🎯 LBO杠杆收购</h3>
+                    <p class="oneliner">PE基金借钱买公司，用公司现金流还债，3-5年后卖出赚差价</p>
+                    <div class="skill-meta">
+                        <span>⚡ 高级</span>
+                        <span>⏱️ 3-5小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=3stmt" class="skill-card">
+                    <span class="skill-badge core">必学</span>
+                    <h3>📈 三表模型</h3>
+                    <p class="oneliner">把利润表、资产负债表、现金流量表三者联动起来，预测未来财务表现</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>⏱️ 2-4小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=audit" class="skill-card">
+                    <span class="skill-badge core">必学</span>
+                    <h3>🔍 Excel审计</h3>
+                    <p class="oneliner">检查Excel模型的错误，保证公式正确、数据可靠、假设合理</p>
+                    <div class="skill-meta">
+                        <span>⚡ 初级</span>
+                        <span>⏱️ 1-2小时</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Data & Analysis Skills -->
+        <div style="margin-bottom: 3rem;">
+            <div class="section-title">
+                数据处理技能
+            </div>
+            <div class="skills-grid">
+                <a href="skill.html?skill=data-cleaning" class="skill-card">
+                    <span class="skill-badge">数据处理</span>
+                    <h3>🧹 数据清洗</h3>
+                    <p class="oneliner">把脏数据变成干净可用的数据——处理缺失值、异常值、格式不一致</p>
+                    <div class="skill-meta">
+                        <span>⚡ 初级</span>
+                        <span>⏱️ 1-2小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=competitive-analysis" class="skill-card">
+                    <span class="skill-badge">分析</span>
+                    <h3>🔎 竞品分析</h3>
+                    <p class="oneliner">系统分析竞争对手的产品、财务、战略，找出差异化机会</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>⏱️ 2-3小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=deck-refresh" class="skill-card">
+                    <span class="skill-badge">工具</span>
+                    <h3>📊 Deck刷新</h3>
+                    <p class="oneliner">定期更新PPT数据，保证投资材料的信息时效性</p>
+                    <div class="skill-meta">
+                        <span>⚡ 初级</span>
+                        <span>⏱️ 1-2小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=deck-qc" class="skill-card">
+                    <span class="skill-badge">质控</span>
+                    <h3>✅ Deck质检</h3>
+                    <p class="oneliner">检查PPT的内容准确性、格式一致性、故事连贯性</p>
+                    <div class="skill-meta">
+                        <span>⚡ 初级</span>
+                        <span>⏱️ 1小时</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- Output Skills -->
+        <div style="margin-bottom: 3rem;">
+            <div class="section-title">
+                输出生成技能
+            </div>
+            <div class="skills-grid">
+                <a href="skill.html?skill=ppt-gen" class="skill-card">
+                    <span class="skill-badge">PPT</span>
+                    <h3>📄 PPT生成</h3>
+                    <p class="oneliner">把分析结果变成专业的演示文稿——结构清晰、视觉美观</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>⏱️ 2-3小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=ppt-template" class="skill-card">
+                    <span class="skill-badge">PPT</span>
+                    <h3>🎨 PPT模板创建</h3>
+                    <p class="oneliner">创建可复用的PPT模板——统一的风格、格式、元素库</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>⏱️ 2-3小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=xlsx-gen" class="skill-card">
+                    <span class="skill-badge">Excel</span>
+                    <h3>📊 XLSX生成</h3>
+                    <p class="oneliner">把数据变成Excel文件——公式、格式、图表一应俱全</p>
+                    <div class="skill-meta">
+                        <span>⚡ 中级</span>
+                        <span>⏱️ 2-3小时</span>
+                    </div>
+                </a>
+
+                <a href="skill.html?skill=skill-builder" class="skill-card">
+                    <span class="skill-badge">技能</span>
+                    <h3>🛠️ 技能创建器</h3>
+                    <p class="oneliner">把你的分析方法论写成Claude可执行的技能——标准化知识</p>
+                    <div class="skill-meta">
+                        <span>⚡ 高级</span>
+                        <span>⏱️ 3-4小时</span>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <!-- FAQ -->
+        <div class="faq-section">
+            <div class="section-title">常见问题</div>
+            <div class="faq-item">
+                <div class="faq-question">❓ 为什么要先学金融分析？</div>
+                <div class="faq-answer">因为其他所有技能都建立在这些基础之上。比如做权益研究需要估值模型，做投行需要三表预测，做PE需要LBO。先把基础打牢，后面学习会更轻松。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">❓ 需要什么背景知识？</div>
+                <div class="faq-answer">建议先了解基础会计（三表是什么）和基础金融（估值概念）。如果有Excel基础会更好，但不是必需的——技能中会涵盖。</div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">❓ 学完能做什么？</div>
+                <div class="faq-answer">学完这13个技能，你就能独立完成公司估值、财务预测、投资分析报告。这些是投行、PE、对冲基金、咨询公司的核心工作内容。</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 金融分析技能库学习版 | 基于 Anthropic Claude FSI 插件库</p>
+    </div>
+
+    <script>
+        // Add hover animations
+        document.querySelectorAll('.skill-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-4px)';
+            });
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0)';
+            });
+        });
+    </script>
+</body>
+</html>

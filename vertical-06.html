@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>基金管理 - 技能列表</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+            --accent-indigo: #4F46E5;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+        .nav { position: sticky; top: 0; background: rgba(253, 248, 243, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .nav-logo { font-family: 'Noto Serif SC', serif; font-weight: 700; text-decoration: none; }
+        .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--ink-light); text-decoration: none; }
+        .vertical-hero { background: linear-gradient(135deg, var(--accent-indigo) 0%, #3730A3 100%); color: white; padding: 5rem 2rem; text-align: center; }
+        .vertical-hero h1 { font-family: 'Noto Serif SC', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+        .skill-card { background: white; border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.75rem; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        .skill-card:hover { border-color: var(--accent-indigo); transform: translateY(-4px); }
+        .skill-badge { display: inline-block; padding: 0.25rem 0.625rem; background: var(--cream); border-radius: 50px; font-size: 0.7rem; color: var(--accent-indigo); margin-bottom: 0.75rem; }
+        .skill-card h3 { font-family: 'Noto Serif SC', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .footer { text-align: center; padding: 3rem 2rem; color: var(--ink-light); font-size: 0.875rem; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">📊 金融技能库</a>
+        <a href="index.html" class="nav-back">← 返回首页</a>
+    </nav>
+
+    <div class="vertical-hero">
+        <h1>🏦 基金管理 (Fund Admin)</h1>
+        <p>基金运营技能 — 对账、断点分析、NAV计算等6个技能</p>
+    </div>
+
+    <div class="container">
+        <h2 style="font-family: 'Noto Serif SC', serif; font-size: 1.75rem; margin-bottom: 2rem;">基金运营核心技能</h2>
+        <div class="skills-grid">
+            <a href="skill.html?skill=accrual-schedule" class="skill-card">
+                <span class="skill-badge">核心</span>
+                <h3>📊 应计调度</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">管理应计项目——费用、利息、股息的准确分摊</p>
+            </a>
+
+            <a href="skill.html?skill=break-trace" class="skill-card">
+                <span class="skill-badge">核心</span>
+                <h3>🔍 断点追溯</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">当NAV对不上时，追溯找出差异的根源</p>
+            </a>
+
+            <a href="skill.html?skill=gl-recon" class="skill-card">
+                <span class="skill-badge">核心</span>
+                <h3>⚖️ 总账对账</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">基金总账与托管行/券商对账，确保数据一致</p>
+            </a>
+
+            <a href="skill.html?skill=nav-tieout" class="skill-card">
+                <span class="skill-badge">核心</span>
+                <h3>💰 NAV核对</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">计算和验证基金单位净值（NAV），确保准确无误</p>
+            </a>
+
+            <a href="skill.html?skill=roll-forward" class="skill-card">
+                <span class="skill-badge">流程</span>
+                <h3>🔄 滚动结转</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">月末/季末结转流程，确保会计期间准确切换</p>
+            </a>
+
+            <a href="skill.html?skill=variance-commentary" class="skill-card">
+                <span class="skill-badge">报告</span>
+                <h3>📄 差异评述</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">解释对账差异，撰写差异分析报告</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 金融分析技能库学习版 | 基于 Anthropic Claude FSI 插件库</p>
+    </div>
+</body>
+</html>

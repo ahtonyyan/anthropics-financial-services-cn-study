@@ -1,0 +1,714 @@
+[
+  {
+    "id": "01-comps-kebi-gongsi-fenxi",
+    "name": "可比公司分析",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "构建机构级可比公司分析，包含运营指标、估值倍数和统计基准测试的Excel/电子表格格式。适用于上市公司估值（M&A、投资分析）、对标行业同行绩效、IPO定价、识别估值异常值、支持投资委员会演示等场景。",
+    "triggers": ["comps analysis", "comparable company", "peer analysis", "valuation multiples", "trading comps", "peer benchmarking"],
+    "steps": [
+      "定义对等组和统一单位",
+      "建立标题和视觉规范",
+      "填充运营统计数据与财务指标（收入、增长、毛利率、EBITDA、EBITDA利润率）",
+      "添加统计块（最大值、75分位、中位数、25分位、最小值）",
+      "构建估值倍数（市值、企业价值、EV/收入、EV/EBITDA、P/E）",
+      "添加交叉引用验证",
+      "添加批注记录所有硬编码输入的数据来源",
+      "质量控制检查（利润率测试、倍数合理性、增长-倍数相关性）"
+    ],
+    "concepts": ["EV/Revenue", "EV/EBITDA", "P/E Ratio", "Gross Margin", "EBITDA Margin", "Market Cap", "Enterprise Value", "Quartile Analysis", "Revenue Growth", "Rule of 40", "FCF Yield", "PEG Ratio"],
+    "tags": ["估值", "Excel", "倍数分析", "同行比较", "机构级", "公式驱动"]
+  },
+  {
+    "id": "02-dcf-guzhi-moxing",
+    "name": "DCF估值模型",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "创建真实的DCF（折现现金流）模型用于股权估值。从SEC文件和分析师报告中获取财务数据，构建全面的现金流预测和适当的WACC计算，进行敏感性分析，并输出专业的Excel模型和执行摘要。",
+    "triggers": ["DCF model", "discounted cash flow", "intrinsic value", "DCF valuation", "WACC calculation", "terminal value", "equity valuation"],
+    "steps": [
+      "数据获取与验证（MCP服务器、用户数据、网络搜索）",
+      "历史分析（3-5年收入增长、利润率、资本密集度、运营资本效率）",
+      "构建收入预测（三场景：熊市/基准/牛市）",
+      "运营费用建模（基于收入的百分比，运营杠杆）",
+      "自由现金流计算（EBIT → NOPAT + D&A - CapEx - NWC）",
+      "WACC研究（CAPM股权成本、债务成本、资本结构权重）",
+      "折现率应用（年中惯例、现值计算）",
+      "终值计算（永续增长法和退出倍数法）",
+      "企业价值到股权价值桥接",
+      "敏感性分析（三个5x5表格：WACC vs 终值增长率、收入增长 vs EBIT利润率、Beta vs 无风险利率）"
+    ],
+    "concepts": ["WACC", "CAPM", "Terminal Value", "Free Cash Flow", "Discount Factor", "Mid-Year Convention", "Sensitivity Analysis", "Enterprise Value", "Equity Value", "Net Debt", "Diluted Shares", "Perpetuity Growth Method", "Exit Multiple Method", "Scenario Analysis", "EBIT", "NOPAT", "Revenue CAGR"],
+    "tags": ["估值", "DCF", "Excel", "WACC", "终值", "敏感性分析", "三场景"]
+  },
+  {
+    "id": "03-lbo-ganggan-shougu",
+    "name": "杠杆收购模型",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "完成私募股权交易的LBO（杠杆收购）Excel模型模板。填写公式、验证计算并确保专业格式标准。适用于PE交易材料、投资委员会演示。模型包括资金来源与用途、运营模型、债务计划和回报分析。",
+    "triggers": ["LBO model", "leveraged buyout", "PE model", "buyout model", "debt schedule", "IRR MOIC", "sources and uses"],
+    "steps": [
+      "分析模板结构（映射各部分位置和时间线）",
+      "填写资金来源与用途（确定平衡项）",
+      "构建运营模型/预测（收入、成本、EBITDA）",
+      "构建债务计划（优先级、利息、还款、现金扫除）",
+      "计算回报（IRR/MOIC，确保现金流符号正确）",
+      "构建敏感性表（5x5奇数维度，中心单元格=基准案例）",
+      "验证：资产负债平衡、债务还款逻辑、回报合理性",
+      "格式化：蓝色输入、黑色公式、紫色同表链接、绿色跨表链接"
+    ],
+    "concepts": ["LBO", "IRR", "MOIC", "Sources & Uses", "Debt Schedule", "Cash Sweep", "PIK Interest", "Management Rollover", "Exit Multiple", "Sensitivity Tables", "Leverage Ratio", "Circ Ref Breaker", "Beginning Balance"],
+    "tags": ["LBO", "PE", "Excel", "债务计划", "回报分析", "敏感性表"]
+  },
+  {
+    "id": "04-sanbiao-moxing",
+    "name": "三表模型",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "完成并填充三表财务模型模板（利润表、资产负债表、现金流量表）。在现有模板结构内，将整合的财务报表与适当的关联链接完整填充。支持利润率分析、信用指标、场景分析（基准/上行/下行）和NOL计划。",
+    "triggers": ["3-statement model", "financial model", "integrated model", "IS BS CF", "projection model", "income statement balance sheet cash flow"],
+    "steps": [
+      "分析模板结构和标签组织",
+      "填充历史数据（3-5年）",
+      "构建利润表预测（收入驱动、利润率分析）",
+      "构建资产负债表（资产=负债+权益平衡检查）",
+      "构建现金流量表（期末现金=资产负债表现金验证）",
+      "验证跨表关联（BS平衡、CF与BS现金一致、NI链接）",
+      "添加场景分析（基准/上行/下行切换）",
+      "最终审核（遍历所有场景验证）"
+    ],
+    "concepts": ["3-Statement Model", "Income Statement", "Balance Sheet", "Cash Flow Statement", "Retained Earnings Rollforward", "Working Capital", "Depreciation Schedule", "Debt Schedule", "NOL Schedule", "Scenario Analysis", "Credit Metrics", "Circular Reference Handling", "Margin Analysis"],
+    "tags": ["三表模型", "Excel", "财务建模", "场景分析", "BS平衡", "CF验证"]
+  },
+  {
+    "id": "05-excel-shenji",
+    "name": "Excel审计",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "审计电子表格的公式准确性、错误和常见问题。范围可选择选定区域、单表或整个模型（包括BS平衡、现金验证和逻辑合理性等金融模型完整性检查）。适用于发送给客户或IC之前的DCF、LBO、三表、并购、可比公司等模型。",
+    "triggers": ["audit spreadsheet", "check formulas", "find errors", "QA spreadsheet", "sanity check", "debug model", "model review", "model won't balance"],
+    "steps": [
+      "确定审计范围（选区/单表/整个模型）",
+      "公式级检查（错误值、硬编码、不一致公式、偏移引用、循环引用、跨表链接断裂）",
+      "模型完整性检查（如适用）：结构审查、BS平衡、CF验证、IS检查、循环引用分析",
+      "逻辑合理性检查（增长率、利润率、终值占比、曲棍球棒预测）",
+      "模型类型特定检查（DCF/LBO/合并/三表各自常见错误）",
+      "输出发现表格（严重/警告/信息级别）"
+    ],
+    "concepts": ["Formula Auditing", "BS Balance Check", "Cash Tie-Out", "Circular Reference", "Hardcoded Values", "Cross-Sheet Links", "Unit Mismatch", "Sign Convention", "RE Rollforward", "Working Capital Signs"],
+    "tags": ["审计", "质量控制", "Excel", "错误检查", "模型验证"]
+  },
+  {
+    "id": "06-shuju-qingxi",
+    "name": "数据清洗",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "清理混乱的电子表格数据——修剪空白、修复不一致的大小写、转换文本存储的数字、标准化日期、删除重复项并标记混合类型列。适用于数据分析前的数据准备。",
+    "triggers": ["clean data", "clean up sheet", "normalize data", "fix formatting", "dedupe", "standardize column", "data is messy"],
+    "steps": [
+      "确定清洗范围（指定区域或整个已用区域）",
+      "检测问题（空白、大小写、文本数字、日期格式、重复、编码、错误值）",
+      "提出修复建议（显示每列问题摘要表）",
+      "应用修复（优先使用公式而非硬编码，对破坏性操作需确认）",
+      "报告变更前后摘要"
+    ],
+    "concepts": ["Data Cleaning", "Whitespace Trimming", "Case Normalization", "Number-as-Text", "Date Standardization", "Deduplication", "Encoding Issues", "Formula-Based Cleaning"],
+    "tags": ["数据清洗", "Excel", "格式化", "数据准备"]
+  },
+  {
+    "id": "07-jingpin-fenxi",
+    "name": "竞品分析",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "构建竞争格局演示文稿——市场定位、竞争对手深度分析、比较分析、战略综合。完整覆盖从行业定义指标、市场背景、竞争对手画像、定位可视化到护城河评估和投资综合的全流程。输出专业级PPT演示文稿。",
+    "triggers": ["competitive landscape", "competitor analysis", "peer comparison", "market positioning", "strategic review", "market map", "benchmark peers"],
+    "steps": [
+      "范围确定（目标公司vs多公司对比、竞争对手集、受众深度、投资背景）",
+      "行业定义指标选择（3-5个核心指标）",
+      "市场背景（规模、增长、驱动因素）",
+      "行业经济学分析",
+      "目标公司画像",
+      "竞争对手映射（按商业模式/细分/姿态分组）",
+      "定位可视化（2x2矩阵/雷达/层级图）",
+      "竞争对手深度分析（指标+定性评估）",
+      "比较分析（多维度评级）",
+      "战略综合（护城河评估、投资场景）"
+    ],
+    "concepts": ["Competitive Moat", "Market Positioning", "2x2 Matrix", "Network Effects", "Switching Costs", "Scale Economies", "TAM/SAM/SOM", "Competitive Landscape", "Strategic Groups", "Value Chain Analysis"],
+    "tags": ["竞争分析", "PPT", "市场定位", "护城河", "行业研究"]
+  },
+  {
+    "id": "08-ppt-muban-chuangjian",
+    "name": "PPT模板创建",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "从用户提供的PowerPoint模板创建自包含的PPT模板技能（而非演示文稿）。将模板分析为布局、占位符和尺寸，生成包含template.pptx和完整SKILL.md的可重用技能包。",
+    "triggers": ["PPT template", "create template skill", "reusable PPT skill", "template to skill"],
+    "steps": [
+      "用户提供模板(.pptx/.potx)",
+      "分析模板（提取布局、占位符、精确位置）",
+      "初始化技能结构",
+      "复制模板到assets/",
+      "编写SKILL.md（包含占位符映射和内容区域边界）",
+      "创建示例演示验证",
+      "打包为.skill文件"
+    ],
+    "concepts": ["PPT Template", "Slide Layouts", "Placeholder Mapping", "Content Area Boundaries", "python-pptx", "Skill Packaging"],
+    "tags": ["PPT", "模板", "技能创建", "自动化"]
+  },
+  {
+    "id": "09-deck-shuaxin",
+    "name": "Deck刷新",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "用新数字更新演示文稿——季度更新、财报更新、可比公司滚动、市场数据调整。在现有演示文稿中替换数值而不重建。查找数字的所有变体（不同精度、单位样式、嵌入位置），包括文本框、表格单元格、图表数据标签和脚注。",
+    "triggers": ["update deck", "refresh comps", "roll forward", "swap earnings", "refresh numbers", "quarterly update", "change figures"],
+    "steps": [
+      "获取数据（粘贴映射/上传Excel/仅新值）",
+      "读取每一页幻灯片，找到每个旧值的所有实例（包括缩放/精度/单位样式变体）",
+      "呈现变更计划并获得用户批准（标记派生数字）",
+      "执行最小化编辑（仅改变值，保持现有格式）",
+      "报告实际变更和仍需确认的标记项"
+    ],
+    "concepts": ["Deck Refresh", "Data Update", "Chart Data", "Number Variants", "Derived Numbers", "Format Preservation"],
+    "tags": ["PPT更新", "数据刷新", "季度更新", "格式保持"]
+  },
+  {
+    "id": "10-deck-zhijian",
+    "name": "Deck质检",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "投行演示文稿质量检查器。在四个维度审查演示文稿：(1)跨幻灯片数字一致性，(2)数据-叙事对齐，(3)投行标准语言润色，(4)视觉和格式QC。适用于发送客户前的最终审核。",
+    "triggers": ["check deck", "QC presentation", "proof deck", "client-ready check", "reconcile figures", "number consistency"],
+    "steps": [
+      "提取所有幻灯片文本（保持幻灯片级归属）",
+      "数字一致性检查（归一化单位、分类、标记冲突值）",
+      "数据-叙事对齐（趋势声明vs图表方向、市场地位声明vs数据）",
+      "语言润色（投行语域检查：非正式用语、缩写、模糊量词）",
+      "视觉和格式QC（缺失来源引用、轴标签、排版不一致）",
+      "按严重级别输出发现（关键/重要/次要）"
+    ],
+    "concepts": ["Number Consistency", "Data-Narrative Alignment", "IB Terminology", "Visual QC", "Cross-Slide Validation", "Source Citations"],
+    "tags": ["质量检查", "PPT", "数字一致性", "投行标准", "客户就绪"]
+  },
+  {
+    "id": "11-ppt-shengcheng",
+    "name": "PPT生成",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "在无头模式（managed-agent/CMA模式）下生成.pptx文件作为磁盘文件，而非通过实时PowerPoint工具驱动。使用python-pptx构建演示文稿，遵循一页一观点原则，每个数字可追溯到模型。",
+    "triggers": ["generate pptx", "headless PPT", "CMA deck", "file artifact PPT"],
+    "steps": [
+      "确认运行在无头模式",
+      "使用python-pptx编写Python脚本构建演示文稿",
+      "使用公司模板（如提供）或默认布局",
+      "添加表格/图表/文本框",
+      "保存到./out/目录"
+    ],
+    "concepts": ["python-pptx", "Headless Generation", "File Artifact", "Template-Based Output"],
+    "tags": ["PPT生成", "无头模式", "python-pptx", "文件输出"]
+  },
+  {
+    "id": "12-xlsx-shengcheng",
+    "name": "XLSX生成",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "在无头模式（managed-agent/CMA模式）下生成.xlsx文件作为磁盘文件。使用openpyxl构建Excel工作簿，遵循蓝/黑/绿色字体约定、公式而非硬编码、命名范围和平衡检查。",
+    "triggers": ["generate xlsx", "headless Excel", "CMA model", "file artifact Excel"],
+    "steps": [
+      "确认运行在无头模式",
+      "使用openpyxl编写Python脚本构建工作簿",
+      "蓝色字体=硬编码输入，黑色=公式，绿色=跨表链接",
+      "包含Checks标签进行BS平衡和CF验证",
+      "保存到./out/目录"
+    ],
+    "concepts": ["openpyxl", "Headless Generation", "Formula Conventions", "Balance Checks", "Named Ranges"],
+    "tags": ["Excel生成", "无头模式", "openpyxl", "文件输出"]
+  },
+  {
+    "id": "13-jineng-chuangjianqi",
+    "name": "技能创建器",
+    "domain": "01-金融分析",
+    "domainName": "金融分析",
+    "description": "创建有效技能的指南。通过模块化、自包含的包来扩展Claude能力，提供专业化知识、工作流程和工具集成。遵循渐进式披露设计原则（元数据→SKILL.md主体→捆绑资源）。",
+    "triggers": ["create skill", "new skill", "skill builder", "skill creator", "build a skill"],
+    "steps": [
+      "通过具体示例理解技能需求",
+      "规划可重用技能内容（脚本、参考、资产）",
+      "初始化技能（运行init_skill.py）",
+      "编辑技能（实现资源和编写SKILL.md）",
+      "打包技能（运行package_skill.py）",
+      "基于实际使用迭代"
+    ],
+    "concepts": ["Skill Architecture", "Progressive Disclosure", "Frontmatter YAML", "Bundled Resources", "Scripts/References/Assets", "Skill Packaging"],
+    "tags": ["技能创建", "模板", "工作流", "打包"]
+  },
+  {
+    "id": "02-01-earnings-caibao-fenxi",
+    "name": "财报分析",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "创建专业的权益研究财报更新报告（8-12页，3000-5000字），分析已覆盖公司的季度业绩。快速响应格式，聚焦超预期/不及预期分析、关键指标、更新预测和修正投资论点。包含1-3个汇总表和8-12张图表。",
+    "triggers": ["earnings update", "quarterly update", "earnings analysis", "Q1 Q2 Q3 Q4 results", "post-earnings report"],
+    "steps": [
+      "数据收集（30-60分钟）：搜索最新财报、验证日期、获取10-Q/财报电话会议记录",
+      "分析（2-3小时）：超预期/不及预期分析、分部拆解、利润率和指引分析、更新模型",
+      "图表生成（1-2小时）：8-12张季度趋势图表",
+      "报告创建（2-3小时）：8-12页DOCX报告，按模板结构编写",
+      "质量检查与交付（30分钟）：内容、格式、准确性和时效性验证"
+    ],
+    "concepts": ["Earnings Beat/Miss", "EPS", "Revenue Growth", "Margin Analysis", "Guidance", "Consensus Estimates", "Segment Analysis", "Free Cash Flow", "Price Target", "Investment Thesis", "CAGR", "EBITDA"],
+    "tags": ["财报分析", "权益研究", "季度更新", "DOCX报告", "超预期分析"]
+  },
+  {
+    "id": "02-02-earnings-preview-caibao-qianzhan",
+    "name": "财报前瞻",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "构建财报前分析，包含预测模型、场景框架和需关注的关键指标。在公司发布季度财报之前准备持仓笔记、设定牛市/熊市场景并识别将推动股价的因素。",
+    "triggers": ["earnings preview", "pre-earnings", "what to watch", "earnings setup", "preview Q1 Q2 Q3 Q4"],
+    "steps": [
+      "收集背景（公司、报告季度、一致预期、财报日期）",
+      "构建关键指标框架（财务指标+运营指标，按行业定制）",
+      "场景分析（牛市/基准/熊市，含股价影响）",
+      "催化剂清单（3-5个将决定股价反应的因素）",
+      "输出一页财报前瞻"
+    ],
+    "concepts": ["Consensus Estimates", "Whisper Number", "Options-Implied Move", "Sector-Specific Metrics", "Scenario Analysis", "Catalyst Checklist"],
+    "tags": ["财报前瞻", "场景分析", "预财报", "催化剂"]
+  },
+  {
+    "id": "02-03-fugai-qidong-baogao",
+    "name": "覆盖启动报告",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "通过5任务工作流创建机构级权益研究启动报告。任务包括：(1)公司研究，(2)财务建模，(3)估值分析，(4)图表生成（25-35张），(5)最终报告组装。每个任务必须单独执行并验证前置条件。最终输出30-50页DOCX报告。",
+    "triggers": ["initiation report", "initiating coverage", "first-time coverage", "coverage initiation", "equity research report"],
+    "steps": [
+      "任务1：公司研究（6,000-8,000字：公司概览、管理层、产品、行业、竞争、风险）",
+      "任务2：财务建模（Excel：收入模型、利润表、现金流量表、资产负债表、场景、DCF输入）",
+      "任务3：估值分析（DCF+可比公司+先例交易，确定价格目标和推荐评级）",
+      "任务4：图表生成（25-35张专业PNG图表，含4张强制图表）",
+      "任务5：报告组装（30-50页DOCX，10,000-15,000字，嵌入所有图表和表格）"
+    ],
+    "concepts": ["Initiation Report", "Company Research", "Financial Modeling", "DCF Valuation", "Comparable Companies", "Price Target", "Investment Rating", "Scenario Analysis", "Catalyst Analysis", "Competitive Moat"],
+    "tags": ["启动报告", "权益研究", "机构级", "5任务工作流", "DOCX"]
+  },
+  {
+    "id": "02-04-moxing-gengxin",
+    "name": "模型更新",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "用新数据更新财务模型——季度财报、管理层指引、宏观变化或修正假设。调整预测、重新计算估值并标记重大变化。",
+    "triggers": ["update model", "plug earnings", "refresh estimates", "new guidance", "revise estimates", "update numbers"],
+    "steps": [
+      "识别变更触发因素（财报/指引/宏观/事件）",
+      "填入新数据（实际值vs预测值对比表）",
+      "修正前瞻预测（旧/新FY估计对比）",
+      "估值影响（DCF、P/E、EV/EBITDA重新计算）",
+      "总结与行动（是否改变评级/目标价）"
+    ],
+    "concepts": ["Estimate Revision", "Beat/Miss Analysis", "Forward Estimates", "Price Target Update", "Rating Change", "Consensus Comparison"],
+    "tags": ["模型更新", "财报更新", "预测修正", "估值影响"]
+  },
+  {
+    "id": "02-05-chenhui-jiyao",
+    "name": "晨会纪要",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "起草简洁的晨会纪要，总结隔夜发展、交易建议和覆盖股票的关键事件。专为7点晨会格式设计——紧凑、有观点、可操作。2分钟内可读完。",
+    "triggers": ["morning note", "morning meeting", "what happened overnight", "trade idea", "morning call prep", "daily note"],
+    "steps": [
+      "扫描隔夜发展（财报、新闻、市场环境）",
+      "按格式编写：头条→隔夜发展→今日关键事件→交易建议",
+      "如覆盖公司发布财报：快速反应表格（一致预期vs实际）",
+      "输出1页最多markdown/Word文档"
+    ],
+    "concepts": ["Morning Note", "Overnight Developments", "Trade Ideas", "Pre-Market Moves", "Sector ETF", "Quick Takes"],
+    "tags": ["晨会纪要", "每日研究", "交易建议", "隔夜发展"]
+  },
+  {
+    "id": "02-06-hangye-quanjing",
+    "name": "行业全景",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "创建全面的行业和领域全景报告，涵盖市场动态、竞争定位、主要参与者和主题趋势。适用于客户请求、行业启动、主题研究或内部知识建设。",
+    "triggers": ["sector overview", "industry report", "market landscape", "sector analysis", "industry deep dive", "thematic research"],
+    "steps": [
+      "定义范围（行业/子行业、目的、深度、角度）",
+      "市场概览（TAM、增长、行业结构、趋势与驱动因素）",
+      "竞争格局（前5-10名公司画像、竞争动态）",
+      "估值背景（行业倍数、历史区间、M&A交易倍数）",
+      "投资启示（最佳风险/回报、主题押注、关键辩论、催化剂）"
+    ],
+    "concepts": ["TAM/SAM/SOM", "Market Size", "Industry Structure", "Competitive Landscape", "CAGR", "Value Chain", "Barriers to Entry", "Sector Multiples", "Thematic Trends"],
+    "tags": ["行业报告", "全景分析", "市场格局", "主题研究"]
+  },
+  {
+    "id": "02-07-touzi-lundian-genzo",
+    "name": "投资论点跟踪",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "维护和更新持仓和关注名单的投资论点。跟踪关键数据点、催化剂和论点里程碑。用新信息更新论点时、审查持仓理由时或检查论点是否仍然成立时使用。",
+    "triggers": ["update thesis", "thesis check", "is my thesis intact", "add data point", "review positions", "thesis tracker"],
+    "steps": [
+      "定义或加载论点（公司、多/空、核心论点、关键支柱、风险、催化剂、目标价、止损）",
+      "更新日志（日期、数据点、论点影响、行动、确信度）",
+      "论点计分卡（每个支柱：原始预期 vs 当前状态 vs 趋势）",
+      "催化剂日历跟踪",
+      "输出论点摘要（晨会讨论/组合审查/风险委员会格式）"
+    ],
+    "concepts": ["Investment Thesis", "Thesis Pillars", "Catalyst Tracking", "Conviction Level", "Stop-Loss", "Portfolio Review", "Falsifiable Thesis", "Disconfirming Evidence"],
+    "tags": ["投资论点", "论点跟踪", "组合管理", "确信度"]
+  },
+  {
+    "id": "02-08-cuihuaji-rili",
+    "name": "催化剂日历",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "构建和维护覆盖范围内的即将到来的催化剂日历——财报日期、会议、产品发布、监管决策和宏观事件。帮助优先安排注意力并在事件前布局。",
+    "triggers": ["catalyst calendar", "upcoming events", "earnings calendar", "event calendar", "catalyst tracker", "what's coming up"],
+    "steps": [
+      "定义覆盖范围（公司列表、行业、是否包含宏观事件、时间范围）",
+      "收集催化剂（财报/公司事件/行业事件/宏观事件）",
+      "构建日历视图（日期、事件、类型、影响级别、持仓）",
+      "生成周度预览（本周关键事件、下周预览、持仓影响）"
+    ],
+    "concepts": ["Earnings Dates", "Catalyst Tracking", "Event Calendar", "Impact Assessment", "Position Sizing", "Binary Events", "FOMC Dates"],
+    "tags": ["催化剂日历", "事件跟踪", "周度预览", "持仓管理"]
+  },
+  {
+    "id": "02-09-xuangu-shaixuan",
+    "name": "选股筛选",
+    "domain": "02-权益研究",
+    "domainName": "权益研究",
+    "description": "系统性股票筛选和投资想法获取。结合量化筛选、主题研究和模式识别，发掘新的多头和空头想法。支持价值/成长/质量/做空/特殊情况多种筛选风格。",
+    "triggers": ["idea generation", "stock screen", "find ideas", "what looks interesting", "screen for", "new ideas", "pitch me something"],
+    "steps": [
+      "定义搜索条件（方向、市值、行业、风格、地区、主题）",
+      "量化筛选（价值/成长/质量/做空/特殊情况筛选器）",
+      "主题扫描（定义论点、映射价值链、识别受益者）",
+      "想法展示（每个想法：指标表、3-5点论点、关键风险、建议下一步）",
+      "输出5-10个想法的短名单及对比表"
+    ],
+    "concepts": ["Value Screen", "Growth Screen", "Quality Screen", "Short Screen", "Special Situations", "P/E", "EV/EBITDA", "FCF Yield", "ROE", "Net Retention", "Insider Buying"],
+    "tags": ["选股", "量化筛选", "想法生成", "主题投资"]
+  },
+  {
+    "id": "03-01-cim-qiicao",
+    "name": "CIM起草",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "构建和起草卖方M&A流程的保密信息备忘录（CIM）。将公司信息组织成专业、投资者就绪的文档，包含一致的格式和叙事流程。标准结构40-60页，涵盖执行摘要、公司概览、行业概览、增长机会、客户与销售、运营和财务概览。",
+    "triggers": ["CIM", "confidential information memorandum", "offering memorandum", "info memo", "draft CIM", "sell-side materials"],
+    "steps": [
+      "收集原始材料（管理层演示、历史财务数据、预算、网站资料）",
+      "构建CIM结构（8个章节：执行摘要、公司概览、行业概览、增长机会、客户与销售、运营、财务概览、附录）",
+      "按起草指南撰写（专业、事实性、数据驱动、40-60页）",
+      "输出Word文档+Excel附录"
+    ],
+    "concepts": ["CIM", "Investment Highlights", "EBITDA Bridge", "Revenue Analysis", "TAM/SAM/SOM", "Customer Concentration", "Pro Forma Adjustments", "Management Forecast"],
+    "tags": ["CIM", "卖方", "M&A", "保密备忘录", "DOCX"]
+  },
+  {
+    "id": "03-02-teaser-niming-jianjie",
+    "name": "Teaser匿名简介",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "起草卖方M&A流程的匿名一页公司简介（Teaser）。创建不泄露公司身份的引人注目的摘要，旨在NDA签署前评估买方兴趣。",
+    "triggers": ["teaser", "blind teaser", "anonymous profile", "one-pager for process", "draft teaser"],
+    "steps": [
+      "收集输入（公司描述、行业、关键财务指标、地理足迹、卖点）",
+      "构建Teaser结构（项目代号、公司描述、投资亮点、财务摘要、交易概览）",
+      "匿名化检查（无公司名/品牌名/具体城市/客户名）",
+      "输出一页Word/PDF文档"
+    ],
+    "concepts": ["Teaser", "Anonymization", "Deal Code Name", "Investment Highlights", "EBITDA Margin", "Revenue CAGR", "NDA Process"],
+    "tags": ["Teaser", "匿名简介", "卖方", "一页纸", "NDA前"]
+  },
+  {
+    "id": "03-03-maijia-qingdan",
+    "name": "买家清单",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "构建和组织卖方M&A流程的潜在收购方名单。识别战略和财务买家、评估适配度并优先排序。涵盖直接竞争对手、相邻玩家、垂直整合者、平台构建者以及PE基金等财务投资者。",
+    "triggers": ["buyer list", "buyer universe", "potential acquirers", "who would buy this", "strategic buyers", "financial sponsors"],
+    "steps": [
+      "了解标的（描述、财务、关键资产、估值范围、卖家偏好）",
+      "识别战略买家（直接竞争者、相邻玩家、垂直整合者、平台构建者）",
+      "识别财务投资者（平台投资者、附加收购者、成长型股权）",
+      "优先分级（Tier 1: 5-10个、Tier 2: 10-15个、Tier 3: 10-20个）",
+      "联系人映射（Tier 1买家的关键决策者）"
+    ],
+    "concepts": ["Strategic Buyers", "Financial Sponsors", "Platform Investors", "Add-on Buyers", "Tier Ranking", "M&A Track Record", "Antitrust Concerns", "Fund Vintage"],
+    "tags": ["买家清单", "M&A", "战略买家", "PE基金", "优先排序"]
+  },
+  {
+    "id": "03-04-bingguo-moxing",
+    "name": "并购模型",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "构建M&A交易的增厚/稀释分析。建模备考EPS影响、协同效应敏感性和收购价格分配。适用于评估潜在收购、准备演示文稿中的并购后果分析或就交易条款提供建议。",
+    "triggers": ["merger model", "accretion dilution", "M&A model", "pro forma EPS", "merger consequences", "deal impact analysis"],
+    "steps": [
+      "收集输入（收购方和标的公司的财务数据、交易条款）",
+      "收购价格分析（报价、溢价、隐含EV/EBITDA和P/E）",
+      "资金来源与用途",
+      "备考EPS增厚/稀释计算（1-3年）",
+      "敏感性分析（协同效应 vs 溢价；现金/股票比例）",
+      "盈亏平衡协同效应计算"
+    ],
+    "concepts": ["Accretion/Dilution", "Pro Forma EPS", "Sources & Uses", "Synergies", "Purchase Price Allocation", "Goodwill", "Intangible Amortization", "Consideration Mix", "Foregone Interest", "Exchange Ratio"],
+    "tags": ["并购模型", "增厚稀释", "EPS影响", "协同效应", "敏感性分析"]
+  },
+  {
+    "id": "03-05-liucheng-han",
+    "name": "流程函",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "起草卖方M&A流程的流程函和投标指引。涵盖初始意向函(IOI)指引、最终投标程序和管理层会议后勤。设置竞拍流程的规则和时间表。",
+    "triggers": ["process letter", "bid instructions", "IOI letter", "bid procedures", "final round letter", "management meeting invite"],
+    "steps": [
+      "确定函件类型（初始流程函/IOI指引/最终投标函/管理层会议邀请）",
+      "起草流程函（引言、流程概览、IOI要求、提交细节、保密提醒）",
+      "或起草最终投标函（SPA标注、融资承诺、尽职调查、排他期）",
+      "或起草管理层会议邀请（后勤、参会者、议程、规则）"
+    ],
+    "concepts": ["Process Letter", "IOI", "Final Bid", "SPA Markup", "Management Presentation", "Exclusivity Period", "Committed Financing", "Evaluation Criteria"],
+    "tags": ["流程函", "IOI", "投标指引", "卖方M&A", "管理层会议"]
+  },
+  {
+    "id": "03-06-gongsi-yiye",
+    "name": "公司一页",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "创建专业的投行条形档案（公司简介）用于演示文稿、交易材料和客户展示。生成1-4张信息密集的幻灯片，采用四象限布局、图表和表格。最大化信息密度——忙碌的高管应能在30秒内理解整个公司故事。",
+    "triggers": ["strip profile", "company profile", "one-page profile", "company one-pager", "IB profile slide"],
+    "steps": [
+      "明确需求（单页/多页、重点领域）",
+      "研究（SEC文件、市场数据、一致预期、近期新闻）",
+      "逐页创建（必须一页一页创建并获用户批准）",
+      "四象限布局：公司概览/业务定位/关键财务/股价或近期发展",
+      "视觉验证（检查文本重叠、截断、图表边界、象限完整性）"
+    ],
+    "concepts": ["Strip Profile", "4-Quadrant Layout", "Information Density", "PptxGenJS", "4:3 Aspect Ratio", "Brand Colors", "Key Financials", "Revenue by Geography", "Ownership Structure"],
+    "tags": ["公司简介", "条形档案", "投行PPT", "四象限", "信息密度"]
+  },
+  {
+    "id": "03-07-pitch-deck",
+    "name": "Pitch Deck",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "用源文件数据填充投行演示文稿模板。处理数据提取、内容映射、模板填充和验证的完整工作流。解决占位符格式、文本伪装表格和对比度继承等常见问题。",
+    "triggers": ["populate pitch deck", "fill template", "pitch deck template", "data into slides"],
+    "steps": [
+      "数据提取（从Excel/CSV/PDF提取相关数据点并验证）",
+      "内容映射（将源数据映射到模板区域）",
+      "模板填充（移除占位符框、创建正式内容、使用实际表格对象）",
+      "验证循环（转换为PDF/图像进行视觉验证，修复问题，最多3轮）",
+      "最终质量检查（数据准确性、内容映射、格式、模板合规）"
+    ],
+    "concepts": ["Template Population", "Placeholder vs Production", "Table Objects", "Slide Hierarchy", "Font Consistency", "Bullet Formatting", "Rounding Conventions", "Cross-Slide Consistency"],
+    "tags": ["Pitch Deck", "模板填充", "投行PPT", "数据映射", "质量控制"]
+  },
+  {
+    "id": "03-08-shuju-bao",
+    "name": "数据包",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "从CIM、发行备忘录、SEC文件、网络搜索或MCP服务器构建专业金融服务数据包。提取、归一化和标准化财务数据，生成投资委员会就绪的Excel工作簿。标准8标签结构，适用于M&A尽职调查、PE分析和IC材料。",
+    "triggers": ["data pack", "financial data pack", "IC materials", "due diligence data", "standardize financials"],
+    "steps": [
+      "文档处理与数据提取（分析来源、提取报表、运营指标、市场数据）",
+      "数据归一化与标准化（会计处理、格式检测、调整项识别）",
+      "构建Excel工作簿（8标签：执行摘要、历史财务、BS、CF、运营指标、分部、市场、投资亮点）",
+      "场景构建（管理层案例、风险调整基准案例、下行压力测试）",
+      "质量控制与验证（数据准确性、格式一致性、结构完整性）"
+    ],
+    "concepts": ["Data Pack", "Quality of Earnings", "Normalization Adjustments", "EBITDA Reconciliation", "Working Capital Analysis", "Scenario Building", "Format Rules", "Balance Sheet Verification", "Segment Performance"],
+    "tags": ["数据包", "Excel", "尽职调查", "IC材料", "标准化"]
+  },
+  {
+    "id": "03-09-jiaoyi-genzo",
+    "name": "交易跟踪",
+    "domain": "03-投行",
+    "domainName": "投资银行",
+    "description": "跟踪多个活跃交易的里程碑、截止日期、行动项和状态更新。维护交易管道视图并提醒即将到来的截止日期和逾期项目。适用于管理业务账本或准备每周交易审查。",
+    "triggers": ["deal tracker", "deal status", "where are we on", "process update", "deal pipeline", "weekly deal review"],
+    "steps": [
+      "交易设置（名称、客户、类型、角色、规模、阶段、团队、关键日期）",
+      "里程碑跟踪（从签约到交割的每个关键里程碑）",
+      "行动项管理（跨所有交易的待办列表）",
+      "每周交易审查（每个活跃交易一行状态、关键发展、风险、下周行动）",
+      "管道摘要（按阶段统计、风险交易、新委托、预期交割）"
+    ],
+    "concepts": ["Deal Pipeline", "Milestone Tracking", "Action Items", "Process Stages", "Weekly Review", "IOI Deadline", "Final Bid", "Exclusivity", "Regulatory Approval"],
+    "tags": ["交易跟踪", "管道管理", "里程碑", "每周审查", "行动项"]
+  },
+  {
+    "id": "04-01-xiangmu-fajue",
+    "name": "项目发掘",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "PE项目发掘工作流——发现目标公司、检查CRM中的现有关系并起草个性化创始人外联邮件。3步管道：发现公司→CRM检查→起草外联。",
+    "triggers": ["find companies", "source deals", "draft founder email", "check if we've seen this company", "outreach to founder", "deal sourcing"],
+    "steps": [
+      "发现公司（按行业、收入范围、EBITDA范围、增长特征、地区、所有权类型搜索）",
+      "CRM检查（搜索邮件/Slack中的先前联系，标记现有关系/先前放弃）",
+      "起草创始人外联（个性化冷邮件：4-6句、专业但温暖、引用具体信息）"
+    ],
+    "concepts": ["Deal Sourcing", "CRM Check", "Founder Outreach", "Cold Email", "Personalization", "Deal Parameters", "Sector Focus"],
+    "tags": ["项目发掘", "CRM", "外联邮件", "创始人联系", "PE"]
+  },
+  {
+    "id": "04-02-xiangmu-shaixuan",
+    "name": "项目筛选",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "快速筛选入站项目流——CIM、Teaser和经纪人材料——对照基金投资标准。提取关键交易指标，运行通过/不通过框架，并输出一页筛选备忘录。",
+    "triggers": ["screen this deal", "review this CIM", "should we look at this", "triage this teaser", "deal screening"],
+    "steps": [
+      "提取交易事实（公司、描述、财务、交易类型、估值、卖家动机、管理层、客户集中度、风险）",
+      "对照基金标准筛选（收入、EBITDA、利润率、增长、行业、地区、规模、估值、客户集中度、管理层连续性）",
+      "快速评估（裁决：通过/进一步尽调/硬拒绝、牛市论据、熊市论据、关键问题）",
+      "输出一页筛选备忘录"
+    ],
+    "concepts": ["Deal Screening", "Pass/Fail Framework", "Investment Criteria", "Customer Concentration", "Management Continuity", "Valuation Metrics", "Red Flags"],
+    "tags": ["项目筛选", "CIM审查", "通过/不通过", "PE标准", "快速评估"]
+  },
+  {
+    "id": "04-03-jindiao-qingdan",
+    "name": "尽调清单",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "生成和跟踪针对标的公司行业、交易类型和复杂度定制的全面尽职调查清单。涵盖所有主要工作流并附带请求列表、状态跟踪和红旗升级。",
+    "triggers": ["DD checklist", "due diligence tracker", "diligence request list", "what do we still need", "data room review"],
+    "steps": [
+      "确定尽调范围（标的、交易类型、规模/复杂度、关注点、时间线）",
+      "生成工作流清单（财务/商业/法律/运营/HR/IT/ESG尽调）",
+      "状态跟踪（每个项目的优先级、状态、负责人）",
+      "红旗汇总（发现项、工作流、严重性、缓解措施、对估值的影响）"
+    ],
+    "concepts": ["Due Diligence", "Quality of Earnings", "Commercial DD", "Legal DD", "Environmental DD", "Data Room", "Red Flags", "Workstreams", "QoE", "Working Capital Analysis"],
+    "tags": ["尽职调查", "清单", "跟踪", "红旗", "工作流"]
+  },
+  {
+    "id": "04-04-jindiao-huiyi-zhunbei",
+    "name": "尽调会议准备",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "为尽职调查会议做准备——管理层演示、专家网络电话、客户参考和顾问会议。生成针对性问题列表、参考基准和需探索的红旗。",
+    "triggers": ["prep for management meeting", "diligence call prep", "expert call questions", "customer reference questions", "meeting prep"],
+    "steps": [
+      "了解会议背景（类型、参会者、主题重点、已知信息、关键关切）",
+      "生成问题列表（管理层：业务/收入/竞争/运营/财务/前瞻；专家：市场定位/趋势/风险；客户：选择原因/满意度/续约意愿）",
+      "提供基准和参考背景",
+      "标记需深入探索的红旗",
+      "输出一页会议准备文档"
+    ],
+    "concepts": ["Management Presentation", "Expert Network Call", "Customer Reference", "Open-Ended Questions", "Red Flag Probing", "Benchmarking", "Diligence Questions"],
+    "tags": ["会议准备", "尽调", "问题清单", "管理层会议", "专家电话"]
+  },
+  {
+    "id": "04-05-danyuan-jingji",
+    "name": "单元经济",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "分析PE标的的单元经济——ARR队列、LTV/CAC、净留存率、回收期、收入质量和利润率瀑布。对软件/SaaS、经常性收入和订阅业务至关重要。",
+    "triggers": ["unit economics", "cohort analysis", "ARR analysis", "LTV CAC", "net retention", "revenue quality", "customer economics"],
+    "steps": [
+      "识别商业模式（SaaS/订阅、经常性服务、交易/用量、混合）",
+      "核心指标（ARR桥/队列、CAC/LTV/回收期、留存/扩展、队列矩阵、利润率瀑布）",
+      "基准对比（Rule of 40、Magic Number、NDR基准、LTV:CAC、留存率、CAC回收期）",
+      "收入质量评分（6因子综合评估）",
+      "输出Excel工作簿+摘要幻灯片"
+    ],
+    "concepts": ["ARR", "LTV/CAC", "Net Dollar Retention", "Gross Retention", "Cohort Analysis", "CAC Payback", "Rule of 40", "Magic Number", "Revenue Concentration", "Margin Waterfall", "NDR Benchmarks"],
+    "tags": ["单元经济", "ARR", "LTV/CAC", "队列分析", "SaaS指标"]
+  },
+  {
+    "id": "04-06-huibao-fenxi",
+    "name": "回报分析",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "为PE交易评估构建快速IRR/MOIC敏感性表。建模不同进入倍数、杠杆、退出倍数、增长和持有期场景下的回报。适用于交易评估、压力测试假设或准备IC回报展示。",
+    "triggers": ["returns analysis", "IRR sensitivity", "MOIC table", "what's the return at", "model the returns", "back of the envelope"],
+    "steps": [
+      "收集交易输入（进入倍数、EV、杠杆、运营假设、退出倍数、持有期）",
+      "基准案例回报计算（MOIC、IRR、现金对现金、回报归因）",
+      "敏感性表（进入倍数vs退出倍数、EBITDA增长vs退出倍数、杠杆vs退出倍数、持有期vs退出倍数）",
+      "三场景分析（牛市/基准/熊市）",
+      "输出Excel工作簿+一页回报摘要"
+    ],
+    "concepts": ["IRR", "MOIC", "Cash-on-Cash", "Returns Attribution", "Entry Multiple", "Exit Multiple", "Leverage", "Hold Period", "EBITDA Growth", "Multiple Expansion", "Debt Paydown"],
+    "tags": ["回报分析", "IRR", "MOIC", "敏感性表", "PE"]
+  },
+  {
+    "id": "04-07-IC-beiwanglu",
+    "name": "IC备忘录",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "起草结构化的投资委员会备忘录用于PE交易审批。综合尽职调查发现、财务分析和交易条款为专业IC就绪文档。9个章节：执行摘要、公司概览、行业市场、财务分析、投资论点、交易条款、回报分析、风险因素、推荐意见。",
+    "triggers": ["write IC memo", "investment committee memo", "deal write-up", "prepare IC materials", "recommendation memo"],
+    "steps": [
+      "收集输入（公司概览、行业背景、历史财务、管理层评估、交易条款、DD发现、价值创造计划、回报分析）",
+      "起草备忘录（9个标准章节）",
+      "确保财务表格数据一致（EBITDA桥、S&U平衡、回报计算）",
+      "输出Word文档或Markdown"
+    ],
+    "concepts": ["IC Memo", "Investment Thesis", "Value Creation Levers", "100-Day Plan", "Sources & Uses", "Capital Structure", "Quality of Earnings", "Risk Mitigants", "Deal Recommendation"],
+    "tags": ["IC备忘录", "投资委员会", "PE交易", "推荐意见", "风险因素"]
+  },
+  {
+    "id": "04-08-touhou-jiankong",
+    "name": "投后监控",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "跟踪和分析投资组合公司相对于计划的绩效。摄入月度/季度财务报告（Excel、PDF），提取KPI，标记预算偏差，并生成摘要仪表板。",
+    "triggers": ["review portfolio company", "monthly financials", "how is company performing", "covenant check", "portfolio update", "board materials"],
+    "steps": [
+      "接收财务报告包（Excel/PDF/CSV）",
+      "KPI提取与差异分析（财务KPI：收入/EBITDA/现金/杠杆/覆盖率；运营KPI：客户数/人效/积压）",
+      "标记与汇总（绿色：<5%偏差；黄色：5-15%；红色：>15%或违约风险）",
+      "趋势分析（多期间图表、加速/减速趋势、对比承销案例）"
+    ],
+    "concepts": ["Portfolio Monitoring", "Budget Variance", "KPI Tracking", "Covenant Compliance", "Leverage Ratio", "Interest Coverage", "EBITDA Margin", "Free Cash Flow", "Traffic Light Reporting"],
+    "tags": ["投后监控", "组合管理", "KPI跟踪", "预算差异", "违约合规"]
+  },
+  {
+    "id": "04-09-jiazhi-chuangzao-jihua",
+    "name": "价值创造计划",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "构建收购后价值创造计划，将收入、成本和运营杠杆映射到EBITDA桥。包含100天优先事项、KPI目标和问责框架。适用于规划封闭后执行、准备运营合伙人材料或构建董事会就绪的价值创造路线图。",
+    "triggers": ["value creation plan", "100-day plan", "post-close plan", "EBITDA bridge", "operating plan", "value creation levers"],
+    "steps": [
+      "基线评估（当前财务、组织能力、运营指标、管理层强项/差距、已识别的速赢）",
+      "价值创造杠杆（收入增长/利润率扩张/战略倍数扩展）",
+      "EBITDA桥（从当前到目标的逐年各杠杆贡献）",
+      "100天计划（稳定/规划/执行三阶段）",
+      "KPI仪表板（定义跟踪指标、目标值、负责人、报告频率）",
+      "输出Word/PPT+Excel模型"
+    ],
+    "concepts": ["Value Creation Plan", "EBITDA Bridge", "100-Day Plan", "Revenue Growth Levers", "Margin Expansion", "Add-on M&A", "Pricing Optimization", "OpEx Optimization", "KPI Dashboard", "Accountability Framework"],
+    "tags": ["价值创造", "100天计划", "EBITDA桥", "投后管理", "运营规划"]
+  },
+  {
+    "id": "04-10-AI-jiuxndu",
+    "name": "AI就绪度",
+    "domain": "04-私募股权",
+    "domainName": "私募股权",
+    "description": "扫描投资组合以发现最高杠杆的AI机会，并排名运营合伙人时间的最佳部署位置。摄入季度更新和财务数据，识别每个公司的速赢机会，并将它们堆叠成单一的排名行动列表。",
+    "triggers": ["AI readiness", "AI opportunity scan", "where should we deploy AI", "AI across portfolio", "AI quick wins", "which portcos are ready"],
+    "steps": [
+      "连接组合数据（MCP/本地文件/上传，提取季度更新、董事会资料、财务）",
+      "逐公司扫描（三个门控问题：数据是否就绪/是否有负责人/能否30天内试点）",
+      "识别杠杆点（后台/前台/运营，估计FTE节省和实现路径）",
+      "跨组合排名（按美元影响/速度/概率排序）",
+      "识别可复用模式（同行业同功能、同工具不同公司、供应商议价）"
+    ],
+    "concepts": ["AI Readiness", "Quick Wins", "Portfolio Operations", "Back Office Automation", "Revenue AI", "Gate Questions", "Data Readiness", "Ownership", "30-Day Pilot", "Replay Playbooks", "EBITDA Contribution"],
+    "tags": ["AI就绪度", "组合运营", "AI部署", "速赢", "运营合伙人"]
+  }
+]

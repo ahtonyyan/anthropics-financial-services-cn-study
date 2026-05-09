@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>财富管理 - 技能列表</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;600;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --coral: #E85D4C;
+            --cream: #FDF8F3;
+            --ink: #1A1A1A;
+            --ink-light: #6B6B6B;
+            --border: #E8E4DF;
+            --accent-teal: #0D9488;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); line-height: 1.7; }
+        .nav { position: sticky; top: 0; background: rgba(253, 248, 243, 0.95); backdrop-filter: blur(10px); border-bottom: 1px solid var(--border); padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; z-index: 1000; }
+        .nav-logo { font-family: 'Noto Serif SC', serif; font-weight: 700; text-decoration: none; }
+        .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--ink-light); text-decoration: none; }
+        .vertical-hero { background: linear-gradient(135deg, var(--accent-teal) 0%, #0F766E 100%); color: white; padding: 5rem 2rem; text-align: center; }
+        .vertical-hero h1 { font-family: 'Noto Serif SC', serif; font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 700; margin-bottom: 1rem; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 1.5rem; }
+        .skill-card { background: white; border: 1px solid var(--border); border-radius: 1.25rem; padding: 1.75rem; text-decoration: none; color: inherit; transition: all 0.3s ease; }
+        .skill-card:hover { border-color: var(--accent-teal); transform: translateY(-4px); }
+        .skill-badge { display: inline-block; padding: 0.25rem 0.625rem; background: var(--cream); border-radius: 50px; font-size: 0.7rem; color: var(--accent-teal); margin-bottom: 0.75rem; }
+        .skill-card h3 { font-family: 'Noto Serif SC', serif; font-size: 1.25rem; font-weight: 600; margin-bottom: 0.75rem; }
+        .footer { text-align: center; padding: 3rem 2rem; color: var(--ink-light); font-size: 0.875rem; border-top: 1px solid var(--border); }
+    </style>
+</head>
+<body>
+    <nav class="nav">
+        <a href="index.html" class="nav-logo">📊 金融技能库</a>
+        <a href="index.html" class="nav-back">← 返回首页</a>
+    </nav>
+
+    <div class="vertical-hero">
+        <h1>💎 财富管理 (WM)</h1>
+        <p>高净值客户服务 — 财务规划、组合管理、税损收割等6个技能</p>
+    </div>
+
+    <div class="container">
+        <div class="skills-grid">
+            <a href="skill.html?skill=client-report" class="skill-card">
+                <span class="skill-badge">报告</span>
+                <h3>📊 客户报告</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">定期给客户汇报组合表现、市场展望、调整建议</p>
+            </a>
+
+            <a href="skill.html?skill=client-meeting" class="skill-card">
+                <span class="skill-badge">沟通</span>
+                <h3>🤝 客户会议准备</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">准备客户季度会议——回顾、展望、解答疑问</p>
+            </a>
+
+            <a href="skill.html?skill=financial-plan" class="skill-card">
+                <span class="skill-badge">核心</span>
+                <h3>📈 财务规划</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">综合财务规划——退休、教育、遗产、现金流预测</p>
+            </a>
+
+            <a href="skill.html?skill=investment-proposal" class="skill-card">
+                <span class="skill-badge">提案</span>
+                <h3>💼 投资提案</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">新客户投资提案——资产配置、风险收益、费用说明</p>
+            </a>
+
+            <a href="skill.html?skill=portfolio-rebalance" class="skill-card">
+                <span class="skill-badge">运营</span>
+                <h3>⚖️ 组合再平衡</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">定期调整组合权重，维持目标配置</p>
+            </a>
+
+            <a href="skill.html?skill=tax-loss-harvesting" class="skill-card">
+                <span class="skill-badge">税务</span>
+                <h3>📉 税损收割</h3>
+                <p style="color: var(--ink-light); font-size: 0.9375rem;">卖出亏损股票抵税，优化税后回报</p>
+            </a>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 金融分析技能库学习版 | 基于 Anthropic Claude FSI 插件库</p>
+    </div>
+</body>
+</html>

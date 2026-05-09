@@ -1,0 +1,80 @@
+<h2>Skill 学习网站 — 布局方案对比</h2>
+<p class="subtitle">选择你最喜欢的整体布局风格</p>
+
+<div class="options">
+  <div class="option" data-choice="a" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>左侧领域导航 + 主内容区</h3>
+      <div class="mockup">
+        <div class="mockup-header">方案 A：双栏文档式</div>
+        <div class="mockup-body" style="display:flex;min-height:300px;font-size:13px;">
+          <div style="width:220px;background:#1a1a2e;padding:16px;border-right:1px solid #333;color:#ccc;">
+            <div style="font-weight:bold;color:#fff;margin-bottom:12px;">📚 金融分析技能库</div>
+            <div style="padding:8px;background:#335;color:#9cf;border-radius:4px;margin-bottom:4px;">01 金融分析 (13)</div>
+            <div style="padding:8px;margin-bottom:4px;">02 权益研究 (9)</div>
+            <div style="padding:8px;margin-bottom:4px;">03 投行 (9)</div>
+            <div style="padding:8px;margin-bottom:4px;">04 私募股权 (10)</div>
+            <div style="padding:8px;margin-bottom:4px;">05 财富管理 (6)</div>
+            <div style="padding:8px;margin-bottom:4px;">06 基金管理 (6)</div>
+            <div style="padding:8px;margin-bottom:4px;">07 运营KYC (2)</div>
+            <div style="padding:8px;">08 合作伙伴 (11)</div>
+          </div>
+          <div style="flex:1;padding:24px;background:#0f0f1a;">
+            <h3 style="color:#fff;margin:0 0 8px;">DCF 估值模型</h3>
+            <p style="color:#999;font-size:12px;margin:0 0 16px;">来源：01-金融分析 > 02-dcf-估值模型</p>
+            <div style="background:#1a1a2e;border-radius:8px;padding:16px;margin-bottom:16px;">
+              <div style="color:#9cf;font-weight:bold;">这是什么？</div>
+              <p style="color:#ccc;font-size:13px;">用白话解释 DCF 就是...</p>
+            </div>
+            <div style="background:#1a1a2e;border-radius:8px;padding:16px;margin-bottom:16px;">
+              <div style="color:#9cf;font-weight:bold;">什么时候用？</div>
+              <p style="color:#ccc;font-size:13px;">当你需要评估一家公司的内在价值时...</p>
+            </div>
+            <div style="background:#1a1a2e;border-radius:8px;padding:16px;">
+              <div style="color:#9cf;font-weight:bold;">案例展示</div>
+              <p style="color:#ccc;font-size:13px;">以苹果公司为例，一步步展示 DCF 建模过程...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="b" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>顶部导航 + 三栏（领域 | Skill列表 | 详情）</h3>
+      <div class="mockup">
+        <div class="mockup-header">方案 B：三栏 Outlook 式</div>
+        <div class="mockup-body" style="font-size:13px;">
+          <div style="background:#1a1a2e;padding:12px 20px;border-bottom:1px solid #333;display:flex;gap:20px;color:#ccc;">
+            <span style="color:#9cf;font-weight:bold;">📚 Skill学习站</span>
+            <span>全部技能</span><span>学习路径</span><span>搜索</span>
+          </div>
+          <div style="display:flex;min-height:280px;">
+            <div style="width:180px;background:#151525;padding:12px;border-right:1px solid #333;color:#999;font-size:12px;">
+              <div style="font-weight:bold;color:#ccc;margin-bottom:8px;">金融分析</div>
+              <div style="padding:6px 8px;background:#335;color:#9cf;border-radius:3px;margin-bottom:3px;">DCF 模型</div>
+              <div style="padding:6px 8px;margin-bottom:3px;">LBO 模型</div>
+              <div style="padding:6px 8px;margin-bottom:3px;">三表模型</div>
+              <div style="padding:6px 8px;">可比公司分析</div>
+            </div>
+            <div style="flex:1;padding:20px;background:#0f0f1a;color:#ccc;">
+              <h3 style="color:#fff;margin:0 0 8px;">DCF 估值模型</h3>
+              <p style="color:#666;font-size:11px;margin:0 0 16px;">01-金融分析 / 02-dcf-估值模型</p>
+              <div style="background:#1a1a2e;border-radius:6px;padding:14px;margin-bottom:12px;">
+                <span style="color:#9cf;font-weight:bold;">白话讲解</span>
+                <p style="color:#aaa;font-size:12px;margin:4px 0 0;">DCF 就是把公司未来能赚的钱折算成今天的价值...</p>
+              </div>
+              <div style="background:#1a1a2e;border-radius:6px;padding:14px;">
+                <span style="color:#9cf;font-weight:bold;">案例演示</span>
+                <p style="color:#aaa;font-size:12px;margin:4px 0 0;">苹果公司 DCF 估值全过程...</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
