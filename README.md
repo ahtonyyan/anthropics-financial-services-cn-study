@@ -15,7 +15,7 @@
 
 ### 在线访问
 
-访问在线演示：[https://ahtonyyan.github.io/anthropics-financial-services-cn-study/](https://ahtonyyan.github.io/anthropics-financial-services-cn-study/)
+访问在线演示：[https://ahtonyyan.github.io/anthropics-financial-services-cn-study/website](https://ahtonyyan.github.io/anthropics-financial-services-cn-study/website)
 
 ### 本地运行
 
